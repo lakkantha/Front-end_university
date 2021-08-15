@@ -1,0 +1,599 @@
+<!---------------------------Educational Qualification details-------------------------->
+
+<div class="container view-aplication-block">
+    <div class="text-center heading">
+        <h3>View Educational Qualification details</h3>
+    </div>
+
+    <div style="height: 100%;margin-bottom: 10px;">
+
+        <div>
+            <div class="qualification-block">
+                <!-------------- O/L Qualifications------------------>
+                <div class="row">
+                    <h4>O/L</h4>
+                </div>
+                <div class="qualification-list row">
+                    <div class="qualification-table col-sm-9">
+                        <table class="table table-bordered table-fixed" id=acQualificationTable>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Year</th>
+                                    <th scope="col">Index Number</th>
+                                    <th scope="col">Medium</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Result</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let e of eduOL; let i = index;">
+                                    <td>{{e.year}}</td>
+                                    <td>{{e.indexNumber}}</td>
+                                    <td>{{e.medium.description}}</td>
+                                    <td>{{e.olSubjects.subject}}</td>
+                                    <td>{{e.result.result}}</td>
+                                    <td>
+                                        <button type="button" (click)="openEdit(editForm, e.id)"> <span
+                                                class="fa fa-edit"></span></button>
+                                        <button type="button" (click)="openDelete(deleteConfirmation)"> <i
+                                                class="fa fa-trash"></i></button>
+
+                                        <!-- Edit form popup-->
+                                        <ng-template #editForm>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Edit O/L Details</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <!-- field  Year-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="year" class="col-sm-6">Year*</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="year" name="year"
+                                                                    [(ngModel)]="editedDataOL.year" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let y of years; let i = index"
+                                                                        [value]="y.year">
+                                                                        {{y.year}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Index Number-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="indexNumber" class="col-sm-6"> Index
+                                                                Number*</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text"
+                                                                    (keypress)="numberOnly($event) class=" form-control"
+                                                                    id="indexNumber" name="indexNumber"
+                                                                    [(ngModel)]="editedDataOL.indexNumber" required
+                                                                    #indexNumber="ngModel">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- field Medium-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="medium" class="col-sm-6">Medium*</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="medium" name="medium"
+                                                                    [(ngModel)]="editedDataOL.medium.mediumId" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let m of medium; let i = index"
+                                                                        [value]="m.mediumId">
+                                                                        {{m.description}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <!-- field Subjects-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="subject" class="col-sm-6">Subject*</label>
+                                                            <div class="col-sm-12" style="padding-right: 1px;">
+                                                                <select class="form-control" id="subject" name="subject"
+                                                                    [(ngModel)]="editedDataOL.olSubjects.id" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let s of olSubjects; let i = index"
+                                                                        [value]="s.id">{{s.subject}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- field Result-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="result" class="col-sm-6"> Result*</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="result" name="result"
+                                                                    [(ngModel)]="editedDataOL.result.id" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let r of result; let i = index"
+                                                                        [value]="r.id">{{r.result}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="updateOL(e.id, editedDataOL)">Update</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <!-- end of edit form popup-->
+
+                                        <!-- delete confirmation popup-->
+                                        <ng-template #deleteConfirmation>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Delete</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this record?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="deleteOL(e.id)">Delete</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <!-- end fof delete confirmation popup-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--certficate list div-->
+                    <div class="col-sm-3">
+                        <div class="certificate-list">
+                            <p>O/L Certificates</p>
+                            <div class="certificate-list-name">
+                                <p *ngFor="let certificate of certificatesOL">
+                                    {{certificate.certificateName}}
+                                    <button type="button" (click)="deleteCertificatesOL(certificate.id)" class="remove">
+                                        <span class="fa fa-close"></span></button>
+                                </p>
+                            </div>
+                        </div> <!-- end of certificate list class-->
+                    </div> <!-- end of certificate list class-->
+                </div>
+
+                <!------------------ A/L qualifications-------------->
+                <div class="row">
+                    <h4>A/L</h4>
+                </div>
+                <div class="qualification-list row">
+                    <div class="qualification-table col-sm-9">
+                        <table class="table table-bordered table-fixed" id=acQualificationTable>
+                            <thead>
+                                <tr>
+                                    <th scope="col">Year</th>
+                                    <th scope="col">Index Number</th>
+                                    <th scope="col">Medium</th>
+                                    <th scope="col">Stream</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Result</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let e of eduAL; let i = index">
+                                    <td>{{e.year}}</td>
+                                    <td>{{e.indexNumber}}</td>
+                                    <td>{{e.medium.description}}</td>
+                                    <td>{{e.stream.stream}}</td>
+                                    <td>{{e.alSubjects.subject}}</td>
+                                    <td>{{e.result.result}}</td>
+                                    <td>
+                                        <button type="button" (click)="openEdit(editForm, e.id)"> <span
+                                                class="fa fa-edit"></span></button>
+
+                                        <!-- Edit form popup-->
+                                        <ng-template #editForm>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Edit A/L Details</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <!-- field  Year-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="year" class="col-sm-6">Year*</label>
+                                                            <div class="col-sm-6">
+                                                                <select class="form-control" id="year" name="year"
+                                                                    [(ngModel)]="editedDataAL.year" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let y of years; let i = index"
+                                                                        [value]="y.year">
+                                                                        {{y.year}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Index Number-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="indexNumber" class="col-sm-6"> Index
+                                                                Number*</label>
+                                                            <div class="col-sm-12">
+                                                                <input type="text"
+                                                                    (keypress)="numberOnly($event) class=" form-control"
+                                                                    id="indexNumber" name="indexNumber"
+                                                                    [(ngModel)]="editedDataAL.indexNumber" required
+                                                                    #indexNumber="ngModel">
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- field Medium-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="medium" class="col-sm-6">Medium*</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="medium" name="medium"
+                                                                    [(ngModel)]="editedDataAL.medium.mediumId" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let m of medium; let i = index"
+                                                                        [value]="m.mediumId">{{m.description}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <!-- field Stream-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="stream" class="col-sm-6">Stream*</label>
+                                                            <div class="col-sm-12" style="padding-right: 1px;">
+                                                                <select class="form-control" id="stream" name="stream"
+                                                                    [(ngModel)]="editedDataAL.stream.id" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let s of stream; let i = index"
+                                                                        [value]="s.id">{{s.stream}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- field Subjects-->
+                                                        <div class="form-group col-sm-4">
+                                                            <label for="subject" class="col-sm-6">Subject*</label>
+                                                            <div class="col-sm-12" style="padding-right: 1px;">
+                                                                <select class="form-control" id="subject" name="subject"
+                                                                    [(ngModel)]="editedDataAL.alSubjects.id" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option
+                                                                        *ngFor="let sub of alSubjects; let i = index"
+                                                                        [value]="sub.id">{{sub.subject}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- field Result-->
+                                                        <div class="form-group col-sm-3">
+                                                            <label for="result" class="col-sm-6"> Result*</label>
+                                                            <div class="col-sm-12">
+                                                                <select class="form-control" id="result" name="result"
+                                                                    [(ngModel)]="editedDataAL.result.id" required>
+                                                                    <option selected disabled>---------Select---------
+                                                                    </option>
+                                                                    <option *ngFor="let r of result; let i = index"
+                                                                        [value]="r.id">{{r.result}}
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="updateAL(e.id, editedDataAL)">Update</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <!-- end of edit form popup-->
+
+                                        <button type="button" (click)="openDelete(deleteConfirmation)"> <span
+                                                class="fa fa-trash"></span></button>
+
+                                        <!-- delete confirmation pop up-->
+                                        <ng-template #deleteConfirmation>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Delete</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this record?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="deleteAL(e.id)">Delete</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--certficate list div-->
+                    <div class="col-sm-3">
+                        <div class="certificate-list">
+                            <p>A/L Certificates</p>
+                            <div class="certificate-list-name">
+                                <p *ngFor="let certificate of certificatesAL">
+                                    {{certificate.certificateName}}
+                                    <button type="button" (click)="deleteCertificatesAL(certificate.id)" class="remove">
+                                        <span class="fa fa-close"></span></button>
+                                </p>
+                            </div>
+                        </div> <!-- end of certificate list class-->
+                    </div>
+
+                </div> <!-- end of qualification list table class-->
+
+                <!-------- Academic qualification block------------->
+                <div class="row">
+                    <h4>Academic Qualification</h4>
+                </div>
+                <div class="qualification-list row">
+                    <div class="qualification-table col-sm-9">
+                        <table class="table table-bordered table-fixed" id=acQualificationTable>
+                            <thead>
+                                <tr>
+                                    <th scope="col">qualification Type</th>
+                                    <th scope="col">qualification Name</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Institution</th>
+                                    <th scope="col">effective Date</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let a of eduAcademic; let i = index">
+                                    <td>{{a.qualificationType}}</td>
+                                    <td>{{a.qualificationName}}</td>
+                                    <td>{{a.duration}}</td>
+                                    <td>{{a.institution.institution}}</td>
+                                    <td>{{a.effectiveDate}}</td>
+                                    <td>
+                                        <button type="button" (click)="openEdit(editForm, a.id)"> <span
+                                                class="fa fa-edit"></span></button>
+
+                                        <!-- Edit form popup-->
+                                        <ng-template #editForm>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Edit Academic Details</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div>
+                                                        <div class="row">
+                                                            <!-- field  Qualification Type-->
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="qualificationType" class="col-sm-6">
+                                                                    Qualification Type*</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control"
+                                                                        id="qualificationType" name="qualificationType"
+                                                                        [(ngModel)]="editedDataAcademic.qualificationType"
+                                                                        required #qualificationType="ngModel">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- field  Qualification Name-->
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="qualificationName" class="col-sm-6">
+                                                                    Qualification Name*</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control"
+                                                                        id="qualificationName" name="qualificationName"
+                                                                        [(ngModel)]="editedDataAcademic.qualificationName"
+                                                                        required #qualificationName="ngModel">
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- field Duration-->
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="duration" class="col-sm-6">Duration*</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="text" class="form-control"
+                                                                        id="duration" name="duration"
+                                                                        [(ngModel)]="editedDataAcademic.duration"
+                                                                        required #duration="ngModel">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <!-- field Institution-->
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="institution"
+                                                                    class="col-sm-6">Institution*</label>
+                                                                <div class="col-sm-12" style="padding-right: 1px;">
+                                                                    <select class="form-control" id="institution"
+                                                                        name="institution"
+                                                                        [(ngModel)]="editedDataAcademic.institution.id"
+                                                                        required>
+                                                                        <option selected disabled>
+                                                                            ---------Select---------</option>
+                                                                        <option *ngFor="let i of institution"
+                                                                            [value]="i.id">{{i.institution}}
+                                                                        </option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- field Effective Date-->
+                                                            <div class="form-group col-sm-4">
+                                                                <label for="effectiveDate" class="col-sm-6">Effective
+                                                                    Date*</label>
+                                                                <div class="col-sm-12">
+                                                                    <input type="date" class="form-control"
+                                                                        id="effectiveDate" name="effectiveDate"
+                                                                        [(ngModel)]="editedDataAcademic.effectiveDate"
+                                                                        required #effectiveDate="ngModel">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="updateAcademic(a.id, editedDataAcademic)">Update</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <!-- end of edit form popup-->
+
+                                        <button type="button" (click)="openDelete(deleteConfirmation)"> <span
+                                                class="fa fa-trash"></span></button>
+
+                                        <!-- delete confirmation pop up-->
+                                        <ng-template #deleteConfirmation>
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Delete</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete this record?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-primary"
+                                                        (click)="deleteAcademic(a.id)">Delete</button>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                        <!-- end of delete confirmation popup-->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!--certficate list div-->
+                    <div class="col-sm-3">
+                        <div class="certificate-list">
+                            <p>Academic Certificates</p>
+                            <div class="certificate-list-name">
+                                <p *ngFor="let certificate of certificatesAcademic">
+                                    {{certificate.certificateName}}
+                                    <button type="button" (click)="deleteCertificatesAcademic(certificate.id)"
+                                        class="remove">
+                                        <span class="fa fa-close"></span></button>
+                                </p>
+                            </div>
+                        </div> <!-- end of certificate list class-->
+                    </div>
+
+                </div> <!-- end of qualification list table class-->
+
+            </div> <!-- end of qualification class-->
+
+        </div> <!-- end of qualification class-->
+    </div> <!-- end of educational Qualifications -->
+</div> <!-- end of container class-->
+
+<!------------------------pop up------------------->
+<!-- delete successful msg-->
+<ng-template #deleteok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is successfully deleted.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- edit sucessful msg-->
+<ng-template #editok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is edited successfully.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- fill mandatory-->
+<ng-template #fillMandatory>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Please fill the mandatory fields.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="fillRef.hide()">OK</button>
+    </div>
+</ng-template>

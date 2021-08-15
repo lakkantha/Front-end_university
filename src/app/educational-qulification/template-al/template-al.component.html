@@ -1,0 +1,851 @@
+<!----------- Educational qualification form A/L-------------->
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+            <div class="col-12 col-sm-12 col-md-5 col-lg-5 col-xl-5">
+                <h5>Higher Secondary Qualification</h5>
+            </div>
+
+            <!-- field Upload certificates-->
+            <div *ngIf="!type">
+                <div class="col-12 col-sm-12 col-md-7 col-lg-12 col-xl-12 certificate">
+
+                    <form #form="ngForm" (ngSubmit)="saveCertificatesAL(certiAL);" name="uploadCertificate">
+
+                        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 row">
+
+                            <div class="form-group-inline row">
+                                <label class="col-sm-6" for="certificateName"
+                                    style="padding-top: 3px; margin-top: 7px;">Upload
+                                    Certificates <small>(pdf only)</small></label>
+
+                                <input type="file" class="form-control input-type form-control-sm col-sm-6"
+                                    style="margin-bottom: 7px;margin-top: 7px;padding-bottom: 30px;padding-top: 3px;padding-left: 4px;"
+                                    id="certificateName" name="certificateName" [(ngModel)]="certiAL.certificateName"
+                                    #certificateName="ngModel" accept="application/pdf" (change)="readFile($event)"
+                                    (change)="selectFile($event)">
+                            </div>
+
+                            <div class="row col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2 text-right py-2"
+                                id="button-group">
+                                <button *ngIf="certificate" type="submit" class="btn btn-sm  btn-main">+</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div *ngIf="type">
+                <ul>
+                    <li><button (click)="selectExamType('1')" class="type-btn">GCE A/L</button></li>
+                    <li><button (click)="selectExamType('2')" class="type-btn">Edexcel</button></li>
+                    <li><button (click)="selectExamType('3')" class="type-btn">Cambridge</button></li>
+                    <li>
+                        <div class="row" style="margin-left: 5px;">
+                            Other
+                            <input class="form-control input-type form-control-sm col-sm-5" list="examTypes"
+                                name="examType" id="examType" [(ngModel)]="alexamName" #examType="ngModel"
+                                (change)="setExamName($event)" required>
+
+                            <datalist id="examTypes">
+                                <option *ngFor="let exam of alexams; let i = index" (change)="setExamName($event)"
+                                    [value]="exam.examType">
+                                    {{exam.examType}}
+                            </datalist>
+                            <button (click)="selectExamType('4')" class="type-btn">Add</button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Educational Qualification form GCE A/L-->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div *ngIf="gce">
+                    <div class="form">
+                        <form #form="ngForm"
+                            (ngSubmit)="saveAL(dataAL); this.form.controls['alsubject'].reset(); this.form.controls['result'].reset();"
+                            name="educationalQualificational">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+                                    <div class="row">
+                                        <!-- field  Year-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <!-- field  Year-->
+                                            <div class="form-group">
+                                                <label for="year">Year*</label>
+
+                                                <select class="form-control input-type form-control-sm" id="year"
+                                                    name="year" [(ngModel)]="dataAL.year" required
+                                                    (click)="this.form.controls['indexNumber'].reset(); this.form.controls['medium'].reset(); this.form.controls['alstream'].reset(); this.form.controls['alsubject'].reset(); this.form.controls['result'].reset();">
+                                                    <option value="" disabled hidden selected></option>
+                                                    <option *ngFor="let y of years; let i = index" [value]="y.year">
+                                                        {{y.year}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Index Number-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="indexNumber"> Index Number*</label>
+
+                                                <input type="text"
+                                                    class="form-control input-type form-control-sm" id="indexNumber"
+                                                    name="indexNumber" [(ngModel)]="dataAL.indexNumber" required
+                                                    #indexNumber="ngModel">
+                                            </div>
+                                        </div>
+
+                                        <!-- field Medium-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group ">
+                                                <label for="medium">Medium*</label>
+
+                                                <select class="form-control input-type form-control-sm" id="medium"
+                                                    name="medium" [(ngModel)]="dataAL.medium.mediumId" required>
+                                                    <option value="" disabled hidden selected></option>
+                                                    <option *ngFor="let m of medium; let i = index"
+                                                        [value]="m.mediumId">
+                                                        {{m.description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- field Stream-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="stream">Stream</label>
+
+                                                <input class="form-control input-type form-control-sm" list="alStreams"
+                                                    name="alstream" id="alstream" [(ngModel)]="alStreamName"
+                                                    #alstream="ngModel" (change)="setALStreamIdByName($event)" required>
+
+                                                <datalist id="alStreams">
+                                                    <option *ngFor="let s of stream; let i = index"
+                                                        (change)="setALStreamIdByName($event)" [value]="s.stream">
+                                                        {{s.stream}}
+                                                </datalist>
+
+                                            </div>
+                                        </div>
+
+                                        <!-- field Subjects-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="subject">Subject*</label>
+
+                                                <input class="form-control input-type form-control-sm" list="alsubjects"
+                                                    name="alsubject" id="alsubject" [(ngModel)]="alSubjectName"
+                                                    #alsubject="ngModel" (change)="setALSubjectIdByName($event)"
+                                                    required>
+
+                                                <datalist id="alsubjects">
+                                                    <option *ngFor="let sub of alSubjects; let i = index"
+                                                        (change)="setALSubjectIdByName($event)" [value]="sub.subject">
+                                                        {{sub.subject}}
+                                                </datalist>
+                                            </div>
+                                        </div>
+
+                                        <!-- field Result-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="result"> Grade*</label>
+
+                                                <select class="form-control input-type form-control-sm" id="result"
+                                                    name="result" [(ngModel)]="dataAL.result.id" required>
+                                                    <option value="" disabled hidden selected></option>
+                                                    <option *ngFor="let r of result; let i = index" [value]="r.id">
+                                                        {{r.result}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- button - plus enter data-->
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-12 col-xl-12" style="padding: 0px;">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-sm  btn-main"
+                                                style="padding: 5px;">Save & add another
+                                                qualification</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="qualification-list row">
+                                        <div class="qualification-table col-sm-9">
+                                            <table class="table table-bordered table-fixed" id=acQualificationTable>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Year</th>
+                                                        <th scope="col">Index Number</th>
+                                                        <th scope="col">Medium</th>
+                                                        <th scope="col">Stream</th>
+                                                        <th scope="col">Subject</th>
+                                                        <th scope="col">Grade</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let e of eduAL; let i = index">
+                                                        <td>{{e.year}}</td>
+                                                        <td>{{e.indexNumber}}</td>
+
+                                                        <ng-container
+                                                            *ngIf="e.medium;then mediumdescription else mediumnull">
+                                                        </ng-container>
+
+                                                        <ng-template #mediumdescription>
+                                                            <td>{{e.medium.description}}</td>
+                                                        </ng-template>
+                                                        <ng-template #mediumnull>
+                                                            <td>Null</td>
+                                                        </ng-template>
+
+
+                                                        <ng-container
+                                                            *ngIf="e.stream;then streamescription else streamnull">
+                                                        </ng-container>
+
+                                                        <ng-template #streamescription>
+                                                            <td>{{e.stream.stream}}</td>
+                                                        </ng-template>
+                                                        <ng-template #streamnull>
+                                                            <td>Null</td>
+                                                        </ng-template>
+
+                                                        <td>{{e.alSubjects.subject}}</td>
+                                                        <td>{{e.result.result}}</td>
+                                                        <td>
+                                                            <div class="row " id="button-group">
+                                                                <div class="text-right py-2">
+
+                                                                    <button type="button"
+                                                                        (click)="openEdit(editForm, e.id)"> <span
+                                                                            class="fa fa-edit"></span></button>
+
+                                                                    <!-- Edit form popup-->
+                                                                    <ng-template #editForm>
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title pull-left">Edit
+                                                                                </h4>
+                                                                                <button type="button"
+                                                                                    class="close pull-right"
+                                                                                    aria-label="Close"
+                                                                                    (click)="modalRef.hide()">
+                                                                                    <span
+                                                                                        aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                <h2> Edit record </h2>
+                                                                                <div class="row">
+                                                                                    <!-- field  Year-->
+                                                                                    <div class="form-group col-sm-4">
+                                                                                        <label for="year"
+                                                                                            class="col-sm-6">Year*</label>
+                                                                                        <div class="col-sm-6">
+                                                                                            <select class="form-control"
+                                                                                                id="year" name="year"
+                                                                                                [(ngModel)]="editedDataAL.year"
+                                                                                                required>
+                                                                                                <option selected
+                                                                                                    disabled>
+                                                                                                    ---------Select---------
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    *ngFor="let y of years; let i = index"
+                                                                                                    [value]="y.year">
+                                                                                                    {{y.year}}
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- Index Number-->
+                                                                                    <div class="form-group col-sm-4">
+                                                                                        <label for="indexNumber"
+                                                                                            class="col-sm-6"> Index
+                                                                                            Number*</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <input type="text"
+                                                                                                (keypress)="numberOnly($event)"
+                                                                                                class="form-control"
+                                                                                                id="indexNumber"
+                                                                                                name="indexNumber"
+                                                                                                [(ngModel)]="editedDataAL.indexNumber"
+                                                                                                required
+                                                                                                #indexNumber="ngModel">
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <!-- field Medium-->
+                                                                                    <div class="form-group col-sm-4">
+                                                                                        <label for="medium"
+                                                                                            class="col-sm-6">Medium*</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <select class="form-control"
+                                                                                                id="medium"
+                                                                                                name="medium"
+                                                                                                [(ngModel)]="editedDataAL.medium.mediumId"
+                                                                                                required>
+                                                                                                <option selected
+                                                                                                    disabled>
+                                                                                                    ---------Select---------
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    *ngFor="let m of medium; let i = index"
+                                                                                                    [value]="m.mediumId">
+                                                                                                    {{m.description}}
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <div class="row">
+                                                                                    <!-- field Stream-->
+                                                                                    <div class="form-group col-sm-4">
+                                                                                        <label for="stream"
+                                                                                            class="col-sm-6">Stream*</label>
+
+                                                                                        <input
+                                                                                            class="form-control input-type form-control-sm"
+                                                                                            list="alStreams"
+                                                                                            name="alstream"
+                                                                                            id="alstream"
+                                                                                            [(ngModel)]="alStreamName"
+                                                                                            #alstream="ngModel"
+                                                                                            (change)="setALStreamIdByName($event)"
+                                                                                            required>
+
+                                                                                        <datalist id="alStreams">
+                                                                                            <option
+                                                                                                *ngFor="let s of stream; let i = index"
+                                                                                                (change)="setALStreamIdByName($event)"
+                                                                                                [value]="s.stream">
+                                                                                                {{s.stream}}
+                                                                                        </datalist>
+
+                                                                                    </div>
+
+                                                                                    <!-- field Subjects-->
+                                                                                    <div class="form-group col-sm-4">
+                                                                                        <label for="subject"
+                                                                                            class="col-sm-6">Subject*</label>
+                                                                                        <input
+                                                                                            class="form-control input-type form-control-sm"
+                                                                                            list="alsubjects"
+                                                                                            name="alsubject"
+                                                                                            id="alsubject"
+                                                                                            [(ngModel)]="alSubjectName"
+                                                                                            #alsubject="ngModel"
+                                                                                            (change)="setALSubjectIdByName($event)"
+                                                                                            required>
+
+                                                                                        <datalist id="alsubjects">
+                                                                                            <option
+                                                                                                *ngFor="let sub of alSubjects; let i = index"
+                                                                                                (change)="setALSubjectIdByName($event)"
+                                                                                                [value]="sub.subject">
+                                                                                                {{sub.subject}}
+                                                                                        </datalist>
+                                                                                    </div>
+
+                                                                                    <!-- field Result-->
+                                                                                    <div class="form-group col-sm-3">
+                                                                                        <label for="result"
+                                                                                            class="col-sm-6">
+                                                                                            Result*</label>
+                                                                                        <div class="col-sm-12">
+                                                                                            <select class="form-control"
+                                                                                                id="result"
+                                                                                                name="result"
+                                                                                                [(ngModel)]="editedDataAL.result.id"
+                                                                                                required>
+                                                                                                <option selected
+                                                                                                    disabled>
+                                                                                                    ---------Select---------
+                                                                                                </option>
+                                                                                                <option
+                                                                                                    *ngFor="let r of result; let i = index"
+                                                                                                    [value]="r.id">
+                                                                                                    {{r.result}}
+                                                                                                </option>
+                                                                                            </select>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    (click)="modalRef.hide()">Cancel</button>
+                                                                                <button type="button"
+                                                                                    class="btn btn-primary"
+                                                                                    (click)="updateAL(e.id, editedDataAL)">Update</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </div>
+                                                                <!-- end of edit form popup-->
+
+                                                                <div class="text-right py-2">
+                                                                    <button type="button"
+                                                                        (click)="openDelete(deleteConfirmation)"> <span
+                                                                            class="fa fa-trash"></span></button>
+
+                                                                    <!-- delete confirmation pop up-->
+                                                                    <ng-template #deleteConfirmation>
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h4 class="modal-title pull-left">Delete
+                                                                                </h4>
+                                                                                <button type="button"
+                                                                                    class="close pull-right"
+                                                                                    aria-label="Close"
+                                                                                    (click)="modalRef.hide()">
+                                                                                    <span
+                                                                                        aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Do you really want to delete this
+                                                                                record?
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button"
+                                                                                    class="btn btn-secondary"
+                                                                                    (click)="modalRef.hide()">Cancel</button>
+                                                                                <button type="button"
+                                                                                    class="btn btn-primary"
+                                                                                    (click)="deleteAL(e.id)">Delete</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </ng-template>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!--certficate list div-->
+                                        <div class="col-sm-3">
+                                            <div class="certificate-list">
+                                                <p>A/L Certificates</p>
+                                                <div class="certificate-list-name">
+
+                                                    <p *ngIf="counsellingAL">
+                                                        <a href= '{{base_url}}/api/counselling/files/advancedlevel/{{initialApplicantId.toString()}}'>{{initialApplicantId}}_al</a>
+                                                    </p>
+
+                                                    <p *ngFor="let certificate of certificatesAL">
+                                                        <a href="{{base_url}}/api/file/download/s3bucket/{{certificate.id}}_al.pdf">
+                                                            {{certificate.certificateName}}</a>
+                                                        <button type="button"
+                                                            (click)="deleteCertificatesAL(certificate.id)"
+                                                            class="remove">
+                                                            <span class="fa fa-close"></span></button>
+                                                    </p>
+                                                </div>
+                                            </div> <!-- end of certificate list class-->
+                                        </div>
+
+                                    </div>
+                                    <!-- submit buttons-->
+                                    <div class="row " id="button-group">
+                                        <div class="col-12 text-right py-2">
+                                            <button type="reset" class="btn btn-sm btn-reset">Reset</button>
+                                            <button type="button" class="btn btn-sm btn-main" [routerLink]="['/home']">Save
+                                                & Exit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div> <!-- end of form class-->
+
+                <!-- end of qualification list table class-->
+            </div>
+
+            <!-- Educational Qualification form Edexcel, Cambridge or Other A/L-->
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                <div *ngIf="international">
+                    <div class="form">
+                        <form #form="ngForm"
+                            (ngSubmit)="saveAL(dataAL); this.form.controls['alsubject'].reset(); this.form.controls['result'].reset();"
+                            name="educationalQualificational">
+                            <div class="row">
+                                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+
+                                    <div class="row">
+                                        <!-- field  Year-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="year">Year*</label>
+
+                                                <select class="form-control input-type form-control-sm" id="year"
+                                                    name="year" [(ngModel)]="dataAL.year"
+                                                    (click)="this.form.controls['indexNumber'].reset(); this.form.controls['alsubject'].reset(); this.form.controls['result'].reset();"
+                                                    required>
+                                                    <option value="" disabled hidden selected></option>
+                                                    <option *ngFor="let y of years; let i = index" [value]="y.year">
+                                                        {{y.year}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- Index Number-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="indexNumber"> Index Number*</label>
+
+                                                <input type="text" (keypress)="numberOnly($event)"
+                                                    class="form-control input-type form-control-sm" id="indexNumber"
+                                                    name="indexNumber" [(ngModel)]="dataAL.indexNumber" required
+                                                    #indexNumber="ngModel">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <!-- field Subjects-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="subject">Subject*</label>
+
+                                                <input class="form-control input-type form-control-sm" list="alsubjects"
+                                                    name="alsubject" id="alsubject" [(ngModel)]="alSubjectName"
+                                                    #alsubject="ngModel" (change)="setALSubjectIdByName($event)"
+                                                    required>
+
+                                                <datalist id="alsubjects">
+                                                    <option *ngFor="let sub of alSubjects; let i = index"
+                                                        (change)="setALSubjectIdByName($event)" [value]="sub.subject">
+                                                        {{sub.subject}}
+                                                </datalist>
+                                            </div>
+                                        </div>
+
+                                        <!-- field Result-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group">
+                                                <label for="result"> Grade*</label>
+
+                                                <select class="form-control input-type form-control-sm" id="result"
+                                                    name="result" [(ngModel)]="dataAL.result.id" required>
+                                                    <option value="" disabled hidden selected></option>
+                                                    <option *ngFor="let r of result; let i = index" [value]="r.id">
+                                                        {{r.result}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <!-- button - plus enter data-->
+                                        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                            <div class="form-group ">
+                                                <button type="submit" class="btn btn-sm  btn-main">Save & add another
+                                                    qualification</button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="qualification-list row">
+                                        <div class="qualification-table col-sm-9">
+                                            <table class="table table-bordered table-fixed" id=acQualificationTable>
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">Year</th>
+                                                        <th scope="col">Index Number</th>
+                                                        <th scope="col">Subject</th>
+                                                        <th scope="col">Grade</th>
+                                                        <th scope="col">Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr *ngFor="let e of eduAL; let i = index">
+                                                        <td>{{e.year}}</td>
+                                                        <td>{{e.indexNumber}}</td>
+                                                        <td>{{e.alSubjects.subject}}</td>
+                                                        <td>{{e.result.result}}</td>
+                                                        <td>
+                                                            <button type="button" (click)="openEdit(editForm, e.id)">
+                                                                <span class="fa fa-edit"></span></button>
+
+                                                            <!-- Edit form popup-->
+                                                            <ng-template #editForm>
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title pull-left">Edit</h4>
+                                                                        <button type="button" class="close pull-right"
+                                                                            aria-label="Close"
+                                                                            (click)="modalRef.hide()">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <h2> Edit record </h2>
+                                                                        <div class="row">
+                                                                            <!-- field  Year-->
+                                                                            <div class="form-group col-sm-4">
+                                                                                <label for="year"
+                                                                                    class="col-sm-6">Year*</label>
+                                                                                <div class="col-sm-6">
+                                                                                    <select class="form-control"
+                                                                                        id="year" name="year"
+                                                                                        [(ngModel)]="editedDataAL.year"
+                                                                                        required>
+                                                                                        <option selected disabled>
+                                                                                            ---------Select---------
+                                                                                        </option>
+                                                                                        <option
+                                                                                            *ngFor="let y of years; let i = index"
+                                                                                            [value]="y.year">
+                                                                                            {{y.year}}
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <!-- Index Number-->
+                                                                            <div class="form-group col-sm-4">
+                                                                                <label for="indexNumber"
+                                                                                    class="col-sm-6"> Index
+                                                                                    Number*</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <input type="text"
+                                                                                        (keypress)="numberOnly($event)"
+                                                                                        class="form-control"
+                                                                                        id="indexNumber"
+                                                                                        name="indexNumber"
+                                                                                        [(ngModel)]="editedDataAL.indexNumber"
+                                                                                        required #indexNumber="ngModel">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <!-- field Subjects-->
+                                                                            <div class="form-group col-sm-4">
+                                                                                <label for="subject"
+                                                                                    class="col-sm-6">Subject*</label>
+                                                                                <input
+                                                                                    class="form-control input-type form-control-sm"
+                                                                                    list="alsubjects" name="alsubject"
+                                                                                    id="alsubject"
+                                                                                    [(ngModel)]="alSubjectName"
+                                                                                    #alsubject="ngModel"
+                                                                                    (change)="setALSubjectIdByName($event)"
+                                                                                    required>
+
+                                                                                <datalist id="alsubjects">
+                                                                                    <option
+                                                                                        *ngFor="let sub of alSubjects; let i = index"
+                                                                                        (change)="setALSubjectIdByName($event)"
+                                                                                        [value]="sub.subject">
+                                                                                        {{sub.subject}}
+                                                                                </datalist>
+                                                                            </div>
+
+                                                                            <!-- field Result-->
+                                                                            <div class="form-group col-sm-3">
+                                                                                <label for="result" class="col-sm-6">
+                                                                                    Result*</label>
+                                                                                <div class="col-sm-12">
+                                                                                    <select class="form-control"
+                                                                                        id="result" name="result"
+                                                                                        [(ngModel)]="editedDataAL.result.id"
+                                                                                        required>
+                                                                                        <option selected disabled>
+                                                                                            ---------Select---------
+                                                                                        </option>
+                                                                                        <option
+                                                                                            *ngFor="let r of result; let i = index"
+                                                                                            [value]="r.id">
+                                                                                            {{r.result}}
+                                                                                        </option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            (click)="modalRef.hide()">Cancel</button>
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            (click)="updateAL(e.id, editedDataAL)">Update</button>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-template>
+                                                            <!-- end of edit form popup-->
+
+                                                            <button type="button"
+                                                                (click)="openDelete(deleteConfirmation)"> <span
+                                                                    class="fa fa-trash"></span></button>
+
+                                                            <!-- delete confirmation pop up-->
+                                                            <ng-template #deleteConfirmation>
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title pull-left">Delete</h4>
+                                                                        <button type="button" class="close pull-right"
+                                                                            aria-label="Close"
+                                                                            (click)="modalRef.hide()">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        Do you really want to delete this record?
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary"
+                                                                            (click)="modalRef.hide()">Cancel</button>
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            (click)="deleteAL(e.id)">Delete</button>
+                                                                    </div>
+                                                                </div>
+                                                            </ng-template>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <!--certficate list div-->
+                                        <div class="col-sm-3">
+                                            <div class="certificate-list">
+                                                <p>A/L Certificates</p>
+                                                <div class="certificate-list-name">
+
+                                                    <p *ngIf="counsellingAL">
+                                                        <a href= '{{base_url}}/api/counselling/files/advancedlevel/{{initialApplicantId.toString()}}'>{{initialApplicantId}}_al</a>
+                                                    </p>
+
+                                                    <p *ngFor="let certificate of certificatesAL">
+                                                        <a href="{{base_url}}/api/file/download/s3bucket/{{certificate.id}}_al.pdf">
+                                                            {{certificate.certificateName}}</a>
+                                                        <button type="button"
+                                                            (click)="deleteCertificatesAL(certificate.id)"
+                                                            class="remove">
+                                                            <span class="fa fa-close"></span></button>
+                                                    </p>
+                                                </div>
+                                            </div> <!-- end of certificate list class-->
+                                        </div>
+
+                                    </div>
+
+                                    <!-- submit buttons-->
+                                    <div class="row " id="button-group">
+                                        <div class="col-12 text-right py-2">
+                                            <button type="reset" class="btn btn-sm  btn-reset">Reset</button>
+                                            <button type="button" class="btn btn-sm  btn-main" [routerLink]="['/home']">Save
+                                                & Exit</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div> <!-- end of form class-->
+
+                    <!-- end of qualification list table class-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!------------------------pop up------------------->
+<!-- delete successful msg-->
+<ng-template #deleteok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is successfully deleted.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- edit sucessful msg-->
+<ng-template #editok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is edited successfully.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- fill mandatory-->
+<ng-template #fillMandatory>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Please fill the mandatory fields.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="fillRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- Save sucessfull msg-->
+<ng-template #saveSucessful>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="sucessRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Saved successfully
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="sucessRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- upload pdf files -->
+<ng-template #pdfOnly>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Accepted Pdf file format only
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="pdf.hide()">OK</button>
+    </div>
+</ng-template>

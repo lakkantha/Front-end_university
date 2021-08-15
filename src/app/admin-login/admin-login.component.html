@@ -1,0 +1,83 @@
+<header *ngIf="!spinnerOn" class="container">
+  <nav class="navbar navbar-expand-lg ">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03"
+          aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="logo" href="https://www.ou.ac.lk">
+          <div> <img src="../assets/Images/logoo.png" class="" alt="" width="45"> </div>
+      </a>
+      <div class="ousl-heading">
+          <h1>The Open University of Sri Lanka</h1>
+      </div>
+  </nav>
+</header>
+<div *ngIf="!spinnerOn" class="container">
+  <div class="row">
+      <div class="login-form">
+          <form *ngIf="!isLoggedIn" #form="ngForm" (ngSubmit)="onFormSubmit(data)">
+              <div class="avatar"><i class="material-icons">&#xE7FF;</i></div>
+              <h4 class="modal-title">Login to Your Account</h4>
+              <div class="form-group">
+                  <!-- <input type="text" class="form-control" required="required"> -->
+                  <input type="text" id="email-signin" placeholder="Username" name="username"
+                      [(ngModel)]="data.username" #username="ngModel" class="form-control form-control-sm" (keyup.enter)="passwordfocus()" required>
+              </div>
+              <div class="form-group">
+                  <!-- <input type="password" class="form-control" required="required"> -->
+                  <input type="password" id="password" name="password" placeholder="Password"
+                      [(ngModel)]="data.password" #password="ngModel" class="form-control form-control-sm" required>
+              </div>
+              <div class="form-group small clearfix">
+                  <label class="form-check-label"><input type="checkbox" onclick="showHidePassword()"
+                          id="checkbox"> Show password</label>
+              </div>
+              <input type="submit" [disabled]="!data.username || !data.password" class="btn btn-primary btn-block btn-lg" value="Login">
+              <a style="float:right" routerLink="/admin-forgot-password" routerLinkActive="active">Forgot password?</a>
+          </form>
+      </div>
+  </div>
+  <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          <br>
+</div>
+<div *ngIf="spinnerOn" class="container">
+  <div class="row">
+      <div class="Content-wrapper">
+          <div id="spinner" class="col-6" style="margin-left: auto; margin-right: auto;">
+              <div id="spinner_content" class="col-6" style="margin-left: auto; margin-right: auto;">
+                  <div class="form-group" style="margin-left: auto; margin-right: auto;">
+                      <h2>Please wait...</h2>
+                      <img src="assets/Images/spinner.gif" />
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+<a href="#myModal" class="trigger-btn" data-toggle="modal" hidden id="openModal"></a>
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+          <div class="modal-header flex-column">
+              <div class="icon-box">
+                  <i class="material-icons">&#xE5CD;</i>
+              </div>
+              <h4 class="modal-title w-100">Ooops!</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+              <p>{{errorMessage}}</p>
+          </div>
+          <div class="modal-footer justify-content-center">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+          </div>
+      </div>
+  </div>
+</div>

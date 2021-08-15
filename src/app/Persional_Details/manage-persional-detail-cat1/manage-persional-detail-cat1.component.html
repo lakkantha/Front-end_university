@@ -1,0 +1,484 @@
+<div class="container">
+  <div class="row">
+
+  <div class="col-12">
+    <h4>Online Application  <a (click)='callopen()'> <fa-icon [icon]="faInfoCircle" style="color:orange; width: 100px;cursor: pointer;" ></fa-icon> </a></h4>
+    <p class="small">
+     Home > Personal Details  </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+          
+        <form #formPersionalDetailsCat1="ngForm" >
+
+          
+            
+           <div class="Content-wrapper">
+     
+             <div class="row">
+     
+               <div class="col-12">
+                 <h5>Personal details</h5>
+                 </div>
+               </div>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="form-group">
+            <label for="title">Title*</label>
+            <select class="form-control input-type form-control-sm" name="title" id="title"
+                    [(ngModel)]="personalDetailsCat1.title" required>
+              <option value=1>Mr</option>
+              <option value=2>Ms</option>
+              <option value=3>Mrs</option>
+              <option value=4>Rev</option>
+              <option value=5>Prof</option>
+              <option value=6>Doctor</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="familyName">Family Name*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="familyName" id="familyName"
+                   pattern="[a-zA-Z ]+" required [(ngModel)]="personalDetailsCat1.familyName"
+                   #familyNameCon="ngModel">
+            <div *ngIf="familyNameCon.invalid && (familyNameCon.dirty || familyNameCon.touched)"
+                 class="invalid">
+
+                        <span *ngIf="familyNameCon.errors.required">
+                            Family Name is required.
+                        </span>
+
+              <div *ngIf="familyNameCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="firstName">First Name*</label>
+            <input type="text" class="form-control input-type form-control-sm" pattern="[a-zA-Z. ]+" name="firstName"
+                   id="firstname" required [(ngModel)]="personalDetailsCat1.firstName" #firstNameCon="ngModel">
+            <div *ngIf="firstNameCon.invalid && (firstNameCon.dirty || firstNameCon.touched)" class="invalid">
+
+              <div *ngIf="firstNameCon.errors.required">
+                First Name is required.
+              </div>
+              <div *ngIf="firstNameCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="middleName">Middle Name*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="middleName" id="middlename"
+                   [(ngModel)]="personalDetailsCat1.middleName" pattern="[a-zA-Z ]+" required
+                   #middleNameCon="ngModel">
+            <div *ngIf="middleNameCon.invalid && (middleNameCon.dirty || middleNameCon.touched)"
+                 class="invalid">
+
+              <div *ngIf="middleNameCon.errors.required">
+                Middle Name is required.
+              </div>
+
+              <div *ngIf="middleNameCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="gender">Gender*</label>
+            <div class="form-check-inline" required>
+
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="gender" [value]="1" required
+                       [(ngModel)]="personalDetailsCat1.gender">
+                Male
+              </label>
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="gender" [value]="2"
+                       [(ngModel)]="personalDetailsCat1.gender">
+                Female
+              </label>
+            </div>
+          </div>
+
+           
+          <div class="form-group">
+            <label for="countryOfBirth">Country Of Birth*</label>
+            <select [class.is-invalid]="ListHasError && (countryOfBirthCon.dirty || countryOfBirthCon.touched)"
+                    [(ngModel)]="personalDetailsCat1.countryOfBirth" #countryOfBirthCon="ngModel"
+                    (blur)=" validateAList(countryOfBirthCon.value)"
+                    (change)="validateAList(countryOfBirthCon.value); " class="form-control input-type form-control-sm"
+                    name="countryOfBirth">
+
+              <option value="default" [selected]>Select Country</option>
+              <option *ngFor="let country of countryInfo ; let i = index" value="{{country.id}}">
+                {{country.name}}
+              </option>
+
+            </select>
+
+            <div *ngIf="ListHasError && (countryOfBirthCon.dirty || countryOfBirthCon.touched)" class="invalid">
+              <div *ngIf="ListHasError || countryOfBirthCon.untouched">
+                Please select a country
+              </div>
+            </div>
+
+
+          </div>
+          
+          <div class="form-group">
+            <label for="dateOfBirth">Date Of Birth*</label>
+            <input type="date" class="form-control input-type form-control-sm" name="dateOfBirth" #dateOfBirthCon="ngModel"
+                   required placeholder="(dd/mm/yyyy)" [(ngModel)]="personalDetailsCat1.dateOfBirth"
+                   (change)="calculateAge('cal')">
+            <div *ngIf="dateOfBirthCon.invalid && (dateOfBirthCon.dirty || dateOfBirthCon.touched)"
+                 class="invalid">
+
+                        <span *ngIf="dateOfBirthCon.errors.required">
+                            Date of Birth is required.
+                        </span>
+
+            </div>
+          </div>
+
+
+
+
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+          <div class="form-group">
+            <label for="age">Age</label>
+            <input [value]="applicantAgeToToday" [(ngModel)]="personalDetailsCat1.age" type="text"
+                   class="form-control input-type form-control-sm" name="age" id="age" readonly placeholder="Autofill"
+                   #ageCon="ngModel">
+          </div>
+          <div class="form-group">
+            <label for="nationality">Nationality*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="nationality"
+                   [(ngModel)]="personalDetailsCat1.nationality" id="nationality" required pattern="[a-zA-Z\s]+"
+                   #nationalityCon="ngModel">
+            <div *ngIf="nationalityCon.invalid && (nationalityCon.dirty || nationalityCon.touched)"
+                 class="invalid">
+
+              <div *ngIf="nationalityCon.errors.required">
+                Nationality is required.
+              </div>
+              <div *ngIf="nationalityCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+
+
+          </div>
+          <div class="form-group">
+            <label for="foriegnAddress">Foreign Address*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="foriegnAddress" id="foriegnAddress" required
+                   [(ngModel)]="personalDetailsCat1.foriegnAddress"  #foriegnAddressCon="ngModel">
+            <div *ngIf="foriegnAddressCon.invalid && (foriegnAddressCon.dirty || foriegnAddressCon.touched)"
+                 class="invalid">
+
+              <div *ngIf="foriegnAddressCon.errors.required">
+                Foreign Address is required.
+              </div>
+              <div *ngIf="foriegnAddressCon.errors.pattern">
+                Enter Only Letters and Numbers
+              </div>
+
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="localAddress">Local Address</label>
+            <input type="text" class="form-control input-type form-control-sm" name="localAddress" id="localAddress" 
+                   [(ngModel)]="personalDetailsCat1.localAddress" #localAddressCon="ngModel">
+            <div *ngIf="localAddressCon.invalid && (localAddressCon.dirty || localAddressCon.touched)"
+                 class="invalid">
+              <div *ngIf="localAddressCon.errors.pattern">
+                Enter Only Letters and Numbers
+              </div>
+
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control input-type form-control-sm" name="email" [value]="userEmail"
+                   placeholder="sarath123@gmail.com" [(ngModel)]="personalDetailsCat1.email" #emailCon="ngModel"
+                   pattern='^([\w-\.!#$%&?^_`{|?*=]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'>
+
+            <div *ngIf="emailCon.invalid && (emailCon.dirty || emailCon.touched)" class="invalid">
+
+              <div *ngIf="emailCon.errors.pattern">
+                Invalid Email Address
+              </div>
+
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mobileNoForiegn">MobileNo Foreign*</label>
+            <input minlength="10" maxlength="12" type="text" class="form-control input-type form-control-sm"
+                   name="mobileNoForiegn" id="mobileNoForiegn" [(ngModel)]="personalDetailsCat1.mobileNoForiegn"
+                   required #mobileNoForiegnCon="ngModel" pattern="[0-9]\d+">
+            <div *ngIf="mobileNoForiegnCon.invalid && (mobileNoForiegnCon.dirty || mobileNoForiegnCon.touched)"
+                 class="invalid">
+
+              <div *ngIf="mobileNoForiegnCon.errors.minlength">
+                Enter at least 10 number
+              </div>
+              <div *ngIf="mobileNoForiegnCon.errors.maxlength">
+                Enter more than 12 numbers only
+              </div>
+              <div *ngIf="mobileNoForiegnCon.errors.required">
+                Foreign Mobile Number is required.
+              </div>
+              <div *ngIf="foriegnAddressCon.errors.pattern">
+                Enter Only + and Numbers
+              </div>
+
+            </div>
+
+          </div>
+          <div class="form-group">
+            <label for="mobileNoLocal">Mobile No Local</label>
+            <input type="text" class="form-control input-type form-control-sm" name="mobileNoLocal" id="mobileNoLocal"
+                   maxlength="12" minlength="10" pattern="[0-9]\d+" [(ngModel)]="personalDetailsCat1.mobileNoLocal"
+                   #mobileNoLocalCon="ngModel">
+            <div *ngIf="mobileNoLocalCon.invalid && (mobileNoLocalCon.dirty || mobileNoLocalCon.touched)"
+                 class="invalid">
+
+              <div *ngIf="mobileNoLocalCon.errors.minlength">
+                Enter at least 10 number
+              </div>
+              <div *ngIf="mobileNoLocalCon.errors.maxlength">
+                Enter more than 12 numbers only
+              </div>
+              <div *ngIf="mobileNoLocalCon.errors.required">
+                Local Mobile Number is required.
+              </div>
+              <div *ngIf="mobileNoLocalCon.errors.pattern">
+                Enter Only Numbers
+              </div>
+
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+      </div>
+      <div class="row">
+       
+        <div class="col-8">
+
+            <h6>Passport Details</h6>
+          </div>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+             
+            
+                  <div class=" form-group">
+                    <label for="passportNo">Passport No*</label>
+                    <input type="text" class="form-control input-type form-control-sm" name="passportNo" id="passportNo"
+                           required [(ngModel)]="personalDetailsCat1.passportNo" #passportNoCon="ngModel"
+                           pattern="\w+">
+
+                    <div *ngIf="passportNoCon.invalid && (passportNoCon.dirty || passportNoCon.touched)"
+                         class="invalid">
+
+                                        <span *ngIf="passportNoCon.errors.required">
+                                            Passport Number is required.
+                                        </span>
+                      <div *ngIf="passportNoCon.errors.pattern">
+                        Enter Only Numbers
+                      </div>
+
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="passportIssuedCountry">Passport Issued Country*</label>
+                    <select
+                      [class.is-invalid]="ListHasError && (passportIssuedCountryCon.dirty || passportIssuedCountryCon.touched)"
+                      [(ngModel)]="personalDetailsCat1.passportIssuedCountry"
+                      #passportIssuedCountryCon="ngModel"
+                      (blur)=" validateAList(passportIssuedCountryCon.value)"
+                      (change)=" validateAList(passportIssuedCountryCon.value)"
+                      class="form-control input-type form-control-sm" name="passportIssuedCountry"
+                      id="passportIssuedCountry">
+                      <option value="default">Select Country</option>
+                      <option *ngFor="let country of countryInfo ; let i = index"
+                              value="{{country.id}}">
+                        {{country.name}}
+                      </option>
+                    </select>
+
+                    <div *ngIf="ListHasError && (passportIssuedCountryCon.dirty || passportIssuedCountryCon.touched)"
+                         class="invalid">
+
+                      <div *ngIf="ListHasError || countryOfBirthCon.untouched">
+                        Please select a country
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class=" form-group">
+                    <label for="passportExpirydate" >Passport Expiry Date*</label>
+                    <input type="date" class="form-control input-type form-control-sm" name="passportExpirydate"
+                           placeholder="(dd/mm/yyyy)" id="passportExpirydate" required
+                           [(ngModel)]="personalDetailsCat1.passportExpirydate"
+                           #passportExpiryDateCon="ngModel">
+                    <div *ngIf="passportExpiryDateCon.invalid && (passportExpiryDateCon.dirty || passportExpiryDateCon.touched)"
+                         class="invalid">
+
+                      <div *ngIf="passportExpiryDateCon.errors.required">
+                        Expiry Date is required.
+                      </div>
+
+                    </div>
+                  </div>
+                  
+
+
+
+
+                  <div class="form-group">
+                    <label for="passportimage" >Passport Image Upload</label>
+                    <p>(Scan copy) <small>file type: .png , File size: reduce than 500KB(Kilobyte)</small></p>
+                    <div *ngIf="currentFileUpload" class="progress">
+                      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                        aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                        {{progress.percentage}}%</div>
+                    </div>
+                    <input type="file" (change)="selectFile($event)"  name="image_path" id="image_path" class="form-control input-type form-control-sm" 
+                    #image_path="ngModel" [(ngModel)]="personalDetailsCat1.image_path" accept="image/png">
+                    <button class="btn btn-sm btn-reset " type="button"  *ngIf="!show" > <a href= "{{base_url}}/api/file/{{personalDetailsCat1.passportNo}}.png">{{personalDetailsCat1.passportNo}}download</a></button>       
+        
+                
+                  </div>
+                </div>
+
+            
+                  
+                  
+           
+          
+            
+        
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                 
+        
+                    <h6> Nearest Sri Lankan embassy Details</h6>
+                  
+                  
+
+             
+               
+                  <div class=" form-group">
+                    <label for="embassyFaxNo" >Embassy Fax No.</label>
+                    <input type="text" class="form-control input-type form-control-sm" name="embassyFaxNo"
+                           id="embassyFaxNo" [(ngModel)]="personalDetailsCat1.embassyFaxNo"
+                           #embassyFaxNoCon="ngModel" pattern="[0-9]+">
+
+                    <div *ngIf="embassyFaxNoCon.invalid && (embassyFaxNoCon.dirty || embassyFaxNoCon.touched)"
+                         class="invalid">
+
+                      <div *ngIf="embassyFaxNoCon.errors.pattern">
+                        Enter only Numbers
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="embassyEmailAddress">Embassy Email Address</label>
+                    <input type="text" class="form-control input-type form-control-sm" name="embassyEmailAddress"
+                           [(ngModel)]="personalDetailsCat1.embassyEmailAddress" id="embassyEmailAddress"
+                           #embassyEmailAddressCon="ngModel"
+                           pattern='^([\w-\.!#$%&?^_`{|?*=]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$'>
+
+                    <div *ngIf="embassyEmailAddressCon.invalid && (embassyEmailAddressCon.dirty || embassyEmailAddressCon.touched)"
+                         class="invalid">
+
+                      <div *ngIf="embassyEmailAddressCon.errors.pattern">
+                        Enter valid email address
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class=" form-group">
+                    <label for="embassyContactNo">Embassy Contact No.</label>
+                    <input type="text" class="form-control input-type form-control-sm" name="embassyContactNo"
+                           [(ngModel)]="personalDetailsCat1.embassyContactNo"
+                           #embassyContactNoCon="ngModel" id="embassyContactNo">
+                  </div>
+
+
+                </div>
+
+               </div>
+              </div>
+            
+            <div class="row " id="button-group">
+              <div class="col-12 text-right py-2">
+              <button class="btn btn-sm  btn-main" type="button"
+                      (click)="upload(formPersionalDetailsCat1.value); clicked = true;" [disabled] = "formPersionalDetailsCat1.invalid"  >Save Changes</button>
+              <button (click)="formPersionalDetailsCat1.reset({})" class="btn btn-sm btn-reset "
+                      type="reset">Reset</button>
+              <button (click)="uploadchanges(formPersionalDetailsCat1.value);clicked = true;" class="btn btn-sm  btn-continue"
+                      type="submit " [disabled] = "formPersionalDetailsCat1.invalid"  >Continue</button>
+                      </div>
+
+            </div>
+ 
+
+              </form>
+            </div>
+     <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+     
+       <app-language> </app-language>
+     </div>
+
+
+
+
+
+     </div>
+    
+
+<ng-template #fillMandatory>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Message</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Please fill the mandatory fields.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+  </div>
+</ng-template>
+<ng-template #successMessage>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Message</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Saved Successfully
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+  </div>
+</ng-template>

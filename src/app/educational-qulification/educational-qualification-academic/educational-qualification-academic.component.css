@@ -1,0 +1,15 @@
+.online-aplication-block{
+    border: groove;
+    background-color: #80808029;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.container .heading{
+    background-color: #757575b3;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}

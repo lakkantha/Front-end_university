@@ -1,0 +1,221 @@
+<div class="container">
+    <div class="row">
+  
+    <div class="col-12">
+      <h4>Admin Panel</h4>
+      <p class="small">
+       Home > Programme Binding Sequence </p>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+            <div class="Content-wrapper">
+     
+                <div class="row">
+        
+                  <div class="col-12">
+                    <h5  style="text-align:center"> Programme Binding Sequence</h5>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <form action="" [formGroup]="SequenceTable">
+
+               
+                <div class=" form-group">
+                    <label for="id">Programme Name</label>
+                    <select formControlName="Id" class="form-control pointer form-control-sm">
+                      <option  >
+                        --Select Programme--
+                    </option>
+                      <option  *ngFor="let a of program" value={{a.programId}}>
+                          {{a.title}}
+                      </option>
+                  </select>
+                    
+    
+               
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="initials">Sequence List</label>
+                    <p>Follow This Example: 1,2,3,4  (<small>Find the appropriate sequence number by following the sequence table below.</small>)</p>
+                    <input type="text" formControlName="Application_name" class="form-control input-type form-control-sm" required>
+              
+                  </div>
+    
+
+                  <div class="row " id="button-group">
+                    <div class="col-12 text-right py-2">
+        
+                    <button class="btn btn-sm  btn-main"
+                            (click)="save()" type="button" data-toggle="modal" data-target="#SubmitModal" [disabled]="SequenceTable.invalid" >Save
+                    </button>
+                    <button class=" btn btn-sm btn-reset "
+                            type="reset">Reset
+                    </button>
+                    
+                  </div>
+                  </div>
+
+
+                </form>
+                <div class="row">
+        
+                  <div class="col-12">
+<h4 >Sequence Table</h4>
+                <div style="width:510px; height:320px; overflow:auto;">
+                  <table class="table table-striped">
+                      <tr>
+                         
+                          <th style="text-align: center;">ID</th>
+                          <th style="text-align: center;">Application Name</th>
+                          
+                      </tr>
+                      <tr *ngFor="let x of this.Sequences  let i = index">
+                         
+                          <td style="text-align: center;">{{x.id}}</td>
+                          <td style="text-align: center;">{{x.description}}</td>
+                    
+                      </tr>
+                  
+                  </table>
+                  </div>
+                  </div>
+
+</div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                  <div style="width:520px; height:620px; overflow:auto;">
+                    <table class="table table-striped">
+                        <tr>
+                            <th style="text-align: center;">Edit</th>
+                            <th style="text-align: center;">Delete</th>
+                            <th style="text-align: center;">ID</th>
+                            <th style="text-align: center;">Programme Name</th>
+                            <th style="text-align: center;">Programme Binding Sequence</th>
+
+                            
+                        </tr>
+                        <tr *ngFor="let x of this.Sequence  let i = index">
+                            <td style="text-align: center;cursor: pointer;"><i (click)="EditTable(i)" class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                            <td style="text-align: center;cursor: pointer;"><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true" data-toggle="modal" data-target="#id01"></i></td>
+                            <td style="text-align: center;">{{x.id}}</td>
+                            <td style="text-align: center;">{{x.program.title}}</td>
+                            <td style="text-align: center;">{{x.sequence}}</td>
+                      
+                        </tr>
+                    
+                    </table>
+
+</div>
+
+
+                </div>
+                </div>
+                
+<br><br><br><br>
+</div>
+
+
+
+</div>
+</div>
+    </div>
+
+
+
+    <!-- Edit Model -->
+
+
+    <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form action="" [formGroup]="SequenceEditTable">
+          <div class="modal-body">
+
+            <div class="form-group">
+              <label for="initials">ID</label>
+              <input type="text" formControlName="Aid" class="form-control input-type form-control-sm" >
+        
+            </div>
+
+           
+            <div class=" form-group">
+                <label for="id">Program Name</label>
+                <select formControlName="Id" class="form-control pointer form-control-sm">
+                  <option  >
+                    --Select Programme--
+                </option>
+                  <option  *ngFor="let a of program" value={{a.programId}}>
+                      {{a.title}}
+                  </option>
+              </select>
+           
+              </div>
+              
+              <div class="form-group">
+                <label for="initials">Sequence List</label>
+                <input type="text" formControlName="Application_name" class="form-control input-type form-control-sm" >
+          
+              </div>
+
+
+              <div class="row " id="button-group">
+                <div class="col-12 text-right py-2">
+    
+                <button class="btn btn-sm  btn-main"
+                        (click)="Update()" type="button" data-toggle="modal" data-target="#SubmitModal" data-dismiss="modal">Update
+                </button>
+                <button class=" btn btn-sm btn-reset "
+                        type="reset">Reset
+                </button>
+                <button type="button" class="btn btn-sm  btn-continue" data-dismiss="modal">Close</button> 
+                
+              </div>
+              </div>
+
+          </div>
+            </form>
+            </div>
+        </div>
+        </div>
+        </div>
+
+
+
+
+
+
+
+
+<!-- delete -->
+
+    <div class="modal fade" id="id01" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+      <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form action="" [formGroup]="SequenceDelete">
+          <div class="modal-body">
+<p class="text-danger"><strong>Are You Sure??</strong></p>
+    
+    
+                  <div class="row " id="button-group">
+                    <div class="col-12 text-right py-2">
+        
+                    <button class="btn btn-sm  btn-main"
+                            (click)="Deletedata()" type="button" data-toggle="modal" data-target="#SubmitModal" data-dismiss="modal">Delete
+                    </button>
+      
+                    <button type="button" class="btn btn-sm  btn-continue" data-dismiss="modal">Close</button> 
+                    
+                  </div>
+                  </div>
+    
+              </div>
+                </form>
+                </div>
+            </div>
+            </div>
+            </div>

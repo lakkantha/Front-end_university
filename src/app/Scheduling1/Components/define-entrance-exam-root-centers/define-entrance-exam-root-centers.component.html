@@ -1,0 +1,98 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-10 mx-auto "  >
+                <div class="card card-info shadow-lg  mb-5 bg-blue rounded">
+                    <form [formGroup]="ExamRootCenters">
+                        <div class="card-body">
+                            <div style="border: solid black">
+                                <div class="row">
+                                    <div class="col-sm-11 mx-auto">
+                                        <h3 style="text-decoration: underline; font-weight: bold; padding-top: 5px;">
+                                            Define Entrance Exam Root Centers
+                                        </h3>
+                                        <label for="" class="checkbox-inline">
+                                            <input type="checkbox" formControlName="previousSchedule">
+                                                &nbsp;Use Previous Schedule
+                                        </label>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <h5>
+                                                     Exam Center Type*
+                                                </h5>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div>
+                                                    <input formControlName="centerType" class="pointer"  type="radio" id="centerType1" #centerType1  value="centerType1"  name="centerType" (change)="onActivityItemChange($event.target.value)">
+                                                    <label style="font-weight: bold;" for="type">&nbsp;Same as Student Administrative Center</label>
+                                                </div> 
+                                                <div>
+                                                    <input formControlName="centerType" class="pointer"  type="radio" id="centerType2" #centerType2 value="centerType2"  name="centerType" (change)="onActivityItemChange($event.target.value)">
+                                                    <label style="font-weight: bold;" for="type">&nbsp;Same as Student Academic Center</label>
+                                                </div>
+                                                <div>
+                                                    <input formControlName="centerType" class="pointer"  type="radio" id="centerType3" #centerType3  value="centerType3"  name="centerType" (change)="onActivityItemChange($event.target.value)">
+                                                    <label style="font-weight: bold;" for="type">&nbsp;Independent from Student Administrative/Academic Center</label>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Exam Root Center/s
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <!-- <input type="text" class="form-control"> -->
+                                                <tag-input [(ngModel)]="CentersValues" [ngModelOptions]="{standalone: true}" [disable]="centerType1.checked == true|| centerType2.checked==true" (onTextChange)="onTextChange($event)" (onRemove)="onItemRemoved($event)" [removable]='true' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="Enter Centers..." clearOnBlur="true" [onlyFromAutocomplete]="true">
+                                                    <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="Centers" ></tag-input-dropdown>
+                                                </tag-input>
+                                            </div>
+                                        </div>
+<br>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                Exam Medium is same as Program Contacting Medium?*
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="row">
+                                                    <div class="col-sm-4">
+                                                        <input formControlName="sameMedium" class="pointer" id="Yes" #Yes type="radio"  value="Yes" name="sameMedium" (change)="onMediumChange($event.target.value)">
+                                                        <label style="font-weight: bold;" for="Yes">&nbsp;Yes</label>
+                                                    </div>
+                                                    <div class="col-sm-8">
+                                                        <input formControlName="sameMedium" class="pointer" id="No" #No type="radio"  value="No" name="sameMedium" (change)="onMediumChange($event.target.value)">
+                                                        <label style="font-weight: bold;" for="No">&nbsp;No</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Exam Medium/s
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <div class="row">
+                                                    <div class="col-sm-2" *ngFor="let med of medium; let j=index">
+                                                        <input  [checked]="mediumValues[med.med_mediumId]" class="pointer"   type="checkbox" value={{med.med_mediumId}} name="centerMedium" (click)="onclick($event.target.value,$event.target.checked)">
+                                                        <label style="font-weight: bold;"  for="type">&nbsp;{{med.med_description}}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-9"></div>
+                                            <div class="col-sm-3" style="padding-bottom: 5px;">
+                                                <button class="btn btn-main" (click)="Save()">Save</button>
+                                                &nbsp;&nbsp;
+                                                <button class="btn btn-reset" (click)="onReset()">Reset</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

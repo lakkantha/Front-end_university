@@ -1,0 +1,644 @@
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row ">
+      <div class="col-sm-10 mx-auto " style="padding: 5px">
+        <div class="Content-wrapper">
+          <form [formGroup]="SchedulingCoordinatorForm">
+            <div class="card-body ">
+              <div style="border: solid black">
+            <div class="row " style="padding: 10px;">
+              <div class="col-sm-11 mx-auto">
+                <h1 class="text-header">Scheduling</h1>
+              </div>
+            </div>
+
+            <div class="col-sm-10 mx-auto">
+              <div class="row form-group">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Program Scheduling Code
+                    </label>
+                </div>
+                <div class="col-sm-5">
+                  <select formControlName="Scheduling" name="Scheduling" class="form-control input-type pointer form-control-sm" (change)="onProgramScheduleCodeAD($event.target.value)">
+                    <option *ngFor="let Scheduling of ScheduleCode" value="{{ Scheduling }}">
+                      {{ Scheduling }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Faculty
+                  </label>
+                </div>
+                <div class="col-sm-5">
+                  <label   style="text-align: center">
+                    {{this.Faculty}}
+                    </label>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Department
+                  </label>
+                </div>
+                <div class="col-sm-5">
+                  <label  style="text-align: center">
+                    {{this.Department}}
+                  </label>
+                </div>
+              </div>
+
+              <div class="row form-group">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Program*
+                    </label>
+                </div>
+                <div class="col-sm-5">
+                  <label  style="text-align: center">
+                    {{this.Program}}
+                  </label>
+                </div>
+              </div>
+
+              <div class="row" aria-disabled="true">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Student Type*
+                  </label>
+                </div>
+                <div class="col-sm-2">
+                  <input formControlName="StudentType" class="pointer" id="New" type="radio" value="New" name="StudentType"/>
+                  <label class="text-bold" for="New">
+                    &nbsp;New
+                  </label>
+                </div>
+                <div class="col-sm-2">
+                  <input formControlName="StudentType"class="pointer"id="RE"type="radio"value="RE" name="StudentType"/>
+                  <label class="text-bold" for="RE">
+                    &nbsp;Re
+                  </label>
+                </div>
+                <div class="col-sm-2">
+                  <input formControlName="StudentType"class="pointer"id="Both"type="radio"value="Both" name="StudentType"/>
+                  <label class="text-bold" for="Both">
+                    &nbsp;Both
+                  </label>
+                </div>
+              </div>
+                
+              <div class="row">
+                <div class="col-sm-5">
+                  <label class="text-bold" style="text-align: center">
+                    Application Fee
+                  </label>
+                </div>
+              </div>
+              <div class="row" *ngIf="this.ApplicableNewStudents">
+                <div class="col-sm-5"></div>
+                  <div class="col-sm-7" >
+                      <label class="text-bold" style="text-align: center; color: red;">Note: Applicable only for New Students</label>
+                  </div>
+              </div>
+              
+                    <div class="row">
+                      <div class="col-sm-2"></div>
+                        <div class="col-sm-3 ">
+                            <label class="text-bold" style="text-align: center">Local Applicants</label>
+                        </div>
+                        <div class="col-sm-5">
+                              <input type="text" formControlName="Local" name="Local" value="Local"  class="form-control input-type  form-control-sm" />
+                        </div>
+                    </div>
+                    
+                    <div class="row" style="margin-top: 5px;">
+                      <div class="col-sm-2"></div>
+                      <div class="col-sm-3 ">
+                          <label class="text-bold" style="text-align: center">Foreign Applicants</label>
+                      </div>
+                      <div class="col-sm-5">
+                          <input type="text" formControlName="Foreign" name="Foreign" value="Foreign" class="form-control input-type  form-control-sm" />
+                      </div>
+                      </div>
+<br>
+<div class="row">
+  <div class="col-sm-5">
+    <label class="text-bold" style="text-align: center">
+      Multiple Batches Applicable?
+      </label>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+      <label class="checkbox-inline">
+        <input formControlName="MultipleBatches"name="MultipleBatches"class="pointer"type="checkbox"value="isMulty"/>
+      </label>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-5">
+    <label class="text-bold" style="text-align: center">
+      Academic Year*
+    </label>
+  </div>
+  <div class="col-sm-5">
+    <div class="form-group">
+      <input type="text"  formControlName="AcademicYear" name="AcademicYear" value="AcademicYear"  class="form-control input-type pointer form-control-sm" />
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-5">
+    <label class="text-bold" style="text-align: center">
+      Batch
+      </label>
+  </div>
+  <div class="form-group col-sm-5">
+    <input type="text"  formControlName="Batch" name="Batch" value="Batch"  class="form-control input-type pointer form-control-sm" />
+  </div>
+</div>
+  
+
+  
+                
+                <br />
+                <br />
+  
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <button type="button" style="width: 300px; margin-top: 10px;" class="btn btn-primary" (click)="AddEntranceExamCenters()">
+                                Add Entrance Exam Centers >
+                              </button>
+                            </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-12">
+                              <button type="button" style="width: 300px; margin-top: 10px;" class="btn btn-primary" (click)="OpenModal()" data-toggle="modal" data-target="#Modal">
+                                Set Program/Center Dates >
+                              </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+  
+                <div class="row" style="padding: 5px">
+                  <div class="col-sm-12 d-flex flex-row-reverse">
+                    <button type="button" class="btn btn-reset">Reset</button>
+                    &nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-main">Submit</button>
+                  </div>
+                </div>
+              </div>
+              </div>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+
+
+          <div class="modal-body modal-nav-button" >
+            <form>
+              <div class="form-group" >
+
+                <div class="row">
+                  <div class="col-sm-12">
+                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark " >
+                      <ul class="navbar-nav">
+                        <li class="nav-item {{forActiveProgram}}">
+                          <div class="nav-link pointer" (click)="ChangeProgramPage()">Program Dates</div>
+                        </li>
+                        
+                          <li class="nav-item {{forActiveCenter}}">
+                            <div class="nav-link pointer" (click)="ChangeCenterPage()">Center Dates</div>
+                          </li>
+                       
+                        
+                      </ul>
+                    </nav> 
+                  </div>
+                </div>               
+<br>                
+                <div *ngIf="isProgram">
+                  <form [formGroup]='dateForm' >
+                  <div class="row">
+                    <div class="col-sm-11 mx-auto">
+                      <div class="row border border-primary" style="background-color: #efefef; font-weight: bold;">
+                        <label for="header" style="padding-left: 5px; padding-top: 5px;">Set Program Dates</label>
+                      </div>
+                    </div>
+                  </div>   
+                  <div class="row" >
+                    <div class="col-sm-11 mx-auto">
+                      <div class="row border border-primary" >
+  
+                        <div class="col-sm-6" >
+<br>
+<br>
+
+                        <div style="margin-left: 30px;" [ngClass]="{'disableDiv': this.isDisabled}">
+                          <input  name="PreviousSchedule" class="pointer"  type="checkbox" value="PreviousSchedule" >
+                          &nbsp;Use Previous Schedule
+                        </div>
+<br>
+              
+                            <div style="margin-left: 37px;" [ngClass]="{'disableDiv': this.isDisabled}" >
+                              <div id='calendar-container'>
+                                <div class="row" style="font-weight: bold;">
+                                  <div class="fa fa-chevron-left pointer" style="margin-left: 15px;" (click)="previousProgramMonth()"></div>
+                                  <div style="width: 10px;"></div>
+                                  <div class="col-sm-5 mx-auto"> 
+                                      <div >{{date.format("MMMM")}} {{date.format("YYYY")}}</div>
+                                  </div>
+                                  <div style="width: 10px;"></div> 
+                                  <div class="fa fa-chevron-right pointer" style="margin-right: 35px;" (click)="nextProgramMonth()"></div>
+                                </div>
+                                  <div style="height: 5px;"></div>
+                                <div style="display: flex; flex-wrap: wrap; font-weight: bold;">
+                                  <div class='calendar-days'>Su</div>
+                                  <div class='calendar-days'>Mo</div>
+                                  <div class='calendar-days'>Tu</div>
+                                  <div class='calendar-days'>We</div>
+                                  <div class='calendar-days'>Th</div>
+                                  <div class='calendar-days'>Fr</div>
+                                  <div class='calendar-days'>Sa</div>
+                                </div>
+                                <div class="calender-hover" style=" display: flex; flex-wrap: wrap; ">
+                                  <div *ngFor="let day of daysArr">
+                                    <div class='calendar-numbers pointer' (click)='selectedProgramDate(day)' [ngClass]="{'inactive ': !day, 'selected': isProgramSelected(day)&&this.isForSelected,'today': todayCheck(day)}" >{{day?.date()}}</div>
+                                  </div>
+                                </div> 
+                                <div *ngIf="ProgrameReNotification" >
+                                  *This Activity is Applicable Only for Re Students 
+                                </div>
+                                <div *ngIf="ProgrameNewNotification">
+                                  *This Activity is Applicable Only for New Students 
+                                </div>
+                              </div>
+                            </div>
+                          
+                         </div>
+  
+                        <div class="col-sm-6">
+                          <div class="row">
+                            <div class="col-sm-12 mx-auto">
+
+                                <div class="row">
+                                  <div class="col-sm-12">
+                                    <label class="text-bold" style="text-align: center">
+                                      Program Schedule Code
+                                    </label>
+                                  </div>
+                                </div>
+                                <form [formGroup]='ProgramCodedateForm' >
+                                  <div class="row">
+                                  <div class="col-sm-12">
+                                    <div class="form-group">
+                                      <select formControlName="ScheduleCode" name="ScheduleCode"  class="form-control pointer input-type"   (change)="onProgramScheduleCode($event.target.value)" >
+                                        <option  *ngFor="let programCode of ScheduleCode" value={{programCode}} >
+                                          {{programCode}}
+                                        </option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                </div>
+                              </form>
+
+                                <div class="modal-part-content scroller-fordiv" [ngClass]="{'disableDiv': this.isDisabled}" >
+                                  <div *ngFor="let setProgram of SetProgramDates">
+                                    <ul class="list-group font-weight-bold ">
+                                      <li class="list-group-item "  [hidden]="setProgramHidden(setProgram.id)" [ngClass]="{'active':setProgramActive(setProgram.id)&&this.isForActiveProgram}" (click)="ProgramActive(setProgram.id,setProgram.name)">{{setProgram.name}}</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              
+                              <br>
+
+                              <!-- <div class="row" *ngIf="this.SetProgramDates[0]">
+                                <div class="col-sm-9"></div>
+                                <div class="col-sm-1">
+                                  <button class="btn pointer btn-primary" [disabled]="" (click)="programDateArray()"  type="button">Add</button>
+                                </div>
+                              </div> -->
+
+                            </div>
+                          </div>
+                        </div>
+
+
+                       
+                           <br>
+                          <!-- <h5 [hidden]="!this.showCreatedTableProgram">Created Program Dates</h5>
+                          <br>  -->
+                                                  
+
+                        
+<!-- 
+                            <br>
+                            
+                              <h5 [hidden]="!this.showNewTableProgram">New Program Dates</h5>
+                              <br>
+  
+                              <table id="programDates" [hidden]="!this.showNewTableProgram">
+                                <tr>
+                                  <th>Edit</th>
+                                  <th>Delete</th>
+                                  <th>Program Schedule Code</th>
+                                  <th>Activity</th>
+                                  <th>From Date</th>
+                                  <th>To Date</th>
+                                </tr>
+                              
+                                <tr *ngFor="let tableDate of programDate; let i = index">
+                                  <td><i  class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                                  <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                                  <td>{{this.tableProgramDate[i].code}}</td>
+                                  <td>{{this.tableProgramDate[i].activityName}}</td>
+                                  <td>{{tableDate.dateFrom}}</td>
+                                  <td>{{tableDate.dateTo}}</td>  
+                                </tr>
+    
+                              </table> -->
+                            
+                            
+                          
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <!-- <div *ngIf="this.forUpdateBtn==false"> -->
+                      <div [ngClass]="{'disableDiv': this.isDateProgram}&&{'disableDiv': this.isActivityProgram}">
+                        <button type="button" class="btn btn-main" (click)="programDateArray()" >Save</button>&nbsp; 
+                      </div>
+                      
+                    <!-- </div> -->
+                    <!-- <div  *ngIf="this.forUpdateBtn==true">
+                      <button type="button" class="btn btn-main" (click)="UpdateprogramDateArray()" >Update</button>&nbsp; 
+                    </div> -->
+                    <div [ngClass]="{'disableDiv': this.isDisabled}">
+                      <button type="button" class="btn btn-reset">Reset</button>&nbsp; 
+                    </div>
+                    
+                    <button type="button" class="btn btn-continue" data-dismiss="modal">Exit</button>&nbsp; 
+                  </div>
+
+                  <table id="programDates" [hidden]="!this.showCreatedTableProgram" [ngClass]="{'disableDiv': this.isDisabled}">
+                            
+                    <tr>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                      <th>Program Schedule Code</th>
+                      <th>Activity</th>
+                      <th>From Date</th>
+                      <th>To Date</th>
+                    </tr>
+
+                    <tr *ngFor="let tableDate of activityProgramDate; let i = index">
+                      <td><i  class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                      <td><i  class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                      <td>{{tableDate.programStarted.programScheduleCode}}</td>
+                      <td>{{tableDate.activity.name}}</td>
+                      <td>{{tableDate.dateFrom}}</td>
+                      <td>{{tableDate.dateTo}}</td>  
+                    </tr>
+
+                  </table>
+                </form>
+                </div>
+
+
+
+
+                <div *ngIf="isCenter">
+                  <form [formGroup]='CenterdateForm' >
+                  <div class="row">
+                    <div class="col-sm-11 mx-auto">
+                      <div class="row border border-primary" style="background-color: #efefef; font-weight: bold;">
+                        <label for="header" style="padding-left: 5px; padding-top: 5px;">Set Center Dates</label>
+                      </div>
+                    </div>
+                  </div>   
+                  <div class="row" >
+                    <div class="col-sm-11 mx-auto">
+                      <div class="row border border-primary" >
+  
+                        <div class="col-sm-6" >
+  <br>
+  <br>
+                        <div style="margin-left: 30px;" [ngClass]="{'disableDiv': this.isDisabledCenter}">
+                          <input  name="PreviousSchedule" class="pointer"  type="checkbox" value="PreviousSchedule" >
+                              &nbsp;Use Previous Schedule
+                        </div>
+  <br>
+      
+                            <div style="margin-left: 37px;" [ngClass]="{'disableDiv': this.isDisabledCenter}">
+                              <div id='calendar-container'>
+                                <div class="row" style="font-weight: bold;">
+                                  <div class="fa fa-chevron-left pointer" style="margin-left: 15px;" (click)="previousCenterMonth()"></div>
+                                  <div style="width: 10px;"></div>
+                                  <div class="col-sm-5 mx-auto"> 
+                                      <div >{{centerdate.format("MMMM")}} {{centerdate.format("YYYY")}}</div>
+                                  </div>
+                                  <div style="width: 10px;"></div> 
+                                  <div class="fa fa-chevron-right pointer" style="margin-right: 35px;" (click)="nextCenterMonth()"></div>
+                                </div>
+                                  <div style="height: 5px;"></div>
+                                <div style="display: flex; flex-wrap: wrap; font-weight: bold;">
+                                  <div class='calendar-days'>Su</div>
+                                  <div class='calendar-days'>Mo</div>
+                                  <div class='calendar-days'>Tu</div>
+                                  <div class='calendar-days'>We</div>
+                                  <div class='calendar-days'>Th</div>
+                                  <div class='calendar-days'>Fr</div>
+                                  <div class='calendar-days'>Sa</div>
+                                </div>
+                                <div class="calender-hover" style=" display: flex; flex-wrap: wrap; ">
+                                  <div *ngFor="let Centerday of CenterdaysArr">
+                                    <div class='calendar-numbers pointer' id="{{Centerday | date:'MM/dd/yyyy'}}" (click)='selectedCenterDate(Centerday);multySelected(Centerday);isMultySelected(Centerday);' [ngClass]="{'inactive': !Centerday, 'selected': isCenterSelected(Centerday)&&this.isForSelecetdCenter,'today': todayCheck(Centerday)}" >{{Centerday?.date()}}</div>
+                                  </div>
+                                </div>  
+                              </div>
+                            </div>
+                          
+                         </div>
+  
+                        <div class="col-sm-6">
+                          
+                          <div class="row">
+                            <div class="col-sm-12 mx-auto">
+                              
+
+                              <div class="row">
+                                <div class="col-sm-12">
+                                  <label class="text-bold" style="text-align: center">
+                                    Program Schedule Code
+                                  </label>
+                                </div>
+                              </div>
+                              <form [formGroup]='CentreCodedateForm' >
+                                <div class="row">
+                                <div class="col-sm-12">
+                                  <div class="form-group">
+                                    <select formControlName="ScheduleCode1"  name="ScheduleCode1"  class="form-control pointer input-type"   (change)="onProgramScheduleCodeCenter($event.target.value)" >
+                                      <option  *ngFor="let programCode1 of ScheduleCode" value={{programCode1}} >
+                                        {{programCode1}}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                            </form>
+
+                              <div class="row" *ngIf="Center!=''" >
+                                <div class="col-sm-2">
+                                  <i class="fas fa-caret-left pointer" (click)="LeftFunction()" style="font-size:40px;"></i>
+                                </div>
+                                <div class="col-sm-8 mx-auto text-center">
+                                  <div style="font-size:20px;">{{Center}}</div>
+                                </div>
+                                <div class="col-sm-2">
+                                  <i class="fas fa-caret-right pointer" (click)="RightFunction()" style="font-size:40px;"></i>
+                                </div>
+                              </div>
+
+                                <div class="modal-part-content scroller-fordiv" [ngClass]="{'disableDiv': this.isDisabledCenter}" >
+                                  <div *ngFor="let setCentre of SetCenterDates; let i=index">
+                                    <ul class="list-group font-weight-bold ">
+                                      <li class="list-group-item " [ngClass]="{'active':setActive(setCentre.name)&&this.isForActiveCenter}" (click)="Active(setCentre.id,setCentre.name)">{{setCentre.name}}</li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              
+                                <br>
+
+                                <!-- <div class="row" *ngIf="this.SetCenterDates[0]">
+                                  <div class="col-sm-9"></div>
+                                  <div class="col-sm-1">
+                                    <button class="btn pointer btn-primary" [disabled]="" (click)="programCenterArray()"  type="button">Add</button>
+                                  </div>
+                                </div> -->
+                                
+                              <br>
+                            </div>
+                          </div>
+                        </div>
+                        <br>
+                        
+                          <!-- <h5 [hidden]="!this.showCreatedTableCentre">Created Centre Dates</h5>
+                          <br> -->
+                                                  
+
+                      
+                          <!-- <br>
+                        
+                          <h5 [hidden]="!this.showNewTableCentre">New Centre Dates</h5>
+                          <br>
+
+                                                    <table id="programDates" [hidden]="!this.showNewTableCentre">
+                                                      <tr>
+                                                        <th>Edit</th>
+                                                        <th>Delete</th>
+                                                        <th>Program Schedule Code</th>
+                                                        <th>Activity</th>
+                                                        <th>Center</th>
+                                                        <th>From Date</th>
+                                                        <th>To Date</th>
+                                                      </tr>
+                                                    
+                                                      <tr *ngFor="let tableDate of centerDate; let i = index">
+                                                        <td><i  class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                                                        <td><i (click)="DeleteCentre(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                                                        <td>{{this.tableCentreDate[i].code}}</td>
+                                                        <td>{{this.tableCentreDate[i].activityName}}</td>
+                                                        <td>{{this.tableCentreDate[i].centreName}}</td>
+                                                        <td>{{tableDate.fromDate}}</td>
+                                                        <td>{{tableDate.toDate}}</td>  
+                                                      </tr>
+                          
+                                                    </table> -->
+
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="modal-footer">
+                    <div *ngIf="this.forUpdateBtnCenter==false">
+                      <button type="button" class="btn btn-main" (click)="programCenterArray()" >Save</button>&nbsp; 
+                    </div>
+                    <div  *ngIf="this.forUpdateBtnCenter==true">
+                      <button type="button" class="btn btn-main" (click)="UpdatecenterDateArray()" >Update</button>&nbsp; 
+                    </div>
+                    <button type="button" class="btn btn-reset" (click)="onReset()">Reset</button>&nbsp; 
+                    <button type="button" class="btn btn-continue" data-dismiss="modal">Exit</button>
+                  </div>
+
+                  <table id="programDates" [hidden]="!this.showCreatedTableCentre" [ngClass]="{'disableDiv': this.isDisabledCenter}">
+                    <tr>
+                      <th>Edit</th>
+                      <th>Delete</th>
+                      <th>Program Schedule Code</th>
+                      <th>Activity</th>
+                      <th>Center</th>
+                      <th>From Date</th>
+                      <th>Dates</th>
+                      <th>To Date</th>
+                    </tr>
+                  
+                    <tr *ngFor="let tableDate of activityCenterDate; let i = index">
+                      <td><i  class="fas pointer fa-edit" (click)="EditCreatedCenterTable(i)" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                      <td><i  class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                      <td>{{tableDate.programStarted.programScheduleCode}}</td>
+                      <td>{{tableDate.activity.name}}</td>
+                      <td>{{tableDate.rgmCenter.cnt_description}}</td>
+                      <td>{{tableDate.fromDate}}</td>
+                      <td>
+                        <div *ngFor="let multyDate of tableDate.activityCenterDateDateLists">
+                          {{multyDate.date}}
+                        </div>
+                      </td>
+                      <td>{{tableDate.toDate}}</td>  
+                    </tr>
+
+                  </table>
+
+                </form>
+              </div>
+                
+
+              </div>
+            </form>
+          </div>
+       
+      
+
+
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" >Save</button>&nbsp; 
+        <button type="button" class="btn btn-secondary" >Reset</button>&nbsp; 
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button> 
+      </div> -->
+
+    </div>
+  </div>
+</div>
+

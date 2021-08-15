@@ -1,0 +1,127 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="small" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white">Please wait...</p>
+</ngx-spinner>
+<div class="container">
+    <div class="m-3 Content-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center mt-3 mb-5">
+                    <h2>Program Cancelation</h2>
+                </div>
+            </div>
+
+        </div>
+        <div class="row row-wrapper">
+            <div class="col-md-3 mt-3 mb-2">
+                <div class="input-group mb-3">
+                    <form [formGroup]="searchGroup">
+                        <div class="input-group mb-3">
+                            <label for="searchBy" style="font-size: large;"> <b>Search By : </b></label>
+                            <select id="searchBy" class="custom-select ml-2" (change)="selectSearchOption($event)" formControlName="searchBy">
+                                <option *ngFor="let option of options" [ngValue]="option">{{option}}</option>
+                             </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-7 mt-3">
+                <form [formGroup]="searchGroup">
+                    <div class="input-group mb-3" style="width: max-content;">
+                        <input id="searchInput" type="text" class="form-control" formControlName="searchInput" style="width: max-content;" placeholder="{{searchPlaceHolder}}">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary" type="button" (click)="search()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+        <div *ngIf="this.searchApplicant.length > 0" class="row row-wrapper mt-2">
+            <div class="col-md-12">
+                <div class="row">
+                    <h2>Student Details</h2>
+                </div>
+                <div class="row">
+                    <b style="font-size: medium;">Name : {{searchApplicant[0].namewithinitials}}</b>
+                </div>
+                <div *ngIf="this.searchApplicant[0].applicantType.id == 1" class="row">
+                    <b style="font-size: medium;" >NIC : {{searchApplicant[0].nic}}</b>
+                </div>
+                <div *ngIf="this.searchApplicant[0].applicantType.id == 2" class="row">
+                    <b style="font-size: medium;">Passport : {{searchApplicant[0].passport}}</b>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="searchApplicant.length > 0" class="col-md-12">
+                <div class="text-left mt-3 mb-3 ml-4">
+                    <h4>Student Program Deatails</h4>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="searchApplicant.length > 0" class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Program</th>
+                          <th scope="col">Info</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let applicant of searchApplicant; let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{applicant.programStarted.program.title}}<span> - </span>{{applicant.programStarted.programScheduleCode}}</td>
+                            <td>
+                                {{applicant.info}}
+                            </td>
+                            <td>
+                                <div *ngIf="applicant.applicantStatus">
+                                    <div *ngIf="applicant.applicantStatus.id == 1">
+                                        <b>Canceled</b>
+                                        <div *ngFor="let ra of refundedAmounts">
+                                          <div *ngIf="applicant.id == ra.applicantId">
+                                              Refunded Amount = {{ra.amount}}
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="!(applicant.applicantStatus.id == 1)">
+                                        <button class="btn btn-outline-primary" [disabled]= "applicant.disabled" (click)="cancel(applicant.id,i)">Cancel</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="!applicant.applicantStatus">
+                                    <button class="btn btn-outline-primary" [disabled]= "applicant.disabled"  (click)="cancel(applicant.id,i)">Cancel</button>
+                                </div>
+                            </td>
+                          </tr>
+                      </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="#myModalExe" class="trigger-btn" data-toggle="modal" hidden id="openModalExemption"><i class="fa fa-heart"
+    style="font-size:18px; color: red;"></i></a>
+<div *ngIf="searchApplicant.length > 0"  id="myModalExe" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#10003;</i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure want to cancel the program?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p *ngIf="this.indexCancel >= 0" style="text-align: justify;text-justify: inter-word;">You are going to cancel the program {{this.searchApplicant[this.indexCancel].programStarted.program.title}} - {{this.searchApplicant[this.indexCancel].programStarted.programScheduleCode}} <br> <b style="color: red;"> Student refundable amount = {{refundableAmount}}</b></p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmedByUser()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,146 @@
+.pointer {
+  cursor: pointer;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.text-header {
+  color: rgb(204, 213, 207);
+  background-color: black;
+  text-align: center;
+  font-weight: bold;
+}
+
+.dropdown-content {
+  /* display: none; */
+ /* position: fixed;   */
+ background-color: #f9f9f9;
+ min-width: 277px; 
+ width: 100%;
+ box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+ z-index: 1;
+ cursor: pointer;
+}
+.dropdown-content li:hover {background-color: #f1f1f1}
+
+.modal-nav-button{
+ padding-right: 0px; 
+ padding-top: 0px; 
+ padding-left: 0px;
+ 
+}
+
+.calendar-days {
+ width: 40px;
+ height: 40px;
+ background: #669999;
+ border: 2px solid #c2c2c2;
+ /* padding: 8px; */
+ padding-left: 11px;
+ padding-top: 8px;
+}
+.calendar-numbers{
+ width: 40px;
+ height: 40px;
+ background: #669999;
+ border: 2px solid #c2c2c2;
+}
+.calender-hover div:hover {background-color:peru;}
+#calendar-container {
+ width: 300px;
+ 
+}
+
+.flex-center{
+ display: center;
+}
+
+.inactive {
+ opacity: 0.6;
+}
+
+.today{
+color: red;
+}
+
+.selected {
+ background:peru;
+ opacity: 0.6;
+}
+
+.multySelected{
+  background-image: url('../../../../assets/Images/tick.jpg');
+  background-size: 37px 37px;
+}
+
+.scroller-fordiv{
+  overflow: auto;
+  max-height:300px
+}
+
+
+.modal-part-content {
+ /* display: none; */
+/* position: fixed;   */
+background-color: #f9f9f9;
+min-width: 277px; 
+width: 50%;
+z-index: 1;
+cursor: pointer;
+}
+.modal-part-content li:hover {background-color: #007bff}
+
+#ExamSchedule 
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+ }
+  
+  #ExamSchedule td, #ExamSchedule th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #ExamSchedule tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #ExamSchedule tr:hover {background-color: #ddd;}
+  
+  #ExamSchedule th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #651296;
+    color: white;
+  }
+
+  #programDates 
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+ }
+  
+  #programDates td, #programs th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #programDates tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #programDates tr:hover {background-color: #ddd;}
+  
+  #programDates th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #651296;
+    color: white;
+  }
+
+  .disableDiv{
+    pointer-events:none;
+    opacity: 0.5;
+}

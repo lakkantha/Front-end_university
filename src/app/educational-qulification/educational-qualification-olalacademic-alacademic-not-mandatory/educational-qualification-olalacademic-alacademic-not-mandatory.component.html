@@ -1,0 +1,47 @@
+<div class="container">
+
+    <div class="row">
+    <div class="col-12">
+        <h4>Enter Your Educational Qualifications <a (click)='callopen()'> <fa-icon [icon]="faInfoCircle" style="color:orange; width: 100px;cursor: pointer;" ></fa-icon> </a></h4>
+        <p class="small">
+         Home > Enter Your Educational Qualifications  </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <div class="Content-wrapper">
+
+        <!----------- Educational qualification form O/L-------------->
+        <div class="Content-wrapper">
+            <app-template-ol></app-template-ol>
+        </div>
+
+        <br><br>
+        <!----------- Educational qualification form A/L-------------->
+        <div class="Content-wrapper">
+            <app-template-al></app-template-al>
+        </div>
+
+        <!----------- Educational qualification form Academic-------------->
+        <br><br>
+        <div class="Content-wrapper">
+            <app-template-academic></app-template-academic>
+        </div>
+        <div class="row " id="button-group">
+            <div class="col-12 text-right py-2">
+        <button [disabled]="!successFill" type="submit" class="btn btn-sm  btn-main" (click)="continue()">Save
+            & Continue
+        </button>
+</div>
+</div>
+    </div>
+        </div>
+
+
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+     
+            <app-language> </app-language>
+          </div>
+    </div> <!-- end of educational Qualifications -->
+</div> <!-- end of container class-->

@@ -1,0 +1,190 @@
+
+.qualification-block{
+    border: groove;
+    padding-left: 25px;
+    padding-right: 20px;
+    height: 470px;
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.certificate{
+    margin-bottom: 13px;
+    padding-top: 5px;
+    background-color: #d6cccc;
+    padding-top: 11px;
+    font-size: 15px;
+    margin-left: 15px;
+}
+
+.certificates{
+    position: absolute;
+    top: 0;
+    right: -50px;
+    margin-bottom: 0;
+    margin-top: 5px;
+}
+
+ul li{
+    margin: 13px;
+    font-size: 15px;
+}
+
+.type-btn {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+h4{
+    margin-bottom: 20px;
+    margin-top: 5px;
+}
+
+.qualification-list{
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.qualification-table{
+    background-color: white;
+    height: 200px;
+    overflow:auto;
+    border: groove;
+    padding-top: 5px;
+}
+
+.certificate-list{
+    border: groove;
+    padding-left: 0px;
+    height: 200px;
+    background-color: #ece4df;
+}
+
+.certificate-list-name{
+    overflow: auto;
+    height: 160px;
+}
+
+.certificate-list p{
+    margin-left: 5px;
+    color: #286090;
+}
+
+.submit-button{
+    position: absolute;
+    bottom: 6px;
+    right: 0px;
+}
+
+.submit-button button{
+    margin-right: 8px;
+    border-color: lightgray;
+}
+
+.error{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.help-block {
+    margin: 0 0 0 17px;
+    color: red;
+  }
+
+.plus{
+    background-color: #80808029;
+    position: absolute;
+    bottom: 0;
+}
+  td button{
+      margin: 0 2px 0 2px;
+  }
+
+  p .glyphicon-remove{
+      color: red;
+      margin-left: 5px;
+  }
+  
+  .remove{
+      background-color: transparent;
+      border: violet;
+  }
+
+  label{
+    margin-bottom: 0;;
+}
+
+.fa-close{
+      color: red;
+}
+
+.nav {
+    margin-left: 0;
+    margin-bottom: 20px;
+    list-style: none;
+   }
+ 
+ ul, ol {
+    padding: 0;
+    margin: 0 0 10px 25px;
+  }
+ 
+ .dropup, .dropdown {
+     position: relative;
+  }
+ 
+ .open>.dropdown-menu {
+  display: block;
+  }
+ 
+ .nav>li>a {
+  display: block;
+  }
+ 
+ .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+   border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
+   background-clip: padding-box;
+   }
+ 
+  .dropdown-menu .divider {
+   height: 1px;
+   margin: 9px 1px;
+   overflow: hidden;
+   background-color: #e5e5e5;
+   border-bottom: 1px solid #ffffff;
+   }
+ 
+  .dropdown-menu>li>a {
+   display: block;
+   padding: 3px 20px;
+   clear: both;
+   font-weight: normal;
+   line-height: 20px;
+   color: #333333;
+   white-space: nowrap;
+  }

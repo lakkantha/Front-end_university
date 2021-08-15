@@ -1,0 +1,133 @@
+<div id="app" *ngIf="nav.visible">
+
+    <div id="mySidenav" class="sidenav">
+        <a class="closebtn" style="cursor: pointer;" (click)='callClose()'>&times;</a>
+
+        <ul class="nav flex-column flex-nowrap overflow-hidden">
+
+            <li class="nav-item">
+
+                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Payment</span></a>
+                <div class="collapse" id="submenu1" aria-expanded="false">
+                    <ul class="flex-column pl-2 nav">
+          
+
+
+                    </ul>
+                </div>
+            </li>
+            &nbsp;&nbsp;
+            <li class="nav-item">
+
+                <a class="nav-link collapsed text-truncate" href="#submenu2" data-toggle="collapse" data-target="#submenu2"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Re Registration</span></a>
+                <div class="collapse" id="submenu2" aria-expanded="false">
+                    <ul class="flex-column pl-2 nav">
+                        <li class="nav-item sidebar"><a class="nav-link py-0" routerLink="Re_registraton_interface"><span>Re registration</span></a></li>
+
+
+                    </ul>
+                </div>
+            </li>
+
+            <li class="nav-item">
+
+                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Apply Online</span></a>
+                <div class="collapse" id="submenu1" aria-expanded="false">
+                    <ul class="flex-column pl-2 nav">
+                        <li class="nav-item sidebar"><a class="nav-link py-0" (click)='courseselection()' style="cursor: pointer;"><span>Select Course</span></a></li>
+
+
+                        <li class="nav-item sidebar"><a class="nav-link py-0" (click)='personaldetails()'  style="cursor: pointer;"><span>Personal details</span></a></li>
+
+
+                        <li class="nav-item sidebar"><a class="nav-link py-0" (click)="educationalDetails()" style="cursor: pointer;"><span>Educational Qualifications</span></a></li>
+                        <li class="nav-item sidebar"><a class="nav-link py-0" (click)="professionalDetails()" style="cursor: pointer;"><span>Professional Qualifications </span></a></li>
+                        <li class="nav-item sidebar"><a class="nav-link py-0" (click)="workExperienceDetails()" style="cursor: pointer;"><span>Work Experience</span></a></li>
+
+                      <li class="nav-item sidebar"><a class="nav-link py-0" routerLink="home/submission"><span>Submission</span></a></li>
+
+
+
+
+                    </ul>
+                </div>
+              </li> 
+           
+
+
+       
+=
+
+            <li class="nav-item">
+                <a class="nav-link collapsed text-truncate" href="#submenu6" *ngIf="showAdminAndSuperAdminBoard" data-toggle="collapse" data-target="#submenu6"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Applicant's Addmission Details</span></a>
+                <div class="collapse" id="submenu6" aria-expanded="false">
+                    <ul class="flex-column pl-2 nav">
+                        <li class="nav-item"><a class="nav-link text-truncate" routerLink="app/searchapplication" *ngIf="showAdminAndSuperAdminBoard"><i class="fa fa-users"></i> <span class="d-none d-sm-inline"> Search Applicant By NIC</span></a></li>
+                        <li class="nav-item"><a class="nav-link py-0" routerLink="userProfile" *ngIf="showSuperAdminBoard"><i class="fa fa-users"></i><span class="d-none d-sm-inline">Update Student Profiles</span></a></li>
+                        <li class="nav-item"><a class="nav-link py-0" routerLink="rollback-course-selection" *ngIf="showSuperAdminBoard"><i class="fa fa-users"></i><span class="d-none d-sm-inline">Rollback to Course Offering</span></a></li>
+                        <!--              <li class="nav-item"><a class="nav-link py-0" routerLink="applicationStatistics" *ngIf="showAdminBoard"><i class="fa fa-bar-chart"></i><span class="d-none d-sm-inline">Application Statistics</span></a></li>-->
+                    </ul>
+                </div>
+            </li>
+
+         
+
+
+            
+        </ul>
+
+    </div>
+    <header class="container">
+        <nav class="navbar navbar-expand-lg">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"><img id="sideNavOpenImg" src="../assets/Images/home.png" alt=""></span>
+          </button>
+            <a class="navbar-brand" href="home">
+                <div> <img src="../assets/Images/logoo.png" class="" alt="" width="45"> </div>
+            </a>
+
+            <a class="button" routerLink="application-details" *ngIf="!show"><span>Online Application</span></a>
+
+            <a class="button1" routerLink="login" *ngIf="!show"><span>Login</span></a>
+
+
+
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo03" *ngIf="isLoggedIn">
+                <a id="sideNavOpen" class="nav-link " (click)='callfun()'> <img id="sideNavOpenImg" src="../assets/img/burger.png" alt=""> </a>
+                <!-- Left side Navigation here -->
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#dropdown-menu" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="../assets/img/person.png" class="img-circle" alt="Cinque Terre" width="45" height="45">
+                            <span class="px-3 font-weight-bold text-decoration-none text-body">{{ username }}</span><br> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span class="px-3 font-weight-bold text-decoration-none text-body" [hidden]="!showStudent" style="padding-top: 0; margin-top: 0;"> {{ StudentNumber }} </span>
+                        </a>
+
+                        <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li class="nav-item">
+                                <a href class="nav-link" (click)="logout()"><span class="px-2 font-weight-bold text-decoration-none text-body" >LogOut</span></a>
+                            </li>
+                            <div *ngIf="!showSuperAdminBoard&&!showAdminBoard">
+                                <a class="dropdown-item" style="cursor: pointer;" (click)="navigateToInitialApplicant()">Profile</a>
+                            </div>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" style="cursor: pointer;" (click)="navigateToHome()">Home</a>
+
+                        </div>
+
+
+                    </li>
+
+                </ul>
+            </div>
+        </nav>
+    </header>
+</div>
+<router-outlet></router-outlet>
+<div class="container">
+    <div class="row" style="height: 70px;">
+
+    </div>
+</div>

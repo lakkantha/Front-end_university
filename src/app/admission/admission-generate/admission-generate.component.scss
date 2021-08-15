@@ -1,0 +1,74 @@
+// .watermark {
+//   position: absolute;
+//   opacity: 0.05;
+//    top: 10%;
+//   padding: 600px;
+//   background: url(../../../assets/img/OP_logo.png);
+//   background-repeat: no-repeat;
+//   background-size: 1000px 1200px;
+//   }
+
+.container {
+  max-width: 1200px;
+}
+
+.BackImage {
+  position: absolute;
+  width: 1160px;
+  height: 1650px;
+  opacity: 0.05;
+  z-index: 5;
+}
+
+.bottom-one {
+  margin-bottom: 0.9cm;
+}
+
+;
+
+.text-color {
+  color: black;
+}
+
+;
+
+.wrapper {
+  background: white;
+  padding: 25px;
+}
+
+// .page {
+//   //width: 21cm;
+//   //min-height: 29.7cm;
+//   padding: 2cm;
+//   margin: 1cm auto;
+//   border: 1px #D3D3D3 solid;
+//   border-radius: 5px;
+//   background: white;
+//   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+// }
+
+
+.example1 {
+  box-sizing: content-box;
+  width: 1000px;
+  height: 1px;
+  padding: 30px;
+  border: 1px solid rgb(181, 181, 194);
+}
+
+.example2 {
+  box-sizing: content-box;
+  width: 150px;
+  height: 1px;
+  padding: 30px;
+  border: 1px solid rgb(181, 181, 194);
+}
+
+.example3 {
+  box-sizing: content-box;
+  width: 1000px;
+  height: 20px;
+  padding: 30px;
+  border: 1px solid rgb(181, 181, 194);
+}

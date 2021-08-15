@@ -1,0 +1,582 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h4>Admin Panel</h4>
+      <p class="small">
+       Home > Add Entrance Exam Lab Capacity  </p>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="Content-wrapper">
+ 
+            <div class="row">
+    
+              <div class="col-12">
+                <h5  style="text-align:center"> Add Entrance Exam Lab Capacity - {{Center}}</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                            <form [formGroup]="addEntranceExamForm">  
+                                <div class="row" style="padding: 10px;">
+                                    <div class="col-sm-4">
+                                        <input class="text-bold" type="checkbox">&nbsp;
+                                        <label for="" class="text-bold">Use Previous Schedule</label> 
+                                    </div>
+                                </div>
+
+                                <div class="Content-wrapper" style="background-color: #f3f3f3;">
+                                    <div class="col-sm-10">
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                Exam conducting mode*
+                                            </div>
+                                            <div class="col-sm-7">
+                                               {{Manual}} 
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                Exam center type*
+                                            </div>
+                                            <div class="col-sm-7">
+                                                {{Type}} 
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                Exam root labs*
+                                            </div>
+                                            <div class="col-sm-7">
+                                              <div *ngFor="let a of examcenter;let i=index;" class="group" style="display: inline-block;">
+                                                {{a.description}}{{","}}
+                                               </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                Exam mediums is same as program conducting medium?*
+                                            </div>
+                                            <div class="col-sm-7">
+                                                {{Conducting}} 
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-5">
+                                                Exam medium/s*
+                                            </div>
+                                            <div *ngFor="let a of Medium;let i=index;" class="group" style="display: inline-block;">
+                                              {{a.medium}}{{","}}
+                                             </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+<br><br>
+                                <form [formGroup]="this.addEntranceExamForm">
+                                <div  class="Content-wrapper" class="col-sm-12">
+                                    <div class="col-sm-12">
+                                       <b> Add Exam labs</b>
+                     <div style="padding: 15px;">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Entrance Exam Name*
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <input type="text " formControlName="entrance_exam_name" class="form-control input-type form-control-sm" id="entrance_exam_name" placeholder="" required>
+                                            </div>
+                                        </div>
+
+<br>
+<div class="row">
+  <div class="col-sm-3">
+      Exam center
+  </div>
+  <div class="col-sm-5">
+    <select formControlName="entrance_exam_center" name="entrance_exam_center" class="form-control input-type form-control-sm" (change)="gethall($event.target.value)">
+      <option>
+        --Select Center--
+    </option> 
+      
+    <option  *ngFor="let a of getFilteredExamCenters;let i=index;" value={{a.entranceExamCenter.id}}  >
+      {{a.entranceExamCenter.centerName}}
+  </option>
+  </select>
+
+  </div>
+
+
+  <!-- <div class="col-sm-2"> <button type="button" class="btn btn-sm  btn-main" data-toggle="modal" data-target="#myModal">ADD Center</button></div> -->
+  <div class="col-sm-2"> <button type="button" class="btn btn-sm  btn-main" (click)="addCenter()">ADD Center</button></div>
+</div>
+<br>
+
+<br>
+<div class="row">
+  <div class="col-sm-3">
+      Lab No
+  </div>
+  <div class="col-sm-5">
+    <!-- <input type="text " formControlName="hall_number" class="form-control input-type form-control-sm"  placeholder=""> -->
+     <select formControlName="LabNo" class="form-control input-type form-control-sm"(change)="getselcthall($event.target.value)">
+      <option>
+        --Select Lab--
+    </option> 
+       <option  *ngFor="let admin of hall" value={{admin.id}}>
+          {{admin.description}}
+      </option> 
+  </select> 
+      
+  </div>
+  <div class="col-sm-2"> <button type="button" class="btn btn-sm  btn-main" data-toggle="modal" data-target="#myModal1">ADD Hall</button></div>
+</div>
+<br>
+                                      
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                Medium/s
+                                            </div>
+                                            <div class="col-sm-5">
+                                                <div class="form-check-inline">
+                                                    <label class="form-check-label">
+                                                      <div *ngFor="let a of Medium;let i=index;" class="group" style="display: inline-block;">
+                                                       
+                                                      
+                                                        <input formControlName="Medium" type="radio" class="form-check-input" name="Medium" (click)="Onmedium(a.id,$event.target.checked)" value={{a.id}} >{{a.medium}}&nbsp;
+                                                      </div>
+                                                    </label>
+                                                </div>
+                                              
+                                            </div>
+                                        </div>
+<br>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                            Method of Selection
+                                        </div>
+                                        <div class="col-sm-5"> 
+                                          <!-- <input type="date" class="form-control input-type form-control-sm">   -->
+                                          <select formControlName="selected_method" name="selected_method" class="form-control input-type form-control-sm" (change)="setMethodofSelection($event.target.value)">
+                                            <option  >
+                                            --Select Date--                                            </option> 
+                                            <option  *ngFor="let date of  getMethodofSelection" value={{date.programEntryExamMethod.entryExamMethod.id}}>
+                                                {{date.programEntryExamMethod.entryExamMethod.description}}
+                                            </option> 
+                                        </select> 
+                                        </div>
+                                      </div>
+<br>
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                            Date
+                                        </div>
+                                        <div class="col-sm-5"> 
+                                          <!-- <input type="date" class="form-control input-type form-control-sm">   -->
+                                          <select formControlName="selected_date" name="selected_date" class="form-control input-type form-control-sm" (change)="setDate($event.target.value)">
+                                            <option  >
+                                             --Select Date--                                            </option> 
+                                            <option  *ngFor="let date of  getDates" value={{date.assigndate}}>
+                                                {{date.assigndate}}
+                                            </option> 
+                                        </select> 
+                                        </div>
+                                      </div>
+<br>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                              Qty Per Lab
+                                            </div>
+                                            <div class="col-sm-5">
+                                                
+                                                <input type="text " formControlName="capacity" class="form-control input-type form-control-sm"  value="capacity">
+                                            </div>
+                                                <div class="col-sm-2">
+                                                <i (click)="Edit()" class="fas pointer fa-edit" style="font-size:x-large;"  aria-hidden="true" data-toggle="modal" data-target="#EditModal1"></i>   
+                                                 </div>
+                                            
+                                            
+
+                                        </div>
+                                        <div class="col-sm-2 float-right">
+                                          <button class="btn btn-sm  btn-main" (click)="onSubmit()"  type="button">Save</button>
+                                           </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="this.AddingExamLab[0]">
+                                    <div class="row">
+                                      <div class="col-sm-3">
+                                        <label style="text-decoration: underline;">Labs and Qty Per Lab</label> 
+                                      </div>
+                                    
+                                    </div>
+                                    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                      
+                                    <table id="labs">
+                                      <tr>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                        <th>Lab No.</th>
+                                        <th>Medium/s </th>
+                                        <th>Qty Per Lab</th>
+                                        
+                                      </tr>
+                                     
+                                      <tr *ngFor="let AddLab of tablValues | slice:0:End ; let i = index">
+                                        <td><i (click)="EditTable(i)" class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                                        <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                                       
+                                        <td>{{AddLab.entranceExamCenterHall.description}}</td>
+                               
+                                        <td ><div *ngFor="let medium of AddLab.examMediumsList">{{medium.medium}}</div></td>
+                                        <td>{{AddLab.qtyPerLab}}</td>  
+                                      </tr>
+                    
+                                    
+                                       
+                                     
+                                        
+                                     
+                                                    
+                                    </table>
+                                    </div>
+                      <br>
+                                   
+                      <br>
+                                    <div class="row">
+                                      <div class="col-sm-8"></div>
+                                    
+                                      <div class="col-sm-2">
+                                        <button type="button" class="btn btn-sm btn-reset" (click)="onReset()" >Reset</button>
+                                      </div>
+                                    </div>  
+                                  </div>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Edit Modal1 -->
+
+<div class="modal fade" id="EditModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <form [formGroup]="EditForm1" >
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+            <div class="form-group">
+  
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                     Capacity
+                  </label>
+                </div>
+                <div class="col-sm-4">     
+                  <label class="checkbox-inline">
+                    <input formControlName="capacity" name="capacity" class="form-control input-type form-control-sm" id="capacity" type="text" value="capacity"required>
+                    <div *ngIf="EditForm1.invalid"
+    class="alert alert-danger">Max Capacity is {{maxcapacity}}</div>
+                  </label>      
+                </div>
+             
+              </div>
+  
+            </div>
+          
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm  btn-main"  (click)=onUpdated() data-toggle="modal" data-target="#UpdateModal" [disabled]="EditForm1.invalid"  >Update</button>
+          <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Close</button> 
+        </div>
+  
+      </form> 
+      </div>
+    </div>
+  </div>
+<!-- Edit Modal -->
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <form [formGroup]="EditForm" >
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+                    
+     
+
+
+              <div class="row">
+                <div class="col-sm-3">
+                    Exam center
+                </div>
+                <div class="col-sm-5">
+                  <select formControlName="entrance_exam_center" class="form-control input-type form-control-sm" (change)="gethall($event.target.value)">
+                    <option  >
+                      --Select Center--
+                   </option> 
+                   <option  *ngFor="let a of getFilteredExamCenters;let i=index;" value={{a.entranceExamCenter.id}}  >
+                    {{a.entranceExamCenter.centerName}}
+                </option>
+                </select>
+          
+                </div>
+
+
+                <div class="col-sm-2"> <button type="button" class="btn btn-sm  btn-main" data-toggle="modal" data-target="#myModal">ADD Center</button></div>
+            </div>
+<br>
+  
+<div class="row">
+  <div class="col-sm-3">
+      Lab No
+  </div>
+  <div class="col-sm-5">
+    <!-- <input type="text " formControlName="hall_number" class="form-control input-type form-control-sm"  placeholder=""> -->
+     <select formControlName="LabNo" class="form-control input-type form-control-sm" (change)="getselcthall($event.target.value)"> 
+      <option  >
+       --Select Hall--
+    </option>
+       <option  *ngFor="let admin of hall" value={{admin.id}}>
+          {{admin.description}}
+      </option> 
+  </select> 
+      
+  </div>
+  <div class="col-sm-2"> <button type="button" class="btn btn-sm  btn-main" data-toggle="modal" data-target="#myModal1">ADD Hall</button></div>
+</div>
+  <br>
+      
+              <div class="row">
+                <div class="col-sm-3">
+                  <label>
+                    Medium
+                  </label>
+                </div>
+                <div class="col-sm-5">     
+                  <div *ngFor="let a of Medium;let i=index;" class="group" style="display: inline-block;">
+                                   
+                    <input formControlName="Medium{{i}}" type="radio" class="form-check-input" name="Medium" (click)="Onmedium(a.id,$event.target.checked)" [value]="a.id">{{a.medium}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>   
+                </div>
+              
+              </div>
+  <br>
+              <div class="row">
+                <div class="col-sm-3" >
+                  <label>
+                     Capacity
+                  </label>
+                </div>
+                <div class="col-sm-5">     
+                  
+                    <input formControlName="capacity" name="capacity" class="form-control input-type form-control-sm"  type="text" value="capacity" required>
+                    <div *ngIf="c.capacity.invalid && c.capacity.touched"
+                    class="alert alert-danger">Max Capacity is {{maxcapacity}}</div>
+                      
+                </div>
+             
+              </div>
+  
+            </div>
+          
+        
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light"  (click)=onUpdate() data-toggle="modal" data-target="#UpdateModal" [disabled]="EditForm.invalid"  >Update</button>
+          <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Close</button> 
+        </div>
+  
+      </form> 
+      </div>
+    </div>
+  </div>
+
+
+   <!-- ADD Lab -->
+   <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Exam Lab</h4>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="AddExamCenters" >
+            <div class="modal-body">
+
+
+
+              <div class="row">
+                <div class="col-sm-4" style="font-weight: bold;">
+                  <label>
+                  Exam Center
+                  </label>
+                </div>
+                <div class="col-sm-7">     
+                 
+                                   
+                  <select formControlName="examRootCenter" name="examRootCenter" class="form-control input-type form-control-sm" >
+                    <option  *ngFor="let a of examcenter;let i=index;" value={{a.id}}  >
+                                                 
+                      {{a.description}}
+                  </option>
+                  </select>
+
+
+
+
+                  </div>
+                     
+                </div>
+                <br>
+            <div class="row">
+              <div class="col-sm-4" style="font-weight: bold;">
+                <label>
+                 Address
+                </label>
+              </div>
+              <div class="col-sm-7">     
+               
+                                 
+                  <textarea formControlName="address"  class="form-control input-type form-control-sm" name="address"  ></textarea>
+                </div>
+                   
+              </div>
+              <br><br>
+              <div class="row">
+                <div class="col-sm-4" style="font-weight: bold;">
+                  <label>
+                    CenterName
+                  </label>
+                </div>
+                <div class="col-sm-7">     
+                 
+                                   
+                    <input formControlName="centerName" type="text" class="form-control input-type form-control-sm" name="centerName"  >
+                  </div>
+                     
+                </div>
+          
+              </div>
+        </form>
+        </div>
+    
+        <div class="modal-footer">
+          <button class="btn btn-sm  btn-main"
+          (click)="Update()" type="button" data-toggle="modal" data-target="#SubmitModal" >Update
+  </button>
+          <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+      
+      
+      
+    </div>
+  </div>
+  
+
+
+  <div class="modal fade" id="myModal1" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Exam Hall </h4>
+        </div>
+        <div class="modal-body">
+
+          <form [formGroup]="AddExamHall" >
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-sm-4" style="font-weight: bold;">
+                  <label>
+                Center
+                  </label>
+                </div>
+                <div class="col-sm-7">     
+                 
+                                   
+                  <select formControlName="entrance_exam_center" class="form-control input-type form-control-sm" (change)="gethall($event.target.value)">
+                    <option  *ngFor="let a of getFilteredExamCenters;let i=index;" value={{a.entranceExamCenter.id}}  >
+                      {{a.entranceExamCenter.centerName}}
+                  </option>
+               </select>
+
+
+
+
+                  </div>
+                     
+                </div>
+                <br>
+            <div class="row">
+              <div class="col-sm-4" style="font-weight: bold;">
+                <label>
+                Hall Name
+                </label>
+              </div>
+              <div class="col-sm-7">     
+               
+                                 
+                  <input formControlName="HallName"  class="form-control input-type form-control-sm" name="HallName"  >
+                </div>
+                   
+              </div>
+              <br><br>
+              <div class="row">
+                <div class="col-sm-4" style="font-weight: bold;">
+                  <label>
+                   Capacity
+                  </label>
+                </div>
+                <div class="col-sm-7">     
+                 
+                                   
+                    <input formControlName="capacity" type="text" class="form-control input-type form-control-sm" name="centerName"  >
+                  </div>
+                     
+                </div>
+          
+              </div>
+        </form>
+        </div>
+    
+        <div class="modal-footer">
+          <button class="btn btn-sm  btn-main"
+          (click)=" Updatehall()" type="button" data-toggle="modal" data-target="#SubmitModal" >Update
+  </button>
+          <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+      
+      
+      
+    </div>
+  </div>
+  

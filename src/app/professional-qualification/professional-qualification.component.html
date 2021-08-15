@@ -1,0 +1,352 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-12">
+            <h4> Enter your Professional Qualifications <a (click)='callopen()'>
+                    <fa-icon [icon]="faInfoCircle" style="color:orange; width: 100px;cursor: pointer;"></fa-icon>
+                </a></h4>
+            <p class="small">
+                Home > Enter your Professional Qualifications </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+            <div class="Content-wrapper">
+
+                <div>
+                    <h6 style="color: blue; margin-top: 10px; margin-bottom: 10px;">It is much better to fill your
+                        Professional Qualifications. If not, please skip this.</h6>
+                </div>
+
+                <form #form="ngForm" (ngSubmit)="saveCertificatesProfessional(certiProfessional)">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                            <div class="form-group row">
+                                <div class="col-md-12">
+                                    <label for="certificates">Upload
+                                        Certificates <small>(pdf only)</small> </label>
+                                    <input type="file" class="form-control-sm" id="certificates" required
+                                        [(ngModel)]="certiProfessional.certificateName" name="certificates"
+                                        #certificates="ngModel" accept="application/pdf" (change)="readFile($event)"
+                                        (change)="selectFile($event)">
+                                </div>
+                                <div class="col-12 col-sm-12 col-md-2 col-lg-2 col-xl-2">
+                                    <div class="row " id="button-group">
+                                        <div class="col-12 text-right py-2">
+                                            <button *ngIf="certificate" class="btn btn-sm  btn-main" type="submit">
+                                                <i class="fa fa-plus" style="font-size:18px"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form #form="ngForm" (ngSubmit)="onFormSubmit(data)">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                            <!-- Qualification field-->
+                            <div class="form-group">
+                                <label for="qualification">Qualification * :</label>
+                                <input type="text " class="form-control input-type form-control-sm" id="qualification"
+                                    required [(ngModel)]="data.qualification" name="qualification"
+                                    #qualification="ngModel">
+                            </div>
+
+                            <!-- Effective Date field-->
+                            <div class="form-group">
+                                <label for="edate">Effective Date :</label>
+                                <input type='date' class="form-control input-type form-control-sm" id="edate" required
+                                    [(ngModel)]="data.edate" name="edate" #edate="ngModel">
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+                            <!-- Institution field-->
+                            <div class="form-group">
+                                <label for="institution">Institution * :</label>
+                                <input type="text " class="form-control input-type form-control-sm" id="institution"
+                                    required [(ngModel)]="data.institution" name="institution" #institution="ngModel">
+                            </div>
+
+                            <!-- Duration field-->
+                            <div class="form-group duration">
+                                <label for="duration">Duration(Month) * :</label>
+                                <table>
+                                    <th class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                        <input type="text" (keypress)="numberOnly($event)"
+                                            class="form-control input-type form-control-sm" id="duration" required
+                                            [(ngModel)]="data.duration" name="duration" #duration="ngModel">
+                                    </th>
+                                </table>
+
+                                <div class="row">
+                                    <button class="btn btn-sm  btn-main" type="submit">
+                                        Save & add another qualification
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row" style="padding:15px">
+                        <table class="table table-striped" id="table">
+                            <thead>
+                                <tr>
+                                    <th>Qualification</th>
+                                    <th>Institution</th>
+                                    <th>Effective Date</th>
+                                    <th>Duration(Year)</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let qualification of qualifications">
+                                <tr id="qualification.id">
+                                    <td id="qualification">{{qualification.qualification}}</td>
+                                    <td id="institution">{{qualification.institution}}</td>
+                                    <td id="edate">{{qualification.edate}}</td>
+                                    <td id="duration">{{qualification.duration}}</td>
+                                    <td class="row">
+                                        <div style=" padding-right: 15px">
+                                            <a id="editbtn" class="table-row-action edit-action"
+                                                (click)="OpenEdit(edit, qualification.id)">
+                                                <i class="fa fa-edit" style="font-size:18px;"></i> </a>
+                                        </div>
+
+                                        <!--------- edit form pop up-------------->
+                                        <ng-template #edit>
+                                            <div class="modal-header">
+                                                <h4 class="modal-title pull-left">Edit Row</h4>
+                                                <button type="button" class="close pull-right" aria-label="Close"
+                                                    (click)="modalRef.hide()">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <form #form="ngForm" (ngSubmit)="Update(qualification.id, data2)">
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <label for="qualification">Qualification:</label>
+                                                        <input type="text"
+                                                            class="form-control input-type form-control-sm"
+                                                            id="qualification" value="editqualification"
+                                                            [(ngModel)]="data2.qualification" name="qualification">
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="institution">Institution:</label>
+                                                        <input type="text"
+                                                            class="form-control input-type form-control-sm"
+                                                            id="institution" value=editinstitution
+                                                            [(ngModel)]="data2.institution" name="institution">
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="edate">Effective Date:</label>
+                                                        <input type="date"
+                                                            class="form-control input-type form-control-sm" id="edate"
+                                                            value=editdate [(ngModel)]="data2.edate" name="edate"
+                                                            #edate="ngModel">
+                                                    </div>
+                                                    <div class="row">
+                                                        <label for="duration">Duration:</label>
+                                                        <input type="text"
+                                                            class="form-control input-type form-control-sm"
+                                                            id="duration" value=editduration
+                                                            [(ngModel)]="data2.duration" name="duration">
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="submit" class="btn btn-outline-dark">Update</button>
+                                                </div>
+                                            </form>
+                                        </ng-template>
+
+                                        <div style=" padding-left: 15px" (click)="openDelete(deletedata)">
+                                            <i class="fa fa-trash" style="font-size:18px;"></i>
+                                            <ng-template #deletedata>
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title pull-left">Message</h4>
+                                                    <button type="button" class="close pull-right" aria-label="Close"
+                                                        (click)="modalRef.hide()">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Do you really want to delete the record?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        (click)="modalRef.hide()">Cancle</button>
+                                                    <button type="button" class="btn btn-outline-dark"
+                                                        (click)="delete(qualification.id)">Delete</button>
+                                                </div>
+                                            </ng-template>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="certificate-list">
+                            <h5><b>Uploaded Certificates</b></h5>
+
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list" *ngIf="counsellingProfessional">
+                                    <a
+                                        href='{{base_url}}/api/counselling/files/proffe/{{initialApplicant.toString()}}'>{{initialApplicant}}_professional</a>
+                                </li>
+                            </ul>
+
+                            <ul class="list-group list-group-flush"
+                                *ngFor="let certificate of certificatesProfessional">
+                                <li class="list-group-item list">
+                                    <a
+                                        href="{{base_url}}/api/file/download/s3bucket/{{certificate.id}}_professional.pdf">
+                                        {{certificate.certificateName}}</a>
+                                    <a (click)="deleteCertificatesProfessional(certificate.id)"><i
+                                            class="fa fa-remove alert-danger icon pull-right"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="row " id="button-group">
+                        <div class="col-12 text-right py-2">
+                            <button type="reset" class="btn btn-sm  btn-reset">Reset</button>
+
+                            <button type="button" class="btn btn-sm  btn-main" [routerLink]="['/home']">Save
+                                & Exit</button>
+                            <button type="button" class="btn btn-sm  btn-main" (click)="continue()">Save
+                                & Continue
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+
+            <app-language> </app-language>
+        </div>
+    </div>
+</div>
+
+<!------------- popup msg----------------->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Saved succesfully.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #deleteok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is successfully deleted.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<ng-template #editok>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Record is edited successfully.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- fill mandatory-->
+<ng-template #fillMandatory>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Please fill the mandatory fields.
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="fillRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- Save sucessfull msg-->
+<ng-template #saveSucessful>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="sucessRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Saved successfully
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="sucessRef.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- upload pdf files -->
+<ng-template #pdfOnly>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Accepted Pdf file format only
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="pdf.hide()">OK</button>
+    </div>
+</ng-template>
+
+<!-- validate date-->
+<ng-template #validateDate>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{msg}}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+    </div>
+</ng-template>

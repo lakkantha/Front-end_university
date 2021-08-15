@@ -1,0 +1,119 @@
+<div *ngIf="this.show" class="container" style="margin-bottom: 20%;">
+  <div class="row">
+      <div class="col-12">
+          <h4>
+            Applications
+          </h4>
+          <p class="small">
+              Home > Application Status
+          </p>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <!-- <h6>Created Payment Details</h6> -->
+          <div class="Content-wrapper">
+          <div *ngIf="this.initialApplicant" class="Content-wrapper mb-3">
+            <div class="row">
+                <div class="col-12">
+                  <ul class="nav nav-tabs">
+                    <li class="active"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true"><h6>Pending Applications
+                    </h6></a></li>
+                    <li><a class="nav-link notice" id="profile-tab" data-toggle="tab"  fragment="menu1" href="#menu1" role="tab" aria-controls="menu1" aria-selected="false"><h6>Notifications<span [hidden]="notification.length==0" class="badge">{{notification.length}}</span></h6></a></li>
+
+                  </ul>
+
+                </div>
+            </div>
+          </div>
+
+
+
+
+
+
+
+            <div class="tab-content">
+              <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h4>Pending Applications</h4>
+                <div *ngIf="this.initialApplicant && this.sequence" class="Content-wrapper">
+                  <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th scope="col">#</th>
+                              <th scope="col">Programme</th>
+                              <th scope="col">Action Required</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let applicant  of initialApplicant; let i = index">
+                              <th scope="row">{{i+1}}</th>
+                              <td>{{applicant.programStarted.program.title}}</td>
+                              <td><button type="button" class="btn btn-success btn-sm" (click)="routeToNext(applicant.id)">{{getNextSequence(applicant.id)}}</button></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <div id="menu1" class="tab-pane fade"  fragment = "menu1">
+                <h4>Notice</h4>
+                <div *ngIf="this.initialApplicant && this.sequence" class="Content-wrapper">
+                  <div class="row">
+                      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th style="width: 10%; text-align: center;" scope="col">#</th>
+                              <th style="width: 60%; text-align: center;" scope="col">Notification</th>
+                              <th style="width: 30%; text-align: center;" scope="col">Action Required</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let notice  of notification; let i = index">
+                              <th style="width: 10%; text-align: center;" scope="row">{{i+1}}</th>
+                              <td style="width: 60%; text-align: center;" >{{notice.message}}</td>
+                              <td style="width: 30%; text-align: center;" > <button type="button" class="btn btn-success btn-sm" (click)="popup(i)">View</button>&nbsp;
+                                <button type="button" class="btn btn-danger btn-sm" (click)="deletenotification(notice.id)">Delete</button></td>
+
+
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+              </div>
+              </div>
+
+            </div>
+
+</div>
+
+
+
+      </div>
+  </div>
+</div>
+
+<a href="#successModal" class="trigger-btn" data-toggle="modal" hidden id="myModal"></a>
+  <div id="successModal" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="icon-box">
+            <img src="../assets/Images/notification.png" style="margin-top: auto; margin-bottom: auto; margin-left: auto; margin-right: auto;">
+          </div>
+          <h4 class="modal-title w-100">Notification!</h4>
+        </div>
+        <div class="modal-body">
+          <p class="text-center">{{mm}}</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-success btn-block" data-dismiss="modal">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>

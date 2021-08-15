@@ -1,0 +1,298 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h4>Admin Panel</h4>
+        <p class="small">
+         Home > Define Postal Codes  </p>
+        </div>
+      </div>
+      <div class="row ">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="Content-wrapper">
+   
+              <div class="row">
+      
+                <div class="col-12">
+                  <h4  style="text-align:center"> Define Postal Codes</h4>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                      <br>
+                                <form action="" [formGroup]="definePostalCode">
+
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="text-bold" style="text-align: center">
+                                                Administrative Center
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <select formControlName="Administrative_Center" class="form-control input-type form-control-sm">
+                                                    <option  *ngFor="let admin of Administrative_Center" value={{admin.adc_adminCenterId}}>
+                                                        {{admin.adc_description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="text-bold" style="text-align: center">
+                                                Province
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <select formControlName="Province" class="form-control input-type form-control-sm" (change)="getDistrict($event.target.value)">
+                                                    <option  *ngFor="let Pro of Province" value={{Pro.id}}>
+                                                        {{Pro.description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="text-bold" style="text-align: center">
+                                                District*
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <select formControlName="District" class="form-control input-type form-control-sm" (change)="getCity($event.target.value)">
+                                                    <option  *ngFor="let Dis of District" value={{Dis.id}}>
+                                                        {{Dis.description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="text-bold" style="text-align: center">
+                                                City*
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                                <select formControlName="City" class="form-control input-type form-control-sm" (change)="getPostalCode($event.target.value)">
+                                                    <option  *ngFor="let Ci of City" value={{Ci.id}}>
+                                                        {{Ci.description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                            <label class="text-bold" style="text-align: center">
+                                                Postal Code*
+                                            </label>
+                                        </div>
+                                        <div class="col-sm-5">
+                                            <div class="form-group">
+                                             <input type="text"  formControlName="Postal_code"  value="{{potalcode}}"    class="form-control input-type form-control-sm">
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                           
+                                    <div class="col-sm-2 float-right" >
+                                        <button class="btn btn-sm  btn-main" (click)="onSubmit()"  type="button">Save</button>
+                                         </div>
+
+
+
+
+
+                                         <br><br>
+                                         <div *ngIf="this.AddingPostalcode[0]">
+                                            <div class="row">
+                                              <div class="col-sm-3">
+                                                <label style="text-decoration: underline;">Exam cenetrs and capacity</label> 
+                                              </div>
+                                            
+                                            
+
+
+                                            
+                                            
+                                            </div>
+                                            <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                                            <thead>
+                                                <tr>
+                                                    <th >Edit</th>
+                                                    <th >Delete</th>
+                                                    <th >Province</th>
+                                                    <th >District</th>
+                                                    <th >City </th>
+                                                    <th >PostalCode</th>
+                                                    <th >Administrative Center</th>
+                                                    
+                                                  </tr>
+                                            </thead>
+                                             
+                                           <tbody>
+                                            <tr *ngFor="let AddPostal of AddingPostalcode | slice:0:End ; let i = index">
+                                                <td><i (click)="EditTable(i)" class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                                                <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                                               
+                                                <td>{{AddPostal.city.district.province.description}}</td>
+                                                <td>{{AddPostal.city.district.description}}</td>
+                                                <td>{{AddPostal.city.description}}</td>
+                                                <td>{{AddPostal.postalCode.postalcode}}</td>  
+                                                <td>{{AddPostal.rgtAdminCenter.adc_description}}</td>  
+                                              </tr>
+                                           </tbody>
+                            
+                                            
+                                               
+                                             
+                                                
+                                             
+                                                            
+                                            </table>
+                              <br>
+                                           
+                              <br>
+                                            <div class="row">
+                                              <div class="col-sm-8"></div>
+                                             
+                                              <div class="col-sm-2">
+                                                <button type="button" class="btn btn-primary" (click)="onReset()" >Reset</button>
+                                              </div>
+                                            </div>  
+                                          </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
+<!-- Edit Modal -->
+
+<div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <form [formGroup]="EditForm" >
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+            <div class="form-group" *ngFor="let Viewpos of Viewpostal" >
+  
+                <div class="row">
+                    <div class="col-sm-5">
+                        <label class="text-bold" style="text-align: center">
+                            Province
+                        </label>
+                    </div>
+                    <div class="col-sm-7">
+                        <div class="form-group">
+                            <select formControlName="Province" name="Province" class="form-control input-type form-control-sm" (change)="getDistrict($event.target.value)">
+                                <option  *ngFor="let Pro of Province" value={{Pro.id}}>
+                                    {{Pro.description}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+  <br>
+             
+  <div class="row">
+    <div class="col-sm-5">
+        <label class="text-bold" style="text-align: center">
+            District*
+        </label>
+    </div>
+    <div class="col-sm-7">
+        <div class="form-group">
+            <select formControlName="District" class="form-control input-type form-control-sm" (change)="getCity($event.target.value)">
+                <option  *ngFor="let Dis of District" value={{Dis.id}}>
+                    {{Dis.description}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>
+  <br>
+  <div class="row">
+    <div class="col-sm-5">
+        <label class="text-bold" style="text-align: center">
+            City*
+        </label>
+    </div>
+    <div class="col-sm-7">
+        <div class="form-group">
+            <select formControlName="City" class="form-control input-type form-control-sm" (change)="getPostalCode($event.target.value)">
+                <option  *ngFor="let Ci of City" value={{Ci.id}}>
+                    {{Ci.description}}
+                </option>
+            </select>
+        </div>
+    </div>
+</div>       
+  <br>
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                     Postal Code
+                  </label>
+                </div>
+                <div class="col-sm-7">     
+                  
+                    <input formControlName="Postal_code" name="Postal_code" class="form-control input-type form-control-sm"  type="text" value="Postal_code">
+                    
+              
+                </div>
+             
+              </div>
+
+              <br>
+              <div class="row">
+                <div class="col-sm-5">
+                    <label class="text-bold" style="text-align: center">
+                        Administrative Center
+                    </label>
+                </div>
+                <div class="col-sm-7">
+                    <div class="form-group">
+                        <select formControlName="Administrative_Center" class="form-control input-type form-control-sm">
+                            <option  *ngFor="let admin of Administrative_Center" value={{admin.adc_adminCenterId}}>
+                                {{admin.adc_description}}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div> 
+
+  
+            </div>
+          
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm  btn-main"  (click)=onUpdate() data-toggle="modal" data-target="#UpdateModal"   >Update</button>
+          <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Close</button> 
+        </div>
+  
+      </form> 
+      </div>
+    </div>
+  </div>

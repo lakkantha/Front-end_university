@@ -1,0 +1,82 @@
+<div *ngIf="!spinnerOn" class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="Content-wrapper">
+                <div class="col-sm-10 mx-auto" style="background-color: #e9ecef;">
+                    <div class="row">
+                        <div class="col-sm-12 " style="background-color: black; color: white; text-align: center;">
+                            Reports >> Application Statistics
+                        </div>
+                    </div>
+                    <br>
+                    <div *ngIf="adminRole=='ROLE_ADMIN'" class="row">
+                        <div class="col-sm-12">
+                            <h4>
+                                Application Statistics at {{this.centerCode}} : {{this.centerName}}
+                            </h4>
+                        </div>
+                    </div>
+                    <div *ngIf="adminRole=='ROLE_SUPER_ADMIN'" class="row">
+                        <div class="col-sm-12">
+                            <h4>
+                                Application Statistics
+                            </h4>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-1"></div>
+                        <div class="col-sm-2">
+                            Date : {{ CurrentDate | date: 'dd/MM/yyyy' }}
+                        </div>
+                        <div class="col-sm-6"></div>
+                        <div class="col-sm-2">
+                            Time : {{ CurrentDate | date: 'HH:mm:ss' }}
+                        </div>
+                        <div class="col-sm-1"></div>
+                    </div>
+                    <br>
+                    <div style="overflow-x: scroll;">
+                        <table id="programs">
+                            <tr>
+                                <th style="text-align:center">No</th>
+                                <th style="text-align:center">Programme</th>
+                                <th style="text-align:center">Academic Year</th>
+                                <th style="text-align:center">Application Closing Date</th>
+                                <th style="text-align:center">Application Count</th>
+                            </tr>
+                            <tr *ngFor="let tableData of finalFilteredProgramData; let i = index">
+                                <td>{{i+1}}</td>
+                                <td class="pointer" (click)="onRedirectToSummery(tableData.programStartedId)"><a href="javascript:void(0)">{{tableData.program}}</a></td>
+                                <td>{{tableData.academicYear}}</td>
+                                <td>{{tableData.toDate}}</td>
+                                <td class="pointer"  (click)="onRedirect(tableData.programStartedId,tableData.count)"><a href="javascript:void(0)">{{tableData.count}}</a></td>
+                            </tr>
+                           
+                        </table>
+                    </div>
+                    
+                    <br>
+                        <button type="submit" (click)="captureScreen()" id="buttonForPrint" class="btn pull-right btn-main">Print</button>
+                    <br>
+                    <br>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="spinnerOn" class="container">
+    <div class="row">
+        <div class="Content-wrapper">
+            <div id="spinner" class="col-6" style="margin-left: auto; margin-right: auto;">
+                <div id="spinner_content" class="col-6" style="margin-left: auto; margin-right: auto;">
+                    <div class="form-group" style="margin-left: auto; margin-right: auto;">
+                        <h2>Please wait...</h2>
+                        <img src="../../../../assets/Images/spinner.gif" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

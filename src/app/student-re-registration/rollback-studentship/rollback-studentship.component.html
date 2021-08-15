@@ -1,0 +1,151 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <div class="Content-wrapper">
+        <!-- Horizontal Form -->
+        <div class="myheader">
+          <h2 class="header-text">Studentship <i style="font-size:24px" class="fa">&#xf101;</i> Rollback
+          </h2>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <div class="col-12 col-sm-12" style="margin: auto;">
+          <div class="col-sm-12 mx-auto" style="margin-top: 20px;">
+            <div class="row">
+              <!-- <div class="select" > -->
+                <label for="cS" class=" col-3 col-sm-3">Programme : <b
+                  style="color: red;">*</b></label>
+                <select id="selectSpecialization" name="cS" class=" select col-6 col-sm-6" (change)="selectProgram($event.target.value)" formControlName="cS" required>
+                  <option value="" disabled hidden selected> ------- Select ------- </option>
+                  <option *ngFor="let c of programs" name="cS"  value={{c.programID}} id="c">
+                    {{c.programName}}
+                  </option>
+                </select>
+
+              <!-- </div> -->
+            </div>
+
+            <div class="form-group row">
+                <label for="applicationNo" class="col-3 col-sm-3">NIC No. / Passport No.<b
+                    style="color: red;">*</b></label>
+                <!-- <div class="col-8 col-sm-8"> -->
+                  <input type="text" class="select col-6 col-sm-6" id="applicationNo"
+                    placeholder="NIC No/ Passport No" name="applicationNo" [(ngModel)]="nic">
+                <!-- </div> -->
+            </div>
+            <div class="row" style="padding: 5px">
+              <div class="col-sm-12 text-center py-2">
+                  <button [disabled]="this.nic=='' && this.selectedProgramId==0" type="submit" class="btn btn-sm  btn-main" (click)="submit()" id="submitBtn"> Search </button>&nbsp;&nbsp;&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="btnClicked" class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+          <div class="student-preference">
+            <div >
+              <table >
+                <caption>Infromation</caption>
+                <tr>
+                  <th style="width: 5%;">No.</th>
+                  <th style="width: 35%;">Programme</th>
+                  <th style="width: 15%;">Academic Year</th>
+                  <th style="width: 15%;">Reg. Status</th>
+                  <th style="width: 15%;">Paid Amount(LKR)</th>
+                  <th style="width: 15%">Action</th>
+                </tr>
+
+                <tr *ngFor="let t of responseData; let x=index">
+                  <td style="width: 5%;">{{x+1}}</td>
+                  <td style="width: 35;">{{t.programName}}</td>
+                  <td style="width: 15%;">{{t.academicYear}}</td>
+                  <td style="width: 15%;">{{t.registrationStatus}}</td>
+                  <td style="width: 15%;">{{t.paidAmount}}</td>
+                  <td style="width: 15%;"><button *ngIf="btnClicked" type="submit" id="addDataToDB" class="btn  btn-main"  (click)="finalCall(t.initialApplicantId, t.registrationId, t.pendingPaymentId)">Rollback</button>
+                  </td>
+                </tr>
+
+              </table>
+            </div>
+          </div>
+        </div>
+
+
+        <br>
+
+
+<a href="#myModal" class="trigger-btn" data-toggle="modal" hidden id="openModal"></a>
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Ooops!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{errorMessage}}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#successModal" class="trigger-btn" data-toggle="modal" hidden id="sucModal"></a>
+<div id="successModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box-success">
+          <i class="fa fa-check"></i>
+        </div>
+        <h4 class="modal-title w-100">Great!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>{{successMessage}}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="submit" class="btn btn-outline-dark" routerLink="/home" data-dismiss="modal"
+      routerLinkActive="active">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="#successModalx" class="trigger-btn" data-toggle="modal" hidden id="sucModalx"></a>
+<div id="successModalx" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box-success">
+          <i class="fa fa-exclamation"></i>
+        </div>
+        <h4 class="modal-title w-100">Attention!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h6 style="color: black;">You are going to rollback the studentship process of this student. This process cannot be undone. Are you sure?</h6>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="submit" class="btn btn-outline-dark" (click)="submitData()"  data-dismiss="modal"
+      >Yes</button>
+      <button type="submit" class="btn btn-outline-light"  data-dismiss="modal"
+     >No</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,10 @@
+.dropdown_menu {
+    border-radius: 10px !important;
+    -webkit-box-shadow: 0px 0px 20px #459bbc4a;
+            box-shadow: 0px 0px 20px #459bbc4a;
+  }
+
+  .vborder{
+      border: 1px solid black;
+      border-radius: 3px;
+  }

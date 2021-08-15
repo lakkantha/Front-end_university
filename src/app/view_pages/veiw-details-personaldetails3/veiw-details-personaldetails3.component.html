@@ -1,0 +1,571 @@
+<!---------------------------Personal details-------------------------->
+
+<div class="container view-aplication-block">
+    <div class="text-center heading">
+        <h3>View Personal Details</h3>
+    </div>
+
+    <div style="height: 100%;margin-bottom: 10px;">
+
+        <div>
+            <div class="qualification-block">
+
+                <div class="qualification-list row">
+                    <div class="qualification-table col-sm-9">
+                        <form [formGroup]="applicant">
+                        <div class="personal-details1">
+
+                            <!-- details list-->
+                            <div class="form-group row">
+                                <label for="p.nic" class="col-md-4">NIC*</label>
+                                <input for="nic" formControlName="nic" class="form-control col-md-4">
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="title" class="col-md-4">Title*</label>
+                                <input for="title" formControlName="title"  class="form-control col-md-4">
+                            </div>
+
+
+                            <div class="form-group row">
+                                <label for="initials" class="col-md-4">Initials*</label>
+                                <input for="initials" formControlName= "initials" class="form-control col-md-4">
+                            
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="firstName" class="col-md-4">Last Name*</label>
+                                <input for="lastName" formControlName="lastName"  class="form-control col-md-4">
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="middleName" class="col-md-4">Name Denoted by Initials*</label>
+                                <input for="meaningOfInitials" formControlName="meaningOfInitials"  class="form-control col-md-4">
+                                
+                            
+                            </div>
+
+
+
+
+                            <div class="form-group row">
+                                <label for="dateOfBirth" class="col-md-4">Date Of
+                                    Birth*</label>
+                                    <input for="dateOfBirth" formControlName="dateOfBirth"  class="form-control col-md-4" >
+                               
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="birthCertificateNo" class="col-md-4">Certificate Id*</label>
+                                <input for="birthCertificateNo" formControlName="birthCertificateNo"  class="form-control col-md-4">
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="age" class="col-md-4">Age</label>
+                                <input for="age" formControlName="age"  class="form-control col-md-4">
+                                
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="gender" class="col-md-4">Gender*</label>
+                                <input for="gender" formControlName="gender"  class="form-control col-md-4">
+                            </div>
+
+                            <div class="form-group row">
+                                <label for="email" class="col-md-4">Email</label>
+                                <input for="email" formControlName="email"  class="form-control col-md-4">
+                            </div>
+
+
+                                <div class="form-group row">
+                                    <label for="nationality" class="col-md-4">Nationality*</label>
+                                    <input for="nationality" formControlName="nationality"  class="form-control col-md-4">
+                                   
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="district" class="col-md-4">District*</label>
+                                    <input for="district" formControlName="district"  class="form-control col-md-4">
+                                  
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="division" class="col-md-4">Divisional Secretariat*</label>
+                                    <input for="division" formControlName="division"  class="form-control col-md-4">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="address" class="col-md-4">Permanant Address*</label>
+                                    <input for="address" formControlName="address"  class="form-control col-md-4">
+                                  
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="correspondenceDistrict" class="col-md-4">Correspondence District*</label>
+                                    <input for="correspondenceDistrict" formControlName="correspondenceDistrict"  class="form-control col-md-4">
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="correspondenceAddress" class="col-md-4">Correspondence Address*</label>
+                                    <input for="correspondenceAddress" formControlName="correspondenceAddress"  class="form-control col-md-4">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="postalCode" class="col-md-4">Postal Code*</label>
+                                    <input for="postalCode" formControlName="postalCode"  class="form-control col-md-4">
+                                    
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label for="mobileNo" class="col-md-4">Mobile No
+                                        Local</label>
+                                        <input for="mobileNo" formControlName="mobileNo"  class="form-control col-md-4">
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="contactNo" class="col-md-4">Contact No-Fixed</label>
+                                    <input for="contactNo" formControlName="contactNo"  class="form-control col-md-4">
+                                </div>
+
+                                                <div class="form-group row">
+                                                    <label for="disable" class="col-md-6">Do you have any special Need Requirements?</label>
+                                                    <input for="disable" formControlName="disable"  class="form-control col-md-4">
+                                                </div>
+
+                                                <div class=" form-group row">
+                                                    <label for="reason" class="col-md-6">If Yes Nature of Your disability</label>
+                                                    <input for="reason" formControlName="reason"  class="form-control col-md-4">
+
+                                                </div>
+                          <div class="form-group row">
+
+                            <button type="button" (click)="openEdit(editForm,1)"> <span
+                              class="fa fa-edit"></span></button>
+                            <button type="button" (click)="openDelete(deleteConfirmation)"> <i
+                              class="fa fa-trash"></i></button>
+
+
+                          </div>
+
+
+
+
+                            <!-- Edit form popup-->
+                            <ng-template #editForm>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title pull-left">Edit Personal Details</h4>
+                                        <button type="button" class="close pull-right" aria-label="Close"
+                                            (click)="modalRef.hide()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <!-- edit personal details form-->
+                                        <form #formPersionalDetailsCat2="ngForm"
+                                            (ngSubmit)="updatePersonal(personalDetailsCat2)">
+
+                                            <div class="form-group row">
+                                                <div class="col-md-8">
+                                                    <div class=" form-group row">
+                                                        <label for="nic" class="col-md-5">NIC*</label>
+                                                        <input type="text" class="form-control col-md-5" name="nic" [value]="userNIC" required minlength="10"
+                                                          maxlength="12" (blur)="validateNIC(nicCon.value)"  [(ngModel)]="personalDetailsCat2.nic" #nicCon="ngModel" pattern="(^\d{9}[vVxX]$)|(^\d{12})">
+
+                                                        <div *ngIf="nicCon.invalid && (nicCon.dirty || nicCon.touched)" class="invalid">
+
+                                                            <span *ngIf="nicCon.errors.required">
+                                                                NIC is required.
+                                                            </span>
+                                                            <span *ngIf="(nicCon.errors.pattern||nicCon.errors.minlength || nicCon.errors.maxlength)">
+                                                               Invalid NIC number
+                                                            </span>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="title" class="col-md-5">Title*</label>
+                                                        <select class="form-control col-md-5" name="title" id="title"
+                                                            [(ngModel)]="personalDetailsCat2.title" #titleCon required>
+                                                            <option value=1>Mr</option>
+                                                            <option value=2>Ms</option>
+                                                            <option value=3>Mrs</option>
+                                                            <option value=4>Rev</option>
+                                                            <option value=5>Prof</option>
+                                                            <option value=6>Doctor</option>
+                                                        </select>
+                                                        <div *ngIf="titleCon.invalid && (titleCon.dirty || titleCon.touched)" class="invalid">
+
+                                                            <span *ngIf="titleCon.invalid && (titleCon.dirty || titleCon.touched)">
+                                                                Title is required.
+                                                            </span>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="initials" class="col-md-5">Initials*</label>
+                                                        <input type="text" class="form-control col-md-5" name="initials"
+                                                            pattern="^[a-zA-Z. ]+" required [(ngModel)]="personalDetailsCat2.initials"
+                                                            #initialsCon="ngModel">
+                                                        <div *ngIf="initialsCon.invalid && (initialsCon.dirty || initialsCon.touched)"
+                                                            class="invalid">
+
+                                                            <span *ngIf="initialsCon.errors.required">
+                                                                Initials is required.
+                                                            </span>
+
+                                                            <div *ngIf="initialsCon.errors.pattern">
+                                                                Enter Only Letters
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="familyName" class="col-md-5">Last Name*</label>
+                                                        <input type="text" class="form-control col-md-5" name="lastName" pattern="[a-zA-Z]+"
+                                                            required [(ngModel)]="personalDetailsCat2.lastName" #lastNameCon="ngModel">
+                                                        <div *ngIf="lastNameCon.invalid && (lastNameCon.dirty || lastNameCon.touched)"
+                                                            class="invalid">
+
+                                                            <span *ngIf="lastNameCon.errors.required">
+                                                                Last Name is required.
+                                                            </span>
+
+                                                            <div *ngIf="lastNameCon.errors.pattern">
+                                                                Enter Only Letters
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="meaningOfInitials" class="col-md-5">Name Denoted by Initials*</label>
+                                                        <input type="text" class="form-control col-md-5" name="meaningOfInitials"
+                                                            pattern="[a-zA-Z ]+" required [(ngModel)]="personalDetailsCat2.meaningOfInitials"
+                                                            #meaningOfInitialsCon="ngModel">
+                                                        <div *ngIf="meaningOfInitialsCon.invalid && (meaningOfInitialsCon.dirty || meaningOfInitialsCon.touched)"
+                                                            class="invalid">
+
+                                                            <span *ngIf="meaningOfInitialsCon.errors.required">
+                                                                Meaning of Initials is required.
+                                                            </span>
+
+                                                            <div *ngIf="meaningOfInitialsCon.errors.pattern">
+                                                                Enter Only Letters
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="dateOfBirth" class="col-md-5">Date Of Birth*</label>
+                                                        <input type="text" class="form-control col-md-5" name="dateOfBirth"
+                                                          placeholder="(mm/dd/yyyy)"  [value]="birthdayDisplay" [(ngModel)]="personalDetailsCat2.dateOfBirth"
+                                                         (change)=" calculateAge('cal')" >
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="age" class="col-md-5">Age</label>
+                                                        <input [value]="applicantAgeToToday" [(ngModel)]="personalDetailsCat2.age" type="text"
+                                                            class="form-control col-md-5" name="age" id="age" readonly placeholder="Autofill"
+                                                            #ageCon="ngModel">
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="gender" class="col-md-5">Gender*</label>
+                                                        <div class="form-check form-check-inline col-md-5" >
+
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio" name="gender" [checked]="gender==1"
+                                                                 value="1" >
+                                                                male
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio" name="gender"  [checked]="gender==2"
+                                                                 value="2" >
+                                                                female
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="email" class="col-md-5">Email</label>
+                                                        <input type="email" class="form-control col-md-5" name="email"  [value]="userEmail"
+                                                            placeholder="sarath123@gmail.com" [(ngModel)]="personalDetailsCat2.email"  >
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="nationality" class="col-md-5">Nationality*</label>
+                                                        <input type="text" class="form-control col-md-5" name="nationality"
+                                                            [(ngModel)]="personalDetailsCat2.nationality" id="nationality" required
+                                                            pattern="[a-zA-Z]+" #nationalityCon="ngModel">
+
+                                                        <div *ngIf="nationalityCon.invalid && (nationalityCon.dirty || nationalityCon.touched)"
+                                                            class="invalid">
+                                                            <div *ngIf="nationalityCon.errors.required">
+                                                                Nationality is required.
+                                                            </div>
+                                                            <div *ngIf="nationalityCon.errors.pattern">
+                                                                Enter Only Letters
+                                                            </div>
+
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="district" class="col-md-5">District*</label>
+                                                        <select [(ngModel)]="personalDetailsCat2.district" #districtCon="ngModel"
+                                                            class="form-control col-md-5" name="district"
+                                                            [class.is-invalid]="ListHasError && (districtCon.dirty || districtCon.touched)"
+                                                            (blur)=" validateAList(districtCon.value)"
+                                                            (change)="validateAList(districtCon.value); loadDivisionalSecretariat(districtCon.value)  ">
+
+                                                            <option value="default">Select District</option>
+                                                            <option *ngFor="let district of districts " value="{{district.id}}">
+                                                                {{district.name}}
+                                                            </option>
+                                                        </select>
+
+                                                        <div *ngIf="ListHasError && (districtCon.dirty || districtCon.touched)" class="invalid">
+
+                                                            <div *ngIf="ListHasError && districtCon.untouched">
+                                                                Please select a District
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="divisional" class="col-md-5">Divisional Secretariat*</label>
+                                                        <select [(ngModel)]="personalDetailsCat2.division" #divisionalCon="ngModel"
+                                                            class="form-control col-md-5" name="divisional">
+
+                                                            <option *ngFor="let divisional of divisionals " value="{{divisional.dId}}">
+                                                                {{divisional.dName}} </option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="address" class="col-md-5">Permanant Address*</label>
+                                                        <input [(ngModel)]="personalDetailsCat2.address" #adddressCon="ngModel" type="text"
+                                                            class="form-control col-md-5" name="address" required pattern="\w+">
+
+                                                        <div *ngIf="adddressCon.invalid && (adddressCon.dirty || adddressCon.touched)"
+                                                            class="invalid">
+                                                            <div *ngIf="adddressCon.errors.required">
+                                                                Permanant address is required.
+                                                            </div>
+                                                            <div *ngIf="adddressCon.errors.pattern">
+                                                                Enter Only letters and numbers
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="correspondenceDistrict" class="col-md-5">Correspondence District*</label>
+                                                        <select [(ngModel)]="personalDetailsCat2.correspondenceDistrict"
+                                                            #correspondenceDistrictCon="ngModel" class="form-control col-md-5"
+                                                            name="correspondenceDistrict">
+
+                                                            <option value="default">Select District</option>
+                                                            <option *ngFor="let district of districts " value="{{district.id}}">
+                                                                {{district.name}}
+                                                            </option>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="form-group row">
+                                                        <label for="CorespondenseAddress" class="col-md-5">Correspondence Address*</label>
+                                                        <input [(ngModel)]="personalDetailsCat2.correspondenceAddress" #correspondenceAdddressCon="ngModel" type="text"
+                                                            class="form-control col-md-5" name="correspondenceAddress" required pattern="\w+">
+
+                                                        <div *ngIf="correspondenceAdddressCon.invalid && (correspondenceAdddressCon.dirty || correspondenceAdddressCon.touched)"
+                                                            class="invalid">
+                                                            <div *ngIf="correspondenceAdddressCon.errors.required">
+                                                                Permanant address is required.
+                                                            </div>
+                                                            <div *ngIf="correspondenceAdddressCon.errors.pattern">
+                                                                Enter Only letters and numbers
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="PostalCode" class="col-md-5">Postal Code*</label>
+                                                        <input [(ngModel)]="personalDetailsCat2.postalCode" type="text"
+                                                            class="form-control col-md-5" name="postalCode" readonly placeholder="Autofill"
+                                                            #postalCodeCon="ngModel">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="mobileNo" class="col-md-5">Contact No-Mobile*</label>
+                                                        <input [(ngModel)]="personalDetailsCat2.mobileNo" type="text" class="form-control col-md-5"
+                                                            name="mobileNo" minlength="10" maxlength="12" pattern="^[+\d]\d+" #mobileNoCon="ngModel"
+                                                            required>
+                                                        <div *ngIf="mobileNoCon.invalid && (mobileNoCon.dirty || mobileNoCon.touched)"
+                                                            class="invalid">
+                                                            <div *ngIf="mobileNoCon.errors.required">
+                                                                Mobile No is required.
+                                                            </div>
+                                                            <div *ngIf="mobileNoCon.errors.pattern">
+                                                                Number Format is wrong
+                                                            </div>
+                                                            <div *ngIf="mobileNoCon.errors.minlength">
+                                                                Min length is 10
+                                                            </div>
+                                                            <div *ngIf="mobileNoCon.errors.maxlength">
+                                                                Max length is 12
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="contactNo" class="col-md-5">Contact No-Fixed</label>
+                                                        <input [(ngModel)]="personalDetailsCat2.contactNo" type="text" class="form-control col-md-5"
+                                                            name="contactNo" #contactNoCon="ngModel" pattern="\d+" minlength="10" maxlength="12">
+
+                                                        <div *ngIf="contactNoCon.invalid && (contactNoCon.dirty || contactNoCon.touched)"
+                                                            class="invalid">
+
+                                                            <div *ngIf="contactNoCon.errors.pattern">
+                                                                Number Format is wrong
+                                                            </div>
+                                                            <div *ngIf="contactNoCon.errors.minlength">
+                                                                Min length is 10
+                                                            </div>
+                                                            <div *ngIf="contactNoCon.errors.maxlength">
+                                                                Max length is 12
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="gender" class="col-md-5">Do you have any special Need Requirements?</label>
+                                                        <div class="form-check form-check-inline col-md-5">
+
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio" name="disability" value=1
+                                                                    [(ngModel)]="personalDetailsCat2.disable" checked >
+                                                                Yes
+                                                            </label>
+                                                            <label class="form-check-label">
+                                                                <input class="form-check-input" type="radio" name="disability" value=2
+                                                                    [(ngModel)]="personalDetailsCat2.disable">
+                                                                No
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <label for="reason" class="col-md-5">If Yes Nature of Your disability</label>
+                                                        <textarea [(ngModel)]="personalDetailsCat2.reason"
+                                                            class="form-control col-md-5" name="reason" ></textarea>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="col-md-1">
+                                                    <div class=" form-group row">
+                                                        Upload NIC *
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class=" form-group row">
+                                                        <input type="file" class="form-control" name="uploadedImage" id="uploadedImage" required
+                                                            accept="image/*">
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            (click)="modalRef.hide()">Cancle</button>
+                                        <button type="submit" class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <!-- end of edit form popup-->
+
+                            <!-- delete confirmation popup-->
+                            <ng-template #deleteConfirmation>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title pull-left">Delete</h4>
+                                        <button type="button" class="close pull-right" aria-label="Close"
+                                            (click)="modalRef.hide()">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Do you really want to delete this record?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            (click)="modalRef.hide()">Cancle</button>
+                                        <button type="button" class="btn btn-primary"
+                                            (click)="deletePersonalDetails(123)">Delete</button>
+                                    </div>
+                                </div>
+                            </ng-template>
+                            <!-- end fof delete confirmation popup-->
+
+                        </div>
+                    </form>
+                  <!-- end of qualification list table class-->
+        </div>
+    </div>    <!-- end of qualification class-->
+</div>     <!-- end of qualification class-->
+         <!-- end of educational Qualifications -->
+     <!-- end of container class-->
+
+    <!------------------------pop up------------------->
+    <!-- delete successful msg-->
+    <ng-template #deleteok>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Message</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Record is successfully deleted.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+        </div>
+    </ng-template>
+
+    <!-- edit sucessful msg-->
+    <ng-template #editok>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Message</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Record is edited successfully.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+        </div>
+    </ng-template>
+
+    <!-- fill mandatory-->
+    <ng-template #fillMandatory>
+        <div class="modal-header">
+            <h4 class="modal-title pull-left">Message</h4>
+            <button type="button" class="close pull-right" aria-label="Close" (click)="fillRef.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            Please fill the mandatory fields.
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-dark" (click)="fillRef.hide()">OK</button>
+        </div>
+    </ng-template>

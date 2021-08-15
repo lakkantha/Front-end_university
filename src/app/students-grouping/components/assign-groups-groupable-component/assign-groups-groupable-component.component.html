@@ -1,0 +1,184 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="Content-wrapper col-sm-8 mx-auto">
+                <div class="card col-sm-10 mx-auto">
+                    <form class="form-horizontal" [formGroup]="form">
+                        <div class="card-body">
+                            <div class="header">
+                                <h2 class="header-text text-center">Assign and schedule groups for Components</h2>
+                            </div>
+                        <br>
+                            <div class="col-sm-12 mx-auto">
+                                <div class="form-group row">
+                                    <label for="programme" class="col-sm-5 col-form-label">Enter Programme<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="programme" formControlName="programme" (change)="getDataFromProgramService($event.target.value)">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let c of programs" value="{{c.programId}}">{{c.title}}</option>
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.programme.touched && f.programme.invalid">
+                                        <div *ngIf="f.programme.errors.required">Programme is required.</div>
+                                    </span>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="specialization" class="col-sm-5 col-form-label">Specialization/Discipline/Stream<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="specialization" formControlName="specialization">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let s of specializations" value="{{s.specilization.id}}">{{s.specilization.description}}</option>
+                                            <option *ngFor="let s of disciplines" value="{{s.discipline.id}}">{{s.discipline.description}}</option>
+                                            <option *ngFor="let s of streams" value="{{s.stream.id}}">{{s.stream.description}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.specialization.touched && f.specialization.invalid">
+                                        <div *ngIf="f.specialization.errors.required">Specialization/Discipline/Stream is required.</div>
+                                    </span>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="course" class="col-sm-5 col-form-label">Enter Course<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select  class="form-control-sm form-control input-type col-sm-10" name="course" formControlName="course">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let c of courses" value="{{c.id}}">{{c.code}}</option>
+                                        </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.course.touched && f.course.invalid">
+                                        <div *ngIf="f.course.errors.required">Course is required.</div>
+                                    </span>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="component" class="col-sm-5 col-form-label">Select Component<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="component" formControlName="component">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option value="0">----------Select----------</option>
+                                            <option value="630">aaaaaa</option>
+                                            <option value="631">hhhhhhhh</option>
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.component.touched && f.component.invalid">
+                                        <div *ngIf="f.component.errors.required">Component is required.</div>
+                                    </span>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="center" class="col-sm-5 col-form-label">Select Center<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="center" formControlName="center">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let c of centers" value="{{c.cnt_centerId}}">{{c.cnt_description}}</option>
+                                         
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.center.touched && f.center.invalid">
+                                        <div *ngIf="f.center.errors.required">Center is required.</div>
+                                    </span>
+                                </div>
+
+
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-reset btn-sm" (click)="submit()" [disabled]="!form.valid">Search</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <br>
+                <div class="col-sm-12 mx-auto">
+                    <div class="table" style="overflow-x:auto; scroll-behavior: auto;">
+                        <table class="table table-bordered table-striped text-center">
+                            <thead>
+                                <tr>
+                                    <th>Component (Element/Session)</th>
+                                    <th>Medium</th>
+                                    <th>Group</th>
+                                    <th>Hidden Group</th>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                 </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let dataGroupAndSettingSearch of dataGroupAndSettingsSearch; let i = index">
+                                    <td></td>   
+                                    <td>{{dataGroupAndSettingSearch.createGroup.medium}}</td> 
+                                    <td>{{dataGroupAndSettingSearch.createGroup.groupName}}</td>
+                                    <td>{{dataGroupAndSettingSearch.hiddenGroup}}</td>
+                                    <td><input type="date" class="form-control-sm form-control input-type"  (change)="dateChangeFrom(i, dataGroupAndSettingSearch.id, $event.target.value)">
+                                        <input type="date" class="form-control-sm form-control input-type"  (change)="dateChangeTo(i, dataGroupAndSettingSearch.id, $event.target.value)">
+                                    </td>   
+                                    <td><input type="time" class="form-control-sm form-control input-type"  (change)="timeChangeFrom(i, dataGroupAndSettingSearch.id, $event.target.value)" id="{{dataGroupAndSettingSearch.id}}" #box>
+                                        <input type="time" class="form-control-sm form-control input-type"  (change)="timeChangeTo(i, dataGroupAndSettingSearch.id, $event.target.value)" id="{{dataGroupAndSettingSearch.id}}" #boxTo>
+                                    </td>
+                                </tr>
+                            </tbody>                                    
+                        </table>
+                    </div>
+                    <div class="row" style="padding: 5px">
+                        <div class="col-sm-12 text-right">
+                            <button type="submit" class="btn btn-main btn-sm" (click)="saveConfirmData()">Confirm</button>&nbsp;&nbsp;&nbsp;
+                            <button class="btn btn-reset btn-sm" (click)="exit()" >Exit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- success modals -->
+<a href="#errmm" class="trigger-btn" data-toggle="modal" hidden id="success">Click to Open Confirm Modal</a>
+<div id="errmm" class="modal fade">
+  <div class="modal-dialog modal-confirm-pop">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">{{message}}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="confirmDataSentToDB()">OK</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="id">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- error modal -->
+<a href="#errdown" class="trigger-btn" data-toggle="modal" hidden id="error">Click to Open Confirm Modal</a>
+<div id="errdown" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100" style="color: red;">WARNING</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">{{message}}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">View Schedule</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="id">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+

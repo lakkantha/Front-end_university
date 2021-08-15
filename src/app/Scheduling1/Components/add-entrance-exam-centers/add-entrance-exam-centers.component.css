@@ -1,0 +1,50 @@
+.pointer {
+    cursor: pointer;
+  }
+  
+  .text-bold {
+    font-weight: bold;
+  }
+  
+  .text-header {
+    color: rgb(204, 213, 207);
+    background-color: black;
+    text-align: center;
+    font-weight: bold;
+  }
+  
+#centers 
+{
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+ }
+  
+  #centers td, #centers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #centers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #centers tr:hover {background-color: #ddd;}
+  
+  #centers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #651296;
+    color: white;
+  }
+  .my-custom-scrollbar {
+    position: relative;
+    height: 200px;
+    overflow: auto;
+    }
+    .table-wrapper-scroll-y {
+    display: block;
+    }
+    .modal-header .close {
+      padding: 0rem 0rem;
+      margin: -1rem -8rem -1rem auto;
+    }

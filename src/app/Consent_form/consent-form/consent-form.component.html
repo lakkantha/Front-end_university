@@ -1,0 +1,48 @@
+<div class="container aplication-block">
+    <div class="col-sm-11 topic" style="margin-top: 20px; margin-bottom: 20px;">
+        <h4> Online Registration Consent Form</h4>
+    </div>
+
+    <!-- Consent Form-->
+    <div class="col-sm-11 consent-form">
+        <p>
+            I hereby confirm that I am accepting this Offer of registration for a study program at the Open University
+            of Sri Lanka by submitting this electronic document. I confirm that (to the best of my knowledge) all of the
+            information provided to the University by me (or on my behalf) in connection with the application are
+            correct and accurate. I further confirm that no facts or circumstances have arisen that would affect the
+            truth or accuracy of my declaration or adversely affect my eligibility to be enrolled at the Open University
+            of Sri Lanka. I further acknowledge that if any information provided by me in this application is found to
+            be inaccurate or false, at any time during the validity of this registration, the Open University of Sri
+            Lanka has the right to terminate my registration to follow the study program at the University.
+        </p>
+    </div>
+
+    <!-- Buttonss-->
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-sm-11 text-right">
+            <button type="button" class="btn btn-primary" style="margin-right: 5px; margin-right: 10px;" [routerLink]="['/home']">I Do Not Agree
+            </button>
+
+            <button type="button" class="btn btn-primary" style="margin-right: 5px;" (click)="completeRegistration()">I
+                Agree
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- popup-->
+<!-- common msg-->
+<ng-template #common>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="commonRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {{msg}}
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="commonRef.hide()">OK</button>
+    </div>
+</ng-template>

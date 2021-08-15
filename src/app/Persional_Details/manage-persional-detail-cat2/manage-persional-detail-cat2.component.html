@@ -1,0 +1,429 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-12">
+      <h4>Online Application  <a (click)='callopen()'> <fa-icon [icon]="faInfoCircle" style="color:orange; width: 100px;cursor: pointer;" ></fa-icon> </a></h4>
+      <p class="small">
+       Home > Personal details  </p>
+      </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-8 col-xl-8">
+        <form #formPersionalDetailsCat2="ngForm" >
+
+           
+          <div class="Content-wrapper">
+     
+            <div class="row">
+    
+              <div class="col-12">
+                <h5>Personal details</h5>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+              <div class=" form-group">
+                <label for="nic">NIC No*</label>
+                <input type="text" class="form-control input-type form-control-sm" name="nic" value="{{personalDetailsCat2.nic}}" required minlength="10"
+                       maxlength="12" (blur)="validateNIC(nicCon.value)"  [(ngModel)]="personalDetailsCat2.nic" #nicCon="ngModel" pattern="(^\d{9}[vVxX]$)|(^\d{12})">
+                       
+
+                <div *ngIf="nicCon.invalid && (nicCon.dirty || nicCon.touched)" class="invalid">
+
+                                <span *ngIf="nicCon.errors.required">
+                                    NIC is required.
+                                </span>
+                  <span *ngIf="(nicCon.errors.pattern||nicCon.errors.minlength || nicCon.errors.maxlength)">
+                                   Invalid NIC number
+                                </span>
+
+                </div>
+              </div>
+          
+
+              <div class="form-group">
+                <label for="initials">Initials of Name*</label>
+                <input type="text" class="form-control input-type form-control-sm" name="initials"
+                       pattern="^[a-zA-Z. ]+" required [(ngModel)]="personalDetailsCat2.initials"
+                       #initialsCon="ngModel">
+                <div *ngIf="initialsCon.invalid && (initialsCon.dirty || initialsCon.touched)"
+                     class="invalid">
+
+                                <span *ngIf="initialsCon.errors.required">
+                                    Initials is required.
+                                </span>
+
+                  <div *ngIf="initialsCon.errors.pattern">
+                    Enter Only Letters
+                  </div>
+
+                </div>
+              </div>
+
+         
+
+              <div class="form-group">
+                <label for="meaningOfInitials">Name Denoted by Initials*</label>
+                <input type="text" class="form-control input-type form-control-sm" name="meaningOfInitials"
+                       pattern="[a-zA-Z ]+" required [(ngModel)]="personalDetailsCat2.meaningOfInitials"
+                       #meaningOfInitialsCon="ngModel">
+                <div *ngIf="meaningOfInitialsCon.invalid && (meaningOfInitialsCon.dirty || meaningOfInitialsCon.touched)"
+                     class="invalid">
+
+                                <span *ngIf="meaningOfInitialsCon.errors.required">
+                                    Meaning of Initials is required.
+                                </span>
+
+                  <div *ngIf="meaningOfInitialsCon.errors.pattern">
+                    Enter Only Letters
+                  </div>
+                </div>
+              </div>
+
+          
+              <div class="form-group">
+                <label for="age">Age</label>
+                <input [value]="applicantAgeToToday" [(ngModel)]="personalDetailsCat2.age" type="text"
+                       class="form-control input-type form-control-sm" name="age" id="age" readonly placeholder="Autofill"
+                       #ageCon="ngModel">
+              </div>
+
+        
+    
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control input-type form-control-sm" name="email"  value="{{personalDetailsCat2.email}}"
+                       [(ngModel)]="personalDetailsCat2.email"  >
+              </div>
+             
+
+              <div class="form-group">
+                <label for="address">Permanant Address*</label>
+                <input [(ngModel)]="personalDetailsCat2.address" #adddressCon="ngModel" type="text"
+                       class="form-control input-type form-control-sm" name="address"  required >
+
+                <div *ngIf="adddressCon.invalid && (adddressCon.dirty || adddressCon.touched)"
+                     class="invalid">
+                  <div *ngIf="adddressCon.errors.required">
+                    Permanant address is required.
+                  </div>
+                  <div *ngIf="adddressCon.errors.pattern">
+                    Enter Only letters and numbers
+                  </div>
+
+                </div>
+              </div>
+
+              
+
+              <div class="form-group">
+                <label for="divisional">Divisional Secretariat*</label>
+                <select [(ngModel)]="personalDetailsCat2.division" #divisionalCon="ngModel"
+                        class="form-control input-type form-control-sm" name="division">
+
+                  <option *ngFor="let divisional of division " value="{{divisional.id}}">
+                    {{divisional.description}} </option>
+                </select>
+              </div>
+           
+
+              <div class="form-group">
+                <label for="correspondenceDistrict">Correspondence District*</label>
+                <select [(ngModel)]="personalDetailsCat2.correspondenceDistrict"
+                        #correspondenceDistrictCon="ngModel" class="form-control input-type form-control-sm"
+                        name="correspondenceDistrict">
+
+                  <option value="default">Select District</option>
+                  <option *ngFor="let district of district " value="{{district.id}}"  >
+                    {{district.description}}
+                  </option>
+                </select>
+              </div>
+
+              
+              <div class="form-group">
+                <label for="PostalCode">Postal Code*</label>
+                <input [(ngModel)]="personalDetailsCat2.postalCode" type="text"
+                       class="form-control input-type form-control-sm" name="postalCode" readonly placeholder="Autofill"
+                       #postalCodeCon="ngModel">
+              </div>
+
+
+              <div class="form-group">
+                <label for="contactNo">Land Phone No</label>
+                <input [(ngModel)]="personalDetailsCat2.contactNo" type="text" class="form-control input-type form-control-sm"
+                       name="contactNo" #contactNoCon="ngModel" pattern="\d+" minlength="10" maxlength="12">
+
+                <div *ngIf="contactNoCon.invalid && (contactNoCon.dirty || contactNoCon.touched)"
+                     class="invalid">
+
+                  <div *ngIf="contactNoCon.errors.pattern">
+                    Number Format is wrong
+                  </div>
+                  <div *ngIf="contactNoCon.errors.minlength">
+                    Min length is 10
+                  </div>
+                  <div *ngIf="contactNoCon.errors.maxlength">
+                    Max length is 12
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="form-group">
+                <label for="reason">If Yes, Nature of Your disability</label>
+                <textarea [(ngModel)]="personalDetailsCat2.reason"
+                          class="form-control input-type form-control-sm" name="reason" ></textarea>
+              </div>
+
+              
+        </div>
+
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+
+          <div class="form-group">
+            <label for="title">Title*</label>
+            <select class="form-control input-type form-control-sm" name="title" id="title"
+                    [(ngModel)]="personalDetailsCat2.title" #titleCon required>
+              <option value=1>Mr</option>
+              <option value=2>Ms</option>
+              <option value=3>Mrs</option>
+              <option value=4>Rev</option>
+              <option value=5>Prof</option>
+              <option value=6>Doctor</option>
+            </select>
+            <div *ngIf="titleCon.invalid && (titleCon.dirty || titleCon.touched)" class="invalid">
+
+                            <span *ngIf="titleCon.invalid && (titleCon.dirty || titleCon.touched)">
+                                Title is required.
+                            </span>
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="familyName">Last Name*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="lastName" pattern="[a-zA-Z]+"
+                   required [(ngModel)]="personalDetailsCat2.lastName" #lastNameCon="ngModel">
+            <div *ngIf="lastNameCon.invalid && (lastNameCon.dirty || lastNameCon.touched)"
+                 class="invalid">
+
+                            <span *ngIf="lastNameCon.errors.required">
+                                Last Name is required.
+                            </span>
+
+              <div *ngIf="lastNameCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+          </div>
+
+
+          <div class="form-group">
+            <label for="dateOfBirth">Date Of Birth*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="dateOfBirth"
+                   placeholder="(yyyy/mm/dd)"  [value]="birthdayDisplay" [(ngModel)]="personalDetailsCat2.dateOfBirth"
+                   (change)=" calculateAge('cal')" >
+
+
+
+                   
+          </div>
+
+
+<br>
+          <div class="form-group">
+            <label for="gender">Gender*</label>
+            <div class="form-check-inline" required>
+
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="gender" [checked]="gender==1"
+                       required [value]="1"  [(ngModel)]="personalDetailsCat2.gender">
+                male
+              </label>
+              <label class="form-check-label">
+                <input class="form-check-input" type="radio" name="gender" [checked]="gender==2"
+                       [value]="2"   [(ngModel)]="personalDetailsCat2.gender">
+                female
+              </label>
+            </div>
+          </div>
+<br>
+
+          <div class="form-group">
+            <label for="nationality">Nationality*</label>
+            <input type="text" class="form-control input-type form-control-sm" name="nationality"
+                   [(ngModel)]="personalDetailsCat2.nationality" id="nationality" required
+                   pattern="[a-zA-Z^ ]+" #nationalityCon="ngModel">
+
+            <div *ngIf="nationalityCon.invalid && (nationalityCon.dirty || nationalityCon.touched)"
+                 class="invalid">
+              <div *ngIf="nationalityCon.errors.required">
+                Nationality is required.
+              </div>
+              <div *ngIf="nationalityCon.errors.pattern">
+                Enter Only Letters
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="form-group">
+            <label for="district">District*</label>
+            <select [(ngModel)]="personalDetailsCat2.district" #districtCon="ngModel"
+                    class="form-control input-type form-control-sm" name="district"
+                    [class.is-invalid]="ListHasError && (districtCon.dirty || districtCon.touched)"
+                    (blur)=" validateAList(districtCon.value)"
+                    (change)="validateAList(districtCon.value); loadDivisionalSecretariat(districtCon.value)  ">
+
+              <option value="default">Select District</option>
+              <option *ngFor="let districts of district " value="{{districts.id}}">
+                {{districts.description}}
+              </option>
+            </select>
+
+            <div *ngIf="ListHasError && (districtCon.dirty || districtCon.touched)" class="invalid">
+
+              <div *ngIf="ListHasError && districtCon.untouched">
+                Please select a District
+              </div>
+
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="CorespondenseAddress">Correspondence Address*</label>
+            <input [(ngModel)]="personalDetailsCat2.correspondenceAddress" #correspondenceAdddressCon="ngModel" type="text"
+                   class="form-control input-type form-control-sm" name="correspondenceAddress" value="{{personalDetailsCat2.correspondenceAddress}}" required>
+
+            <div *ngIf="correspondenceAdddressCon.invalid && (correspondenceAdddressCon.dirty || correspondenceAdddressCon.touched)"
+                 class="invalid">
+              <div *ngIf="correspondenceAdddressCon.errors.required">
+                Permanant address is required.
+              </div>
+              <div *ngIf="correspondenceAdddressCon.errors.pattern">
+                Enter Only letters and numbers
+              </div>
+
+            </div>
+          </div>
+              
+           
+        
+
+         
+           
+              <div class="form-group">
+                <label for="mobileNo">Mobile No*</label>
+                <input [(ngModel)]="personalDetailsCat2.mobileNo" type="text" value="{{personalDetailsCat2.mobileNo}}" class="form-control input-type form-control-sm"
+                       name="mobileNo" minlength="10" maxlength="12" pattern="^[+\d]\d+" #mobileNoCon="ngModel"
+                       required>
+                <div *ngIf="mobileNoCon.invalid && (mobileNoCon.dirty || mobileNoCon.touched)"
+                     class="invalid">
+                  <div *ngIf="mobileNoCon.errors.required">
+                    Mobile No is required.
+                  </div>
+                  <div *ngIf="mobileNoCon.errors.pattern">
+                    Number Format is wrong
+                  </div>
+                  <div *ngIf="mobileNoCon.errors.minlength">
+                    Min length is 10
+                  </div>
+                  <div *ngIf="mobileNoCon.errors.maxlength">
+                    Max length is 12
+                  </div>
+                </div>
+              </div>
+           
+              <div class="form-group">
+                <label for="disability">Do you have any Special Need Requirements?</label>
+                <div class="form-check-inline">
+
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="disability" [value]=1
+                           [(ngModel)]="personalDetailsCat2.disable" checked >
+                    Yes
+                  </label>
+                  <label class="form-check-label">
+                    <input class="form-check-input" type="radio" name="disability" [value]=2
+                           [(ngModel)]="personalDetailsCat2.disable">
+                    No
+                  </label>
+                </div>
+              </div>
+             
+
+              <div class=" form-group">
+                Upload NIC *
+                <p>(Scan copy) <small>file type: .png , File size: reduce than 500KB(Kilobyte)</small></p>
+              </div>
+              <div *ngIf="currentFileUpload" class="progress">
+                <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" attr.aria-valuenow="{{progress.percentage}}"
+                  aria-valuemin="0" aria-valuemax="100" [ngStyle]="{width:progress.percentage+'%'}">
+                  {{progress.percentage}}%</div>
+              </div>
+              <input type="file" name="image_path" (change)="selectFile($event)"  #image_path="ngModel" [(ngModel)]="personalDetailsCat2.image_path"  id="uploadedImage"style="padding-left:5px " accept="image/*">
+             
+              <button class="btn btn-sm btn-reset " type="button"  *ngIf="!show" > <a href= "{{base_url}}/api/file/{{personalDetailsCat2.nic.toLocaleLowerCase()}}.png">{{personalDetailsCat2.nic.toLocaleLowerCase()}}download</a></button>       
+        
+
+            </div>
+            </div>
+            </div>
+         
+            <div class="row " id="button-group">
+              <div class="col-12 text-right py-2">
+                
+
+            <button class="btn btn-sm  btn-main" (click)="upload(formPersionalDetailsCat2.value);  clicked = true;" type="button" [disabled]="formPersionalDetailsCat2.invalid">Save & Exit</button>
+            <button (click)="formPersionalDetailsCat2.reset({})" class=" btn btn-sm btn-reset "
+                    type="reset">Reset</button>
+            <button (click)="uploadchanges(formPersionalDetailsCat2.value); clicked = true;"
+                    class="btn btn-sm  btn-continue" type="button " [disabled]="formPersionalDetailsCat2.invalid"
+            >Save & Continue</button>
+          </div>
+            </div>
+        </form>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+     
+        <app-language>  </app-language>
+      </div>
+    </div>
+  </div>
+
+
+<ng-template #fillMandatory>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Message</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Please fill the mandatory fields.
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+  </div>
+</ng-template>
+<ng-template #successMessage>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Message</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    Saved Successfully
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modalRef.hide()">OK</button>
+  </div>
+</ng-template>

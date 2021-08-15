@@ -1,0 +1,103 @@
+<div class="container col-sm-8">
+    <div class="Content-wrapper">
+        <div class="row">
+            <div class="col-sm-11 mx-auto">
+                <h3 style="text-align: center; font-weight: bold; text-decoration: underline;">Entrance exam centre</h3>
+                <br>
+                <form action="" [formGroup]="entranceExamCentre">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="centerName"  style="font-weight: bold; font-size: large;">Centre Name</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input formControlName="cntreName" class="form-control input-type form-control-sm" type="text">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="centerName" style="font-weight: bold; font-size: large;">Address</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input formControlName="address" class="form-control input-type form-control-sm" type="text">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-10"></div>
+                        <div class="col-sm-2">
+                            <button class="btn btn-main" type="submit" (click)="addNew()">Add New</button>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <br>
+                <h3 style="text-align: center; font-weight: bold; text-decoration: underline;">Entrance exam centre merging with Exam root centre</h3>
+                <br>
+                <form action="" [formGroup]="entranceExamBinding">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="centerName" style="font-weight: bold; font-size: large;">Entrance Exam Centre</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select formControlName="entranceExamCentre" name="entranceExamCentre" id="entranceExamCentre" class="form-control input-type pointer form-control-sm" >
+                                <option  *ngFor="let selected of entranceExamTable"  value={{selected.id}}>{{selected.centerName}}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label for="centerName" style="font-weight: bold; font-size: large;">Exam Root Centre</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <select formControlName="examRootCentre" name="examRootCentre" id="examRootCentre" class="form-control input-type pointer form-control-sm" (change)="onChangeEntranceExam($event.target.value)">
+                                <option  *ngFor="let selected of examRootCentre"  value={{selected.id}}>{{selected.description}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+                <br>
+                <div class="row">
+                    <div class="col-sm-10"></div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-main" type="submit" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+                <br>
+                <h3 style="text-align: center; font-weight: bold; text-decoration: underline;">Entrance exam centre table</h3>
+                <br>
+                <div class="row">
+                        <table id="programDates">
+                            <tr>
+                                <th>Centre Name</th>
+                                <th>Address</th>
+                            </tr>
+                            <tr *ngFor="let tableDate of entranceExamTable; let i = index">
+                                <td>{{tableDate.centerName}}</td>
+                                <td>{{tableDate.address}}</td>
+                            </tr>
+                        </table>
+                </div>
+                <br>
+                <div *ngIf="showBindingTable">
+                    <h3 style="text-align: center; font-weight: bold; text-decoration: underline;">Entrance exam centre and Exam root centre merged table</h3>
+                    <br>
+                    <div class="row">
+                        <table id="programDates">
+                            <tr>
+                                <th>Entrance exam centre</th>
+                                <th>Exam root centre</th>
+                            </tr>
+                            <tr *ngFor="let tableDate of entranceExamBindingArray; let i = index">
+                                <td>{{tableDate.entranceExamCenter.centerName}}</td>
+                                <td>{{tableDate.examRootCenter.description}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+
+@mixin Content-wrapper
+ {
+    padding: $content-padding;
+    background:$content-bg;
+    border-radius: $radious;
+    box-shadow: $shadow;
+    padding-bottom: 0 !important;
+   
+}
+
+@mixin Input-type 
+{
+
+    border:$border !important;
+    border-radius:$radious !important;
+    opacity: 1 !important;
+
+}
+
+@mixin Button_styles {
+    box-shadow:  $shadow !important;
+    border-radius: $radious !important;
+    opacity: 1;
+    min-width: 100px;
+}

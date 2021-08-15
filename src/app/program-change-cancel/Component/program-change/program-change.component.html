@@ -1,0 +1,232 @@
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="small" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white">Please wait...</p>
+</ngx-spinner>
+<div class="container">
+    <div class="m-3 Content-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="text-center mt-3 mb-5">
+                    <h2>Program Change</h2>
+                </div>
+            </div>
+            
+        </div>
+        <div class="row row-wrapper">
+            <div class="col-md-3 mt-3 mb-2">
+                <div class="input-group mb-3">  
+                    <form [formGroup]="searchGroup">
+                        <div class="input-group mb-3">
+                            <label for="searchBy" style="font-size: large;"> <b>Search By : </b></label>
+                            <select id="searchBy" class="custom-select ml-2" (change)="selectSearchOption($event)" formControlName="searchBy">
+                                <option *ngFor="let option of options" [ngValue]="option">{{option}}</option>
+                             </select>
+                        </div>
+                    </form>
+                </div>               
+            </div>
+            <div class="col-md-7 mt-3">
+                <form [formGroup]="searchGroup">
+                    <div class="input-group mb-3" style="width: max-content;">
+                        <input id="searchInput" type="text" class="form-control" formControlName="searchInput" style="width: max-content;" placeholder="{{searchPlaceHolder}}">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-primary" type="button" (click)="search()"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+        <div *ngIf="this.searchApplicant.length > 0" class="row row-wrapper mt-2">
+            <div class="col-md-12">
+                <div class="row">
+                    <h2>Student Details</h2>
+                </div>
+                <div class="row">
+                    <b style="font-size: medium;">Name : {{searchApplicant[0].namewithinitials}}</b>
+                </div>
+                <div *ngIf="this.searchApplicant[0].applicantType.id == 1" class="row">
+                    <b style="font-size: medium;" >NIC : {{searchApplicant[0].nic}}</b>
+                </div>
+                <div *ngIf="this.searchApplicant[0].applicantType.id == 2" class="row">
+                    <b style="font-size: medium;">Passport : {{searchApplicant[0].passport}}</b>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div *ngIf="searchApplicant.length > 0" class="col-md-12">
+                <div class="text-left mt-3 mb-3 ml-4">
+                    <h4>Student Program Deatails</h4>
+                </div>
+            </div>   
+        </div>
+        <div class="row">
+            <div *ngIf="searchApplicant.length > 0" class="col-md-12">
+                <table class="table">
+                    <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Program</th>
+                          <th scope="col">Program Shift to</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let applicant of searchApplicant; let i=index">
+                            <th scope="row">{{i+1}}</th>
+                            <td>{{applicant.programStarted.program.title}}<span> - </span><b>{{applicant.programStarted.programScheduleCode}}</b></td>
+                            <td>
+                               <!-- Test -->
+                               <div *ngIf="applicant.applicantStatus">
+                                <div *ngIf="applicant.applicantStatus.id == 1">
+                                    <b>Not Availabe</b>
+                                </div>
+                                <div *ngIf="!(applicant.applicantStatus.id == 1)">
+                                    <form *ngIf="this.availableProgramStarted.length > 0" [formGroup]="checkGroup">
+                                        <div class="input-group mb-3">
+                                            <select id="checkProgram" class="custom-select ml-2"  formControlName="checkProgram">
+                                                <option *ngFor="let programStarted of this.availableProgramStarted; let j=index" [ngValue]="j">
+                                                    {{programStarted.program.title}} - <b>{{programStarted.programScheduleCode}}</b>
+                                                </option>
+                                             </select>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div *ngIf="!applicant.applicantStatus">
+                                <form *ngIf="this.availableProgramStarted.length > 0" [formGroup]="checkGroup">
+                                    <div class="input-group mb-3">
+                                        <select id="checkProgram" class="custom-select ml-2" (click)="programStartedChange()" formControlName="checkProgram">
+                                            <option *ngFor="let programStarted of this.availableProgramStarted; let j=index" [ngValue]="j">
+                                                {{programStarted.program.title}} - <b>{{programStarted.programScheduleCode}}</b>
+                                            </option>
+                                         </select>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            </td>
+                            <td>
+                                <div *ngIf="applicant.applicantStatus">
+                                    <div *ngIf="applicant.applicantStatus.id == 1">
+                                        <b>Canceled</b>
+                                    </div>
+                                    <div *ngIf="!(applicant.applicantStatus.id == 1)">
+                                        <button class="btn btn-outline-primary" [disabled]= "applicant.disabled" (click)="Check(applicant.id,i)">Check</button>
+                                    </div>
+                                </div>
+                                <div *ngIf="!applicant.applicantStatus">
+                                    <button class="btn btn-outline-primary" [disabled]= "applicant.disabled"  (click)="Check(applicant.id,i)">Check</button>
+                                </div>
+                            </td>
+                          </tr>
+                      </tbody>
+                </table>
+            </div>
+        </div>
+        <div *ngIf="this.programChangePanel" class="row mt-5 row-wrapper">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="text-center mt-3 mb-3 ml-4">
+                            <h5>Program Shift</h5>
+                            <h5>From</h5>
+                            <h5>{{this.searchApplicant[this.applicantIndexSelected].programStarted.program.title}} - <b>{{this.searchApplicant[this.applicantIndexSelected].programStarted.programScheduleCode}}</b></h5>
+                            <h5>to</h5>
+                            <h5>{{this.availableProgramStarted[this.checkGroup.get('checkProgram').value].program.title }} - <b>{{this.availableProgramStarted[this.checkGroup.get('checkProgram').value].programScheduleCode}}</b></h5>
+                        </div>
+                    </div>  
+                </div> 
+                <div *ngIf="this.programStartedAcademicCenter.length > 0" class="row mt-3">
+                    <div class="input-group mb-3">  
+                        <form [formGroup]="applicationGroup">
+                            <div class="input-group mb-3">
+                                <label for="acadamicCenter" style="font-size: large;"> <b>Academic Center : </b></label>
+                                <select id="acadamicCenter" class="custom-select ml-2" (change)="getMedium($event)" formControlName="acadamicCenter">
+                                    <option *ngFor="let center of this.programStartedAcademicCenter" [ngValue]="center.programstartedacademiccenterid">{{center.cnt_center.cnt_description}}</option>
+                                 </select>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+                <div *ngIf="this.medium.length > 0" class="row mt-3">
+                    <div class="input-group mb-3">  
+                        <form [formGroup]="applicationGroup">
+                            <div class="input-group mb-3">
+                                <label for="centerMedium" style="font-size: large;"> <b>Medium : </b></label>
+                                <select id="centerMedium" class="custom-select ml-2" formControlName="centerMedium">
+                                    <option *ngFor="let med of this.medium" [ngValue]="med.med_medium.med_mediumId">{{med.med_medium.med_description}}</option>
+                                 </select>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+                <div *ngIf="this.qualification.length > 0" class="row mt-3">
+                    <div class="input-group mb-3">  
+                        <form [formGroup]="applicationGroup">
+                            <div class="input-group mb-3">
+                                <label for="qualification" style="font-size: large;"> <b>Qualification : </b></label>
+                                <select id="qualification" class="ml-2 custom-select" formControlName="qualification">
+                                    <option *ngFor="let qua of this.qualification[0].qualifications; let q=index" [ngValue]="q">{{qua}}</option>
+                                 </select>
+                            </div>
+                        </form>
+                    </div> 
+                </div>
+                <div class="row mt-3">
+                    <div class="text-center col-md-12">
+                        <button class="btn btn-outline-success" [disabled]="!this.applicationGroup.valid" (click)="change()">Change</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<a href="#myModalExe" class="trigger-btn" data-toggle="modal" hidden id="openModalExemption"><i class="fa fa-heart"
+    style="font-size:18px; color: red;"></i></a>
+<div *ngIf="this.applicationGroup.valid"  id="myModalExe" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header flex-column">
+                <div class="icon-box">
+                    <i class="material-icons">&#10003;</i>
+                </div>
+                <h4 class="modal-title w-100">Are you sure want to change the program?</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <!-- <div class="modal-body">
+                <p *ngIf="this.indexCancel >= 0" style="text-align: justify;text-justify: inter-word;">You are going to cancel the program {{this.searchApplicant[this.indexCancel].programStarted.program.title}} - {{this.searchApplicant[this.indexCancel].programStarted.programScheduleCode}}</p>
+            </div> -->
+            <div class="modal-footer justify-content-center">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" >No</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="confirmedByUser()">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>
+<a href="#popup" class="trigger-btn" data-toggle="modal" hidden id="openModal">Click to Open Confirm Modal</a>
+<div id="popup" class="modal fade">
+    <div class="modal-dialog modal-confirm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="icon-box">
+                    <i class="material-icons">&#xE5CD;</i>
+                </div>
+                <h4 *ngIf="!this.programChangePanel" class="modal-title w-100">Sorry!</h4>
+                <h4 *ngIf="this.programChangePanel" class="modal-title w-100">Success</h4>
+            </div>
+            <div class="modal-body">
+                <p class="text-center" style="text-align: justify;text-justify: inter-word;">{{message}}</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger btn-block" data-dismiss="modal" id="clickbtnforhide">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+

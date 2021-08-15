@@ -1,0 +1,132 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-7 mx-auto">
+                <div class="card Content-wrapper">
+                    <form class="form-horizontal" [formGroup]="form" (ngSubmit)="submit()">
+                        <div class="card-body">
+                            <div class="header">
+                                <h1 class="header-text text-center">students auto assigning patterns</h1>
+                            </div>
+                        <br>
+                            <div class="col-sm-12 mx-auto">
+                                <div class="form-group row">
+                                    <label for="programmeId" class="col-sm-4 col-form-label">Enter Programme<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="programmeId" formControlName="programmeId" (change)="getDataFromProgramService($event.target.value)">
+                                            <option style="overflow-x: scroll;" value="" disabled hidden selected>----------Select----------</option>
+                                            <option style="overflow-x: scroll;" *ngFor="let c of programs" value="{{c.programId}}">{{c.title}}</option>
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.programmeId.touched && f.programmeId.invalid">
+                                        <div *ngIf="f.programmeId.errors.required">Programme is required.</div>
+                                    </span>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="specializationId" class="col-sm-4 col-form-label">Specialization/Discipline/Stream</label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="specializationId" formControlName="specializationId">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let s of specializations" value="{{s.specilization.id}}">{{s.specilization.description}}</option>
+                                            <option *ngFor="let s of disciplines" value="{{s.discipline.id}}">{{s.discipline.description}}</option>
+                                            <option *ngFor="let s of streams" value="{{s.stream.id}}">{{s.stream.description}}</option>
+                                         </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="courseId" class="col-sm-4 col-form-label">Enter Course<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                         <select class="form-control-sm form-control input-type col-sm-10" name="courseId" formControlName="courseId" (change)="getMediumFromCourseService($event.target.value)">
+                                          <option value="" disabled hidden selected>----------Select----------</option>
+                                          <option *ngFor="let c of courses" value="{{c.id}}">{{c.title}}</option>
+                                       </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.courseId.touched && f.courseId.invalid">
+                                        <div *ngIf="f.courseId.errors.required">Course is required.</div>
+                                    </span>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="centerId" class="col-sm-4 col-form-label">Select Center<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="centerId" formControlName="centerId">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let c of centers" value="{{c.id}}">{{c.center}}</option>
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.centerId.touched && f.centerId.invalid">
+                                        <div *ngIf="f.centerId.errors.required">Center is required.</div>
+                                    </span>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="specialization" class="col-sm-4 col-form-label">Student Assign method<b style="color: red;">*</b></label>
+                                    <div class="col-sm-5">
+                                        <select class="form-control-sm form-control input-type col-sm-10" name="studentAssignMethod" formControlName="studentAssignMethod">
+                                            <option value="" disabled hidden selected>----------Select----------</option>
+                                            <option *ngFor="let studentAssigningMethod of studentAssigningMethods" value="{{studentAssigningMethod.id}}">{{studentAssigningMethod.studentAssigningMethods}}</option>
+                                         </select>
+                                    </div>
+                                    <span class="text-danger" *ngIf="f.studentAssignMethod.touched && f.studentAssignMethod.invalid">
+                                        <div *ngIf="f.studentAssignMethod.errors.required">Student Assign method is required.</div>
+                                    </span>
+                                </div>
+
+                                <div class="row" style="padding: 5px">
+                                    <div class="col-sm-12 text-right">
+                                        <button type="submit" class="btn btn-main btn-sm" (click)="submitForm()">Save</button>&nbsp;&nbsp;&nbsp;
+                                        <button type="reset" class="btn btn-reset btn-sm" (click)="exit()">Exit</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- success modals -->
+<a href="#errmm" class="trigger-btn" data-toggle="modal" hidden id="success">Click to Open Confirm Modal</a>
+<div id="errmm" class="modal fade">
+  <div class="modal-dialog modal-confirm-pop">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">done</i>
+        </div>
+        <h4 class="modal-title w-100">Great!</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">{{message}}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Exit</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" id="id">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- error modal -->
+<a href="#errdown" class="trigger-btn" data-toggle="modal" hidden id="error">Click to Open Confirm Modal</a>
+<div id="errdown" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header flex-column">
+        <div class="icon-box">
+          <i class="material-icons">&#xE5CD;</i>
+        </div>
+        <h4 class="modal-title w-100">Sorry!</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">{{message}}</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-danger btn-block" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>

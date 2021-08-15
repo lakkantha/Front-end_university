@@ -1,0 +1,261 @@
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple"
+>
+  <p style="font-size: 20px; color: white">Please wait...</p>
+</ngx-spinner>
+
+
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-8 mx-auto">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 mx-auto">
+                <div class="Content-wrapper ">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Student Filtering</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="card">
+                            <div class="card-body">
+                                <form [formGroup]="CallingNoticeForm">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center; ">Programme:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <!-- <select formControlName="Programform"
+                                                    class="select-option form-control input-type pointer form-control-sm"
+                                                    id="program" (change)='onSelectProgramChange($event)'>
+                                                    <option class='option' *ngFor="let Program of Programs"
+                                                        value={{Program.code}}>
+                                                        {{Program.programScheduleCode}}
+                                                    </option>
+                                                </select> -->
+                                                <select formControlName="Programform"
+                                                    class='select-option form-control input-type pointer form-control-sm'
+                                                    #mySelect (change)='onSelectChangeProgram(mySelect.value)'>
+                                                    <option class='option' *ngFor="let Program of Programs"
+                                                        [value]="Program.programStartedId">
+                                                        {{Program.program.title}} {{" - (" + Program.academicYear.year + ") "}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center; ">Academic Year:</label>
+                                        </div>
+                                        <div *ngIf="AcademicYear" class="col-sm-6">
+                                            <div class="form-group">
+                                                <!-- <select formControlName="AcademicYearForm"
+                                                    class="form-control input-type pointer form-control-sm" id="sel1">
+                                                    <option *ngFor="let AcademicYear of AcademicYears "
+                                                        value={{AcademicYear.year}}>
+                                                        {{AcademicYear.year}}
+                                                    </option>
+                                                </select> -->
+                                                <input name="academicYear"
+                                                    class="form-control input-type pointer form-control-sm"
+                                                    formControlName="AcademicYearForm" type="text" [value]="AcademicYear.year"
+                                                    disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center; ">Center:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <select formControlName="AcademicCentersForm"
+                                                    class="form-control input-type pointer form-control-sm" id="sel1">
+                                                    <option *ngFor="let academicCenter of AcademicCenters "
+                                                        value={{academicCenter.programstartedacademiccenterid}}>
+                                                        {{academicCenter.cnt_center.cnt_description}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center; ">Student Type:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <div class="form-group">
+                                                <select formControlName="StudentTypeForm"
+                                                    class="form-control input-type pointer form-control-sm" id="sel1">
+                                                    <option value="1" >
+                                                        Registration calling students
+                                                    </option>
+                                                    <option value="2" >
+                                                        All registered students
+                                                    </option>
+                                                    <option value="3" >
+                                                        Offence students
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                        </div>
+                                        <div class="col-sm-6 d-flex justify-content-end" style="text-align: left">
+                                            <button class="btn btn-dark btn-sm" style="text-align: left"
+                                                (click)="filterStudents()" type="button">Search</button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center; ">No of students:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label><input name="academicYear"
+                                                    class="form-control input-type pointer form-control-sm" disabled
+                                                    type="number" value="{{selectedStudentList?.length}}">
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: center">Student counts to send
+                                                message:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <input name="academicYear"
+                                                            class="form-control input-type pointer form-control-sm"
+                                                            min="0" max={{selectedStudentList?.length}}
+                                                            formControlName="StudentCountsToSendMessageForm"
+                                                            type="number" #studentCount
+                                                            (change)='changeStudentCountToSendMessage(studentCount.value)'
+                                                            value="{{selectedStudentList?.length}}">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button class="btn btn-secondary btn-sm" style="text-align: left" (click)="openModel()" >View</button>
+                                                    </div>
+                                                </div>
+                                            </label>
+
+                                        </div>
+                                        <!-- <div class="col-sm-6">
+                                            <label aria-disabled="true"
+                                            *ngIf="selectedStudentList?.length > 2">2</label>
+                                            <label aria-disabled="true"
+                                            *ngIf="selectedStudentList?.length < 2">{{selectedStudentList?.length}}</label>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <label for="sel3" style="text-align: left; ">Remaining student count for send message:</label>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <!-- <label aria-disabled="true"
+                                                *ngIf="selectedStudentList?.length > 2">{{selectedStudentList?.length -
+                                                2}}</label> -->
+                                            <label>
+                                                <input name="academicYear"
+                                                    class="form-control input-type pointer form-control-sm" disabled
+                                                    type="number" value={{remainingStudentListCount}}>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <br><br>
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <!-- <angular-editor formControlName="commentForm" [config]="editorConfig">
+                                            </angular-editor> -->
+                                            <textarea class="form-control input-type pointer form-control-sm" formControlName="commentForm"></textarea>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input (change)="onCheckChange($event)" type="checkbox" id="email"
+                                                name="email" value="email"> Email<br>
+                                            <input (change)="onCheckChange($event)" type="checkbox" id="Sms" name="sms"
+                                                value="sms"> SMS<br>
+                                            <input (change)="onCheckChange($event)" type="checkbox"
+                                                id="profile_notification" name="profile_notification"
+                                                value="profile_notification"> Profile Notification
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="col-sm-5">
+                                        </div>
+                                        <div class="col-sm-7 d-flex justify-content-end" style="text-align: left">
+<!--                                            <button class="btn btn-dark btn-sm" style="text-align: left"-->
+<!--                                                type="button">Genarate Letter</button> &nbsp;-->
+                                          <button class="btn btn-dark btn-sm" style="text-align: left"
+                                                  type="button" (click)="generateLetter()" >Generate Letter</button> &nbsp;
+
+                                          <!-- <a href="../../assets/pdf/letter.pdf">Click to see the letter</a> -->
+                                          <a href="../../assets/pdf/letter.pdf" class="btn btn-secondary btn-sm" style="text-align: left"
+                                                (click)="sendCallingNotice()" type="button">Click to see the letter</a> &nbsp;
+                                            <button class="btn btn-success btn-sm" style="text-align: left"
+                                                (click)="sendCallingNotice()" type="button">Send Calling Notice</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- View Students List -->
+<button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#modal-secondary" id="openModel" hidden>
+    Launch Secondary Modal
+  </button>
+
+<div class="modal fade" id="modal-secondary">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">View Students Filtering</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body">
+                <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" id = "table1" class="table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+				  <thead>
+					<tr>
+					  <th>Name With Initials</th>
+					  <th>NIC</th>
+					  <th>Mobile No.</th>
+					  <th>Email</th>
+					</tr>
+				  </thead>
+				  <tbody *ngIf="numberOfStudents && numberOfStudents?.length != 0">
+					<tr *ngFor="let c of numberOfStudents">
+					  <td>{{c.namewithinitials}}</td>
+					  <td>{{c.nic}}</td>
+					  <td>{{c.mobileno}}</td>
+					  <td>{{c.email}}</td>
+					</tr>
+				  </tbody>
+				</table>
+            </div>
+        </div>
+    </div>
+</div>

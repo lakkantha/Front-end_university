@@ -1,0 +1,695 @@
+<div class="container" id="main">
+  <div class="row">
+    <div class="col-12">
+      <h4>Define Activity</h4>
+      <p class="small">
+       Home > Define Activity </p>
+      </div>
+    </div>
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-12 mx-auto" style="padding: 5px">
+          <div class="Content-wrapper ">
+            <div class="card-body">
+              <div style="border: solid black">       
+                <form [formGroup]="ActivityForm" >
+          <!-- Header of Define Activities -->
+            <div class="header" id="headingOne" >
+              <div data-toggle="collapse" (click)="toggleSignActivity()"  >
+                <i id="collapseOneButton" class="fas fa-{{signActivity}} icon pointer"   style="position: absolute;" ></i>
+              </div>
+                <h4 class="header-text text-center">Define Activities</h4>
+            </div>
+  
+        <!-- Body of Define Activities -->
+    
+          <div class="modal-body" >
+            <div id="collapseOne"  class="collapse"  >
+              <div class="card" >
+                <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <label for="sel3" style="text-align: center;">Activity Name<span class="astric">*</span></label> 
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-group" >
+                          <select formControlName="ActivityName" class="form-control input-type pointer form-control-sm" (change)="ActivityName($event.target.value)"  id="sel1">  
+                            <option *ngFor="let Activity of Activities "value={{Activity.Id}}>
+                              {{Activity.Name}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-2">
+                        <button type="button" class="btn pointer btn-link btn-sm" style="text-decoration: underline;" data-toggle="modal" data-target="#SubModal">
+                          Add New
+                        </button>
+                      </div>   
+                    </div>
+                
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <label>Activity Date Type<span class="astric">*</span></label>
+                      </div>
+                      <div class="col-sm-3">     
+                        <input formControlName="ActivityDateType" class="pointer" id="Program" #Program  type="radio"  value="Program" name="ActivityDateType" [checked]="true" (change)="onActivityItemChange($event.target.value)">
+                        <label  for="Program">&nbsp;Programme Date</label>      
+                      </div>
+                      <div class="col-sm-3">
+                        <input formControlName="ActivityDateType" class="pointer" id="Center" #Center type="radio"  value="Center" name="ActivityDateType" (change)="onActivityItemChange($event.target.value)" >
+                        <label  for="Center">&nbsp;Centre Date</label>
+                      </div> 
+                    </div>
+      
+      
+                    <div class="row" [hidden]="Program.checked">
+                      <div class="col-sm-3">
+                        <label>Centre Type<span class="astric">*</span></label>
+                      </div>
+                      <!-- <div class="col-sm-3">     
+                        <input formControlName="CenterType" class="pointer" id="Predefined" #Predefined  type="radio" [disabled]="Program.checked" [checked]="Center.checked"  value="Predefined" name="CenterType"  (change)="onCenterItemChange($event.target.value)">
+                        <label  for="Predefined">&nbsp;Predefined Centers</label>      
+                      </div> -->
+                      <div class="col-sm-3">
+                        <input formControlName="CenterType" class="pointer" id="Selected" #Selected type="radio" data-target="#SubModalCenters" data-toggle="modal" value="Selected" [disabled]="Program.checked" [checked]="Center.checked"  name="CenterType" (change)="onCenterItemChange($event.target.value)" >
+                        <label  for="Selected">&nbsp;Selected Centres</label>
+                      </div> 
+                      <div class="col-sm-3">
+                        <input formControlName="CenterType" class="pointer" id="All" #All type="radio"  value="All" [disabled]="Program.checked" [checked]="Center.checked"  name="CenterType" (change)="onCenterItemChange($event.target.value)" >
+                        <label  for="All">&nbsp;All Centres</label>
+                      </div>
+                    </div>
+                
+                    <!-- <div class="row" *ngIf="Predefined.checked">
+                      <div class="col-sm-3">
+                        <label>Center/s</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group" >
+                          <tag-input [(ngModel)]="predefinedCenters" [ngModelOptions]="{standalone: true}" (onTextChange)="onTextChange($event)" [disable]="Program.checked == true|| Center.checked==true" (onRemove)="onItemRemoved($event)" [removable]='false' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="" clearOnBlur="true" [onlyFromAutocomplete]="true"></tag-input>
+                        </div>
+                      </div>
+                    </div> -->
+  
+                    <div class="row" *ngIf="Selected.checked">
+                      <div class="col-sm-3">
+                        <label>Centre/s</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group" >
+                          <tag-input [(ngModel)]="selectedCentersValue" [ngModelOptions]="{standalone: true}" (onTextChange)="onTextChange($event)" [disable]="Program.checked == true|| Center.checked==true" (onRemove)="onItemRemoved($event)" [removable]='false' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="" clearOnBlur="true" [onlyFromAutocomplete]="true"></tag-input>
+                        </div>
+                      </div>
+                    </div>
+  
+                    <div class="row" *ngIf="All.checked">
+                      <div class="col-sm-3">
+                        <label>Centre/s</label>
+                      </div>
+                      <div class="col-sm-8">
+                        <div class="form-group" >
+                          <tag-input  [(ngModel)]="allCenters" [ngModelOptions]="{standalone: true}" (onTextChange)="onTextChange($event)" [disable]="Program.checked == true|| Center.checked==true" (onRemove)="onItemRemoved($event)" [removable]='false' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="" clearOnBlur="true" [onlyFromAutocomplete]="true"></tag-input>
+                        </div>
+                      </div>
+                    </div>
+                   
+  
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <label>Applicable Student Type</label>
+                      </div>
+                      <div class="col-sm-2">
+                        <label class="checkbox-inline">
+                          <input formControlName="ApplicableStudentTypeNew" name="ApplicableStudentTypeNew" class="pointer" type="checkbox" value="ApplicableStudentTypeNew" >&nbsp;New
+                        </label>
+                      </div>
+                      <div class="col-sm-2">
+                        <label class="checkbox-inline" style="padding-left: 20px;">
+                          <input formControlName="ApplicableStudentTypeRe" name="ApplicableStudentTypeRe" class="pointer" type="checkbox" value="ApplicableStudentTypeRe" >&nbsp;Re
+                        </label>
+                      </div>
+                    </div> 
+      
+                    <!-- <div class="row">
+                      <div class="col-sm-9"></div>
+                      <div class="col-sm-1">
+                        <button type="button" [disabled]="this.ActivityForm.get('ActivityName').invalid"  (click)="onSubmitActivity()" class="btn btn-primary" >Submit</button>
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-primary" (click)="onReset()" >Reset</button>
+                      </div>
+                    </div>  -->
+                </div>
+              </div>
+            </div>
+          </div>
+    
+        
+    
+    
+      <br>
+    
+    
+        <!-- Header of Add Programs -->
+        <div class="header" id="headingTwo" >
+          
+            <div data-toggle="collapse" (click)="toggleSignProgram()">
+              <i id="collapseTwoButton" class="fas fa-{{signProgram}} icon pointer"  style="position: absolute;" ></i>
+            </div>
+          
+          
+              <h4 class="header-text text-center">Add Programmes and Users</h4>
+        </div>
+        
+        <!-- Body of Add Programs -->
+        <div class="modal-body">
+          <div id="collapseTwo" class="collapse">
+            <div class="card">
+              <div class="card-body">
+                <form [formGroup]="this.ActivityForm.get('ProgramForm')" >
+                
+    
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label for="sel3" style="text-align: center; ">Activity Name</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <label  style="margin-left:95px;" >{{this.Activity}}</label> 
+                    </div>
+                  </div>
+                
+    
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label for="sel3" >Programme Name<span class="astric">*</span></label>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <select formControlName="ProgramName" name="ProgramName" class="form-control input-type pointer form-control-sm" (change)="ProgramName($event.target.value)" id="sel3">
+                          <option value="">-select-</option>
+                          <option *ngFor="let Program of programs" value={{Program.programId}}>
+                            {{Program.title}}
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label for="sel3" style="text-align: center; ">Accesible Person</label>
+                    </div>
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <select formControlName="PersonName" name="PersonName" class="form-control input-type pointer form-control-sm" (change)="PersonName($event.target.value)" id="sel3">
+                          <option value="">-select-</option>  
+                          <option *ngFor="let Person of Persons"value={{Person.id}}>
+                          {{Person.name}}
+                          </option>
+                        </select>  
+                      </div> 
+                    </div>
+                    <div class="col-sm-2">
+                      <i class="fa fa-search pointer"  (click)="SearchFunction()"></i>
+                    </div>
+                  </div>
+                
+                  <div class="row" *ngIf="Filter">
+                    <div class="col-sm-3"></div>
+                      <div class="col-sm-8" >
+                        <div style="background-color: #fffece;">
+                          <i class="fa fa-times pointer" (click)="CloseSearchFunction()" style="position: absolute; top: 0px; right: 20px; color: red;"></i>
+                          <br>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <label for="sel3" style="text-align: center; ">Faculty</label>
+                              </div>
+                              <div class="col-sm-7">
+                                <div class="form-group" >
+                                  <select formControlName="Faculty" name="Faculty" value="Faculty" class="form-control pointer form-control-sm" (change)="FacultyName($event.target.value)" id="sel3">
+                                    <option value="">-select-</option>
+                                    <option *ngFor="let Faculty of Faculties"value={{Faculty.id}}>
+                                    {{Faculty.description}}
+                                    </option>
+                                  </select>
+                                </div>  
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <label for="sel3" style="text-align: center; ">Department</label>
+                              </div>
+                              <div class="col-sm-7">
+                                <div class="form-group" >
+                                  <select formControlName="Department" name="Department" class="form-control pointer form-control-sm" id="sel3"> 
+                                    <option value="">-select-</option>
+                                    <option *ngFor="let Department of Departments"value={{Department.departmentId}}>
+                                    {{Department.description}}
+                                    </option>
+                                  </select>
+                                </div>  
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-3">
+                                <label for="sel3" style="text-align: center; ">Designation</label>
+                              </div>
+                              <div class="col-sm-7">
+                                <div class="form-group" >
+                                  <select formControlName="Designation" name="Designation" class="form-control pointer form-control-sm" (change)="DesignationName($event.target.value)" id="sel3"> 
+                                    <option value="">-select-</option>
+                                    <option *ngFor="let Designation of Designations"value={{Designation.id}}>
+                                    {{Designation.designation}}
+                                    </option>
+                                  </select>
+                                </div>  
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-sm-8"></div>
+                                <div class="col-sm-2" style="margin-left: 5px;">
+                                 <button type="button" class="btn pointer btn-primary" (click)="onSearch()">Search</button>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                  </div>
+    <br>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <label>Activity Access Type</label>
+                    </div>
+                    <div class="col-sm-3">     
+                      <input formControlName="ActivityAccessType" class="pointer" id="Edit" #Edit  type="radio"  value="Edit Only" name="ActivityAccessType"  (change)="onActivityAccessItemChange($event.target.value)">
+                      <label  for="Edit">&nbsp;Edit and Update</label>      
+                    </div>
+                    <div class="col-sm-3">
+                      <input formControlName="ActivityAccessType" class="pointer" id="Read" #Read type="radio"  value="Read Only" name="ActivityAccessType" [checked]="true" (change)="onActivityAccessItemChange($event.target.value)" >
+                      <label  for="Read">&nbsp;Read Only</label>
+                    </div> 
+                  </div>
+    
+                  <div class="row" [hidden]="Read.checked">
+                    <div class="col-sm-3">
+                      <label>Calendar Type</label>
+                    </div>
+                    <div class="col-sm-3">
+                      <label class="checkbox-inline">
+                        <input formControlName="CalenderTypeRange" name="CalenderTypeRange" class="pointer" #Range  type="checkbox" value="Date Range" (change)="checkbox1($event.target.value)">
+                        &nbsp;Date Range
+                      </label>
+                    </div>
+                    <div class="col-sm-3">
+                      <label class="checkbox-inline">
+                        <input formControlName="CalenderTypeSingle" name="CalenderTypeSingle" class="pointer" #Single   type="checkbox" value="Single Date" (change)="checkbox2($event.target.value)">
+                        &nbsp;Single Date
+                      </label>
+                    </div>
+                  </div>
+    
+                  <div class="row">
+                    <div class="col-sm-9"></div>
+                    <div class="col-sm-1">
+                      <button class="btn pointer btn-primary" [disabled]="this.ActivityForm.get('ProgramForm').invalid" (click)="onAdd()" type="button">Add</button>
+                    </div>
+                  </div>
+    <br>
+                  <div *ngIf="this.AddingPrograms[0]">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <label style="text-decoration: underline;">Programmes</label> 
+                      </div>
+                      <div class="col-sm-1" style="padding-left: 25px; padding-right: 0px;">
+                        <label style="padding-top: 5px;  ">Sort By</label>
+                      </div>
+                      <div class="col-sm-3" style="padding-left: 0px;">
+                        <div class="form-group">
+                          <select formControlName="SortPrograms" name="SortPrograms" style="align-items: center;" class="form-control pointer form-control-sm" (change)="SortPrograms($event.target.value)"  id="sel3" >
+                            <option *ngFor="let Sort of Sorts"value={{Sort}}>
+                            {{Sort}}
+                            </option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="col-sm-1">
+                        <i class="fa fa-search pointer"  (click)="SortFunction()"></i>
+                      </div>
+                    </div>
+  
+                    <table id="programs">
+                      <tr>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                        <th>View</th>
+                        <th>Programme</th>
+                        <th>Users</th>
+                        <th>Access Type</th>
+                        <th>Calender Type</th>
+                      </tr>
+                    
+                      <tr *ngFor="let AddProgram of AddingPrograms  | paginate:{id:'listing',itemsPerPage:itemsPage,currentPage:p,totalItems: total}; let i = index">
+                        <td><i (click)="EditTable(i)" class="fa pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                        <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                        <td><i (click)="View(i)" data-toggle="modal" data-target="#ViewModal" class="fa pointer fa-eye" aria-hidden="true"></i></td>
+                        <td>{{AddProgram.ProgramName}}</td>
+                        <td>{{AddProgram.PersonName}}</td>
+                        <td>{{AddProgram.ActivityAccessType}}</td>
+                        <td>{{AddProgram.CalenderType}}</td>  
+                      </tr>
+  
+                      <!-- <ng-container *ngFor="let AddProgram of AddingPrograms | slice:0:End ; let i = index">
+                        <tr *ngIf="AddProgram.CalenderTypeRange!=''&&AddProgram.ActivityAccessType=='Edit Only'">
+                          <td><i (click)="EditTable(i)" class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                          <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                          <td><i (click)="View(i)" data-toggle="modal" data-target="#ViewModal" class="fa pointer fa-eye" aria-hidden="true"></i></td>
+                          <td>{{AddProgram.ProgramName}}</td>
+                          <td>{{AddProgram.PersonName}}</td>
+                          <td>{{AddProgram.ActivityAccessType}}</td>
+                          <td>{{AddProgram.CalenderTypeRange}}</td>  
+                        </tr> 
+                        <tr  *ngIf="AddProgram.CalenderTypeSingle!=''">         
+                          <td><i (click)="EditTable(i)" class="fas pointer fa-edit" aria-hidden="true" data-toggle="modal" data-target="#EditModal"></i></td>
+                          <td><i (click)="Delete(i)" class="fa pointer fa-trash" aria-hidden="true"></i></td>
+                          <td><i (click)="View(i)" data-toggle="modal" data-target="#ViewModal" class="fa pointer fa-eye" aria-hidden="true"></i></td>
+                          <td>{{AddProgram.ProgramName}}</td>
+                          <td>{{AddProgram.PersonName}}</td>
+                          <td>{{AddProgram.ActivityAccessType}}</td>
+                          <td>{{AddProgram.CalenderTypeSingle}} </td> 
+                        </tr>
+                      </ng-container> -->
+                      
+                    
+                        
+                    
+                                    
+                    </table>
+                <br>
+                    <div class="row">
+                      <div class="col-sm-8">
+                        
+                          <pagination-controls id="listing" (pageChange)="p=$event"></pagination-controls>
+                      
+                      </div>
+                      <div class="col-sm-3">
+                        <div class="row">
+                          <div class="col-sm-3">
+                            <label>Entries &nbsp;</label>
+                          </div>
+                        <div class="col-sm-9">
+                          <select formControlName="Entries"  [(ngModel)]="itemsPage" name="Entries" class="form-control pointer form-control-sm" (change)="onEntries()"   id="sel3">
+                            <option value="5">5</option>
+                            <option value="10">10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="{{total}}">All</option>
+                          </select>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                <br>
+                    <div class="row">
+                      <div class="col-sm-8"></div>
+                      <div class="col-sm-2">
+                        <button type="button" [disabled]="ActivityForm.invalid" (click)="onSubmit()" data-toggle="modal" data-target="#SubmitModal" class="btn btn-main" >Submit</button>
+                      </div>
+                      <div class="col-sm-1">
+                        <button type="button" class="btn btn-reset" (click)="onReset()" >Reset</button>
+                      </div>
+                    </div>  
+                  </div>
+                
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+        </form>
+                      </div>
+                    </div>
+                  
+                  </div>
+              </div>
+            </div>
+        </div>
+      </div>
+  
+  
+  
+  
+  
+  
+  <!-- Sub Modal -->
+  <div class="modal fade" id="SubModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group" >
+              <label for="usr">Activity Name</label>
+              <input #newActivity
+               type="text" class="form-control" id="usr">
+            </div>
+          </form>
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light"  (click)="AddActivity(newActivity.value)"  >Add</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Sub Modal for Centers-->
+  <div class="modal fade" id="SubModalCenters" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group" >
+              <!-- <label for="usr">Centres</label> -->
+              <tag-input [(ngModel)]="selectedCentersValue" [ngModelOptions]="{standalone: true}" (onTextChange)="onTextChange($event)" (onRemove)="onItemRemoved($event)" [removable]='true' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="Enter Centers..." clearOnBlur="true" [onlyFromAutocomplete]="true">
+                <tag-input-dropdown [appendToBody]="false" [showDropdownIfEmpty]="true" [autocompleteItems]="selectedCenters" ></tag-input-dropdown>
+            </tag-input>
+            </div>
+          </form>
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- Edit Modal -->
+  
+  <div class="modal fade" id="EditModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+        <form [formGroup]="EditForm" >
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          
+            <div class="form-group" *ngFor="let ViewProgram of ViewPrograms" >
+  
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                    Programme Name
+                  </label>
+                </div>
+                <div class="col-sm-6">
+                  <!-- <input formControlName="ProgramName" name="ProgramName" value={{ViewProgram.ProgramName}} type="text" class="form-control" id="usr"> -->
+                    <select formControlName="ProgramName" name="ProgramName" class="form-control pointer form-control-sm" >
+                      <option *ngFor="let Program of programs" value={{Program.title}}>
+                      {{Program.title}}
+                      </option>
+                    </select>
+                  
+                </div>
+              </div>
+  <br>
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                     Accessible Person
+                  </label>
+                </div>
+                <div class="col-sm-6">
+                  <!-- <input formControlName="PersonName" name="PersonName" value={{ViewProgram.PersonName}} type="text" class="form-control" id="usr"> -->
+                    <select formControlName="PersonName" name="PersonName" class="form-control pointer form-control-sm" >
+                      <option *ngFor="let Person of Persons" [value]="Person.id">
+                      {{Person.name}}
+                      </option>
+                    </select>
+                  
+                </div>
+              </div>
+  <br>
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                    Activity Access Type
+                  </label>
+                </div>
+                <div class="col-sm-4">     
+                  <input formControlName="ActivityAccessType" class="pointer" id="Edit" #Edit  type="radio"  value="Edit Only" name="ActivityAccessType"  [checked]="ViewProgram.ActivityAccessType=='Edit Only'"  (change)="onUpdatedActivityAccessTypeItemChange($event.target.value)">
+                  <label  for="Edit">&nbsp;Edit and Update</label>      
+                </div>
+                <div class="col-sm-3">
+                  <input formControlName="ActivityAccessType" class="pointer" id="Read" #Read type="radio"  value="Read Only" name="ActivityAccessType"   [checked]="ViewProgram.ActivityAccessType=='Read Only'" (change)="onUpdatedActivityAccessTypeItemChange($event.target.value)" >
+                  <label  for="Read">&nbsp;Read Only</label>
+                </div> 
+              </div>
+  <br>
+              <div class="row">
+                <div class="col-sm-5" style="font-weight: bold;">
+                  <label>
+                     Calendar Type
+                  </label>
+                </div>
+                <div class="col-sm-4">     
+                  <label class="checkbox-inline">
+                    <input formControlName="CalenderTypeRange" name="CalenderTypeRange" class="pointer"  type="checkbox" value="Date Range" [checked]="ViewProgram.CalenderTypeRange=='Date Range'" (change)="checkbox1($event.target.value)">
+                    Date Range
+                  </label>      
+                </div>
+                <div class="col-sm-3">
+                  <label class="checkbox-inline">
+                    <input formControlName="CalenderTypeSingle" name="CalenderTypeSingle" class="pointer"  type="checkbox" value="Single Date" [checked]="ViewProgram.CalenderTypeSingle=='Single Date'" (change)="checkbox2($event.target.value)">
+                    Single Date
+                  </label>
+                </div> 
+              </div>
+  
+            </div>
+          
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-light"  (click)="onUpdate()" data-toggle="modal" data-target="#UpdateModal"   >Update</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+        </div>
+  
+      </form> 
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  <!-- Submit Notification Modal -->
+  <!-- <div class="modal fade" id="SubmitModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+  
+        <div class="modal-body">
+          <form>
+            <div class="form-group" >
+              <label for="usr">The activity {{this.Activity}} is successfully created.</label>
+            </div>
+          </form>
+        </div>
+  
+  
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button> 
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+  
+  <!-- Update Notification Modal -->
+  <div class="modal fade" id="UpdateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group" >
+              <label for="usr">The activity {{this.Activity}} is successfully updated.</label>
+            </div>
+          </form>
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  <!-- View Modal -->
+  <div class="modal fade" id="ViewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form> 
+            <div class="form-group" *ngFor="let ViewProgram of ViewPrograms">
+              <div class="row">
+                <div class="col-sm-6" style="font-weight: bold;">
+              <label>Programme</label>
+            </div>
+              <div class="col-sm-6">
+              <label >{{ViewProgram.ProgramName}}</label>
+            </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-6" style="font-weight: bold;">
+              <label>Users</label>
+            </div>
+              <div class="col-sm-6">
+              <label >{{ViewProgram.PersonName}}</label>
+            </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-6" style="font-weight: bold;">
+              <label>Access Type</label>
+            </div>
+              <div class="col-sm-6">
+              <label >{{ViewProgram.ActivityAccessType}}</label>
+            </div>
+            </div>
+              <div class="row">
+                <div class="col-sm-6" style="font-weight: bold;">
+              <label>Calendar Type</label>
+            </div>
+              <div class="col-sm-6">
+              <label >{{ViewProgram.CalenderType}} </label>
+              </div>
+            </div>
+            </div>
+          </form>
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn pointer btn-secondary" data-dismiss="modal">Close</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+</div>
+

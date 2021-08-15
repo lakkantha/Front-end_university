@@ -1,0 +1,475 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h4>Admin Panel</h4>
+      <p class="small">
+       Home > Summary  </p>
+      </div>
+    </div>
+    <div class="row ">
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <div class="Content-wrapper">
+ 
+            <div class="row">
+    
+              <div class="col-12">
+                <div class="header" id="headingOne" >
+                  <div data-toggle="collapse" (click)="toggleSignActivity()"  >
+                    <i id="collapseOneButton" class="fas fa-{{signActivity}} icon pointer"  style="position: absolute;" ></i>
+                  </div>
+                  <h4  style="text-align:center"> Scheduling Summary</h4>
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">     
+        
+        <!-- Header of Define Activities -->
+     
+
+      <!-- Body of Define Activities -->
+   
+  
+        <div class="modal-body" >
+          <div id="collapseOne"  class="collapse"  >
+
+            <div class="col-sm-3">
+                <label for="sel3" style="text-align: center;">Program Schedule Code*</label> 
+
+              </div>
+              
+              <div class="col-sm-5">
+               
+                  <select  class="form-control input-type form-control-sm" (change) = "submitdata($event.target.value)" >  
+                    <option *ngFor="let Schedulecode of Schedulecodes" value={{Schedulecode.programScheduleCode}}  >
+                      {{Schedulecode.programScheduleCode}}
+                    </option>
+                  </select>
+                
+              </div>
+              <br>
+              <br>
+            <div class="card" >
+              <div class="card-body">
+
+                <div class="header" id="headingthree">
+                    <div data-toggle="collapse" (click)="toggleSignMedium()"  >
+                      <i id="collapseThreeButton" class="fas fa-{{signMedium}} icon pointer"  style="position: absolute;" ></i>
+                    </div>
+                      <h6 class="header-text text-center">Academic Centers and Program Conducting Meduims        <i  class="fas pointer fa-edit" style="font-size:x-large;"  aria-hidden="true" ></i>  </h6>
+                      
+                        
+                         
+                  </div>
+                  <div id="collapseThree"  class="collapse">
+                   
+                         <div class="row">
+<div class="col-sm-12">                           
+                            <div   *ngFor="let AddAcademic  of AddingAcademic | slice:0:End ; let i = index" >
+                              <div class="row">                              <div class="col-sm-5">
+                                
+                               {{AddAcademic.programstartedacademiccenter.cnt_center.cnt_description}}</div> 
+                               <div class="col-sm-5">  {{AddAcademic.med_medium.med_description}}</div>
+                              </div>
+
+                            </div>
+                       
+                        </div>
+
+                    </div>
+               
+
+                  </div>
+    
+              </div>
+            </div>
+
+            <br>
+            <div class="card" >
+                <div class="card-body">
+                  
+                    <div class="header" id="headingfour">
+                        <div data-toggle="collapse" (click)="toggleSignCenters()"  >
+                          <i id="collapseFourButton" class="fas fa-{{signCenters}} icon pointer"  style="position: absolute;" ></i>
+                        </div>
+                          <h6 class="header-text text-center">Entrance Exam Root Centers     <i  class="fas pointer fa-edit" style="font-size:x-large;"  aria-hidden="true" ></i></h6>
+                      </div>
+                      <div id="collapseFour"  class="collapse">
+                       
+                             <div class="row">
+    
+                              
+                                <div class="col-sm-5">
+                                    Exam center type*
+                                </div>
+                                <div class="col-sm-7">
+                                    {{Type}} 
+                                </div>
+                            
+
+                      
+                                <div class="col-sm-5">
+                                    Exam root centers*
+                                </div>
+                                <div class="col-sm-7 ">
+                                    <div *ngFor="let a of root_center;let i=index;" class="group" style="display: inline-block;">
+                                     {{a.description}}{{","}}
+                                    </div>
+                                </div>
+                        
+
+                          
+                                <div class="col-sm-5">
+                                    Exam mediums is same as program conducting medium?*
+                                </div>
+                                <div class="col-sm-7">
+                                    {{Conducting}} 
+                                </div>
+                            
+
+                           
+                                <div class="col-sm-5">
+                                    Exam medium/s*
+                                </div>
+                                <div *ngFor="let a of Medium;let i=index;" class="group" style="display: inline-block;">
+                                  {{a.medium}}{{","}}
+                                 </div>
+                            </div>
+                
+                   
+    
+                      </div>
+                    
+
+                </div>
+              </div>
+
+              <br>
+
+              <div class="card" >
+                <div class="card-body">
+                 
+                    <div class="header" id="headingfive">
+                        <div data-toggle="collapse" (click)="toggleSignCapacity()"  >
+                          <i id="collapseFiveButton" class="fas fa-{{signCapacity}} icon pointer"  style="position: absolute;" ></i>
+                        </div>
+                          <h6 class="header-text text-center">Entrance Exam Centers and Capacity  <i  class="fas pointer fa-edit" style="font-size:x-large;"  aria-hidden="true" ></i></h6>
+                      </div>
+                      <div id="collapseFive"  class="collapse">
+                 
+
+
+                            <div class="col-sm-3">
+                                <label for="sel3" style="text-align: center;">Exam root center</label> 
+                              </div>
+                              <div class="col-sm-5">
+                               
+                                  <select class="form-control input-type form-control-sm"  (change) = "submitrootdata($event.target.value)">
+                                    <option>
+                                      Select Center
+                                    </option>  
+                                    <option *ngFor="let root of root_center" value={{root.id}}>
+                                      {{root.description}}
+                                    </option>
+                                  </select>
+                                
+                              </div>
+                       <br>
+    
+                                <table id="programs">
+                                    <tr>
+                                      
+                                      <th>Exam Center</th>
+                                      <th>Hall No.</th>
+                                      <th>Medium </th>
+                                      <th>Capacity</th>
+                                    </tr>
+                                   
+                                    <tr *ngFor="let AddProgram of AddingPrograms | slice:0:End ; let i = index">
+                                     
+                                      <td>{{AddProgram.entranceExamCenter.centerName}}</td>
+                                      <td>{{AddProgram.entranceExamCenterHall.description}}</td>
+                                      <td *ngFor="let medium of AddProgram.examMediumsList">{{medium.medium}}</td>
+                                      <td>{{AddProgram.capacity}}</td>  
+                                    </tr>
+                  
+                                   
+                                                  
+                                  </table>
+                    <br>
+                                  <div class="row">
+                                    <div class="col-sm-8"></div>
+                                    <div class="col-sm-3">
+                                      <div class="row">
+                                        <div class="col-sm-3">
+                                          <label>Entries &nbsp;</label>
+                                        </div>
+                                      <div class="col-sm-9">
+                                        <select  name="Entries" class="form-control input-type form-control-sm" (change)="EntryPrograms($event.target.value)"  id="sel3">
+                                          <option *ngFor="let Entry of Entries"value={{Entry}}>
+                                          {{Entry}}
+                                          </option>
+                                        </select>
+                                      </div>
+                                    </div>
+                                    </div>
+                                  </div>
+                            
+    
+                       
+                   
+    
+                      </div>
+      
+                </div>
+              </div>
+
+
+
+          </div>
+        </div>
+  
+      
+  
+  
+    <br>
+  
+  
+      <!-- Header of Add Programs -->
+      <div class="header" id="headingTwo" >
+        <div data-toggle="collapse" (click)="toggleSignProgram()">
+            <i id="collapseTwoButton" class="fas fa-{{signProgram}} icon pointer"  style="position: absolute;" ></i>
+          </div>
+            <h4 class="header-text text-center">Calender Summery</h4>
+      </div>
+      
+      <!-- Body of Add Programs -->
+      <div class="modal-body">
+        <div id="collapseTwo" class="collapse">
+          <div class="card">
+            <div class="card-body">
+           
+
+
+
+
+
+                <!-- Modal -->
+
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+            <div class="modal-body modal-nav-button" >
+              <form>
+                <div class="form-group" >
+  
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <nav class="navbar navbar-expand-lg bg-dark navbar-dark " >
+                        <ul class="navbar-nav">
+                          <li class="nav-item ">
+                            <div class="nav-link pointer">View Calender Summary  <i  class="fas pointer fa-edit" style="font-size:x-large;"  aria-hidden="true" ></i></div>
+                          </li>
+                          
+                           
+                          
+                        </ul>
+                      </nav> 
+                    </div>
+                  </div>               
+  <br>                
+                  <div >
+                    <form [formGroup]="dateForm" >
+                    <div class="row">
+                      <div class="col-sm-11 mx-auto">
+                        <div class="row border border-primary" style="background-color: #efefef; font-weight: bold;">
+                          <label for="header" style="padding-left: 5px; padding-top: 5px;">Set Program Dates</label>
+                        </div>
+                      </div>
+                    </div>   
+                    <div class="row" >
+                      <div class="col-sm-11 mx-auto">
+                        <div class="row border border-primary" >
+    
+                          <div class="col-sm-6" >
+  <br>
+  <br>
+                          <div style="margin-left: 30px;">
+                            <input  name="PreviousSchedule" class="pointer"  type="checkbox" value="PreviousSchedule" >
+                            &nbsp;Use Previous Schedule
+                          </div>
+  <br>
+                     
+                   
+                              <div style="margin-left: 37px;">
+                                <div id='calendar-container'>
+                                  <div class="row" style="font-weight: bold;">
+                                    <div class="fa fa-chevron-left pointer" style="margin-left: 15px;" (click)="previousProgramMonth()"></div>
+                                    <div style="width: 10px;"></div>
+                                    <div class="col-sm-5 mx-auto"> 
+                                        <div >{{date.format("MMMM")}} {{date.format("YYYY")}}</div>
+                                    </div>
+                                    <div style="width: 10px;"></div> 
+                                    <div class="fa fa-chevron-right pointer" style="margin-right: 35px;" (click)="nextProgramMonth()"></div>
+                                  </div>
+                                    <div style="height: 5px;"></div>
+                                  <div style="display: flex; flex-wrap: wrap; font-weight: bold;">
+                                    <div class='calendar-days'>Su</div>
+                                    <div class='calendar-days'>Mo</div>
+                                    <div class='calendar-days'>Tu</div>
+                                    <div class='calendar-days'>We</div>
+                                    <div class='calendar-days'>Th</div>
+                                    <div class='calendar-days'>Fr</div>
+                                    <div class='calendar-days'>Sa</div>
+                                  </div>
+                                  <div style=" display: flex; flex-wrap: wrap; ">
+                                    <div *ngFor="let day of daysArr">
+                                      <div class='calendar-numbers pointer' (click)='selectedProgramDate(day)' [ngClass]="{'inactive ': !day, 'selected': isProgramSelected(day)&&this.isForSelected,'today': todayCheck(day)}" >{{day?.date()}}</div>
+                                    </div>
+                                  </div> 
+                            
+                                </div>
+                              </div>
+                            
+                           </div>
+    
+                          <div class="col-sm-6">
+                            <div class="row">
+                              <div class="col-sm-10 mx-auto">
+                                <br>
+                                <div class="row">
+                                    <div class="col-sm-2">
+                                      <i class="fas fa-caret-left pointer" (click)="LeftFunction()" style="font-size:40px;"></i>
+                                    </div>
+                                    <div class="col-sm-8 mx-auto text-center">
+                                      <div style="font-size:20px;" >  Center:&nbsp;{{cenetrname}}</div>
+                                    </div>
+                                    <div class="col-sm-2">
+                                      <i class="fas fa-caret-right pointer" (click)="RightFunction()" style="font-size:40px;"></i>
+                                    </div>
+                                  </div>
+                                  <br>
+                                  <br>
+                                  <div class="row">
+                                    <div class="col-sm-3 mx-auto">
+                                      <i class="fas fa-sort-up pointer" (click)="UpFunctionCenter()" style="font-size:50px; color: #cccccc;"></i>
+                                    </div>
+                                  </div>
+  
+                                  <div class="row">
+                                    <div class="col-sm-4 mx-auto">
+                                      <div (click)="getcalenderdate(1)" style="cursor: pointer;" >Center</div>
+                                      <div (click)="getcalenderdate(2)" style="cursor: pointer;">Program</div>
+                                      
+                                      </div>
+                                  </div>
+  
+                                 
+  
+                                  <div class="row">
+                                    <div class="col-sm-3 mx-auto">
+                                      <i class="fas fa-sort-down pointer" (click)="DownFunctionCenter()" style="font-size:50px; color: #cccccc;"></i>
+                                    </div>
+                                  </div>
+                                <br>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  </div>
+  
+  
+  
+  
+  
+                </div>
+              </form>
+              <table id="programs"  *ngIf="show">
+                <tr>
+                  
+                  <th>Activity Name</th>
+                  <th>From Date.</th>
+                  <th>TO Date. </th>
+                
+                </tr>
+               
+                <tr *ngFor="let AddProgram of Center | slice:0:End ; let i = index">
+                 
+                  <td>{{AddProgram.activity.name}}</td>
+                  <td>{{AddProgram.fromDate}}</td>
+                  <td>{{AddProgram.toDate}}</td>
+                
+                </tr>
+
+               
+                              
+              </table>
+
+              <table id="programs"  *ngIf="!show">
+                <tr>
+                  
+                  <th>Activity Name</th>
+                  <th>From Date.</th>
+                  <th>TO Date. </th>
+                
+                </tr>
+               
+                <tr *ngFor="let AddProgram of program | slice:0:End ; let i = index">
+                 
+                  <td>{{AddProgram.activity.name}}</td>
+                  <td>{{AddProgram.dateFrom}}</td>
+                  <td>{{AddProgram.dateTo}}</td>
+                
+                </tr>
+
+               
+                              
+              </table>
+            </div>
+         
+        
+  
+    <!-- Modal Footer -->
+     
+      </div>
+    </div>
+  </div>
+             
+
+
+            </div>
+          </div>
+        </div>
+      
+
+
+
+        <div class="modal-footer">
+        
+            <button type="button" class="btn btn-sm btn-reset" data-dismiss="modal">Exit</button> 
+          </div>
+    
+                    </div>
+                  </div>
+                
+                </div>
+            </div>
+          </div>
+      </div>
+   
+
+
+
+
+
+
+
+
+
+
+
+

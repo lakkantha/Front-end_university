@@ -1,0 +1,104 @@
+ /* .watermark {
+   position: absolute;
+   opacity: 0.05;
+    top: 10%;
+   padding: 600px;
+   background: url(../../../assets/img/OP_logo.png);
+   background-repeat: no-repeat;
+   background-size: 1000px 1200px;
+   } */
+
+   .container {
+    max-width: 1200px;
+    background-color:white;
+  }
+  
+  .m{
+  
+    background-color: white;
+    /* max-height: 2500px; */
+    /* border: 1px solid black;   */
+  
+    
+  }
+  
+  
+  h6{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder; 
+  }
+  
+  
+  .inside{
+    margin-left: 5px;
+  }
+    /* z-index: 10; */
+    
+    
+    /* margin: 10px; */
+    /* margin-bottom: 100px; */
+  
+  
+  .container h6,h4{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    z-index: 5;
+  
+  }
+  
+  
+  .BackImage {
+  
+    position: absolute;
+    /* margin-top: 50px; */
+    /* margin-left: 80px; */
+    margin-right: 20px;
+    width: 80%;
+    height: 80%;
+    opacity: 0.05;
+    z-index: 1;
+    margin-bottom: 0px;
+    background-color: white;
+  }
+  
+  .bottom-one {
+    margin-bottom: 0.9cm;
+    background-color: white;
+  }
+  
+  ;
+  
+  .text-color {
+    color: black;
+  }
+  
+  ;
+  
+  hr{
+    margin: -5px;
+  }
+  .wrapper {
+    background: white;
+    padding: 25px;
+  }
+  
+  .btm{
+  
+    position: fixed;
+    /* width: 100%; */
+    margin-top: -35px;
+    margin-left: -20px;
+    color: white;
+    padding-right: 1144px;
+    padding-bottom: 250px;
+  }
+  
+  .up{
+margin-top: -10px;
+  }
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,94 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-sm-10 mx-auto ">
+                <div class="card card-info shadow-lg  mb-5 bg-blue rounded">
+                    <form [formGroup]="AcademicCenters" >
+                        <div class="card-body">
+                            <div style="border: solid black">
+                                <div class="row">
+                                    <div class="col-sm-11 mx-auto">
+                                        <h3 style="text-decoration: underline; font-weight: bold;">
+                                            Define Academic Centers
+                                        </h3>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox" formControlName="PreviousSchedule">
+                                                    &nbsp;Use Previous Schedule
+                                            </label>
+                                            <div class="row">
+                                                <div class="col-md-3 ">
+                                                    <h5 class="Academic-Center">
+                                                        Academic Centers
+                                                    </h5>
+                                                </div>
+                                
+                                                <div class="col-md-7">
+                                                    <!-- <input type="text" id="tags" name="tags" data-role="tagsinput" value="jQuery,Script,Net" class="form-control">  -->
+                                                    <tag-input [(ngModel)]="CentersValues" [ngModelOptions]="{standalone: true}" (onTextChange)="onTextChange($event)" (onRemove)="onItemRemoved($event)" [removable]='true' placeholder="" [clearOnBlur]="true" secondaryPlaceholder="Enter Centers..." clearOnBlur="true" [onlyFromAutocomplete]="true">
+                                                        <tag-input-dropdown [showDropdownIfEmpty]="true" [autocompleteItems]="Centers" ></tag-input-dropdown>
+                                                    </tag-input>
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <i class="far fa-times-circle pointer icon" (click)="onRemove()"></i>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            <h5 style="font-weight: bold;">Mediums</h5>
+                  
+                                            <ul>
+                                                 <div *ngIf="ShowCenters">
+                                                    <li *ngFor="let cent of CentersValues ; let i = index" value={{cent}}>
+                                                        <div class="row">
+                                                            <div class="col-md-3">
+                                                                {{cent['value']}}
+                                                            </div>
+                                                            <div class="col-md-2" *ngFor="let medi of medium ; let j = index" >
+                                                                <label (click)="onClick(cent['value'],i,j)"  for="" class="checkbox-inline">
+                                                                    <input type="checkbox"    name="Sinhala" value="{{cent['value']}}"  (change)="mediumValueChange($event.target.value,$event.target.checked,i,j)">
+                                                                        &nbsp;{{medi.med_description}}
+                                                                </label>
+                                                            </div>
+                                                
+                                                        </div>
+                                                    </li>
+                                                </div>
+                                            </ul>
+                                            <div class="row" style="padding-bottom: 10px;">
+                                                <div class="col-md-9"></div>
+                                                    <button class="btn-main btn pointer" (click)="Save()" >Save</button>
+                                                        &nbsp;&nbsp;
+                                                    <button class="btn-reset btn pointer" (click)="onRemove()">Reset</button>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>  
+                </div>
+            </div>
+        </div>       
+    </div>
+</div>
+
+<!-- Notification Modal -->
+<div class="modal fade" id="NotificationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" >
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+      <div class="modal-content">
+  
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form>
+            <div class="form-group" >
+              <label for="usr">Academic centers are successfully added to the program.</label>
+            </div>
+          </form>
+        </div>
+  
+    <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button> 
+        </div>
+      </div>
+    </div>
+  </div>
+
